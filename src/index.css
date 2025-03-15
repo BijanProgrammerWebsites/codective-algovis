@@ -1,0 +1,86 @@
+:root {
+  color-scheme: light;
+
+  --color-primary: hsl(220, 50%, 50%);
+  --color-primary-fade: hsl(220, 50%, 95%);
+  --color-primary-hover: hsl(220, 50%, 40%);
+  --color-primary-outline: hsl(220, 50%, 40%);
+  --color-primary-opposite: hsl(0, 0%, 97%);
+
+  --color-success: hsl(120, 50%, 50%);
+  --color-success-fade: hsl(120, 50%, 95%);
+  --color-success-hover: hsl(120, 50%, 40%);
+
+  --color-danger: hsl(0, 50%, 50%);
+  --color-danger-fade: hsl(0, 50%, 95%);
+  --color-danger-hover: hsl(0, 50%, 40%);
+
+  --color-surface-300: hsl(0, 0%, 99%);
+  --color-surface-400: hsl(0, 0%, 97%);
+
+  --color-text-50: hsl(0, 0%, 97%);
+  --color-text-300: hsl(0, 0%, 40%);
+  --color-text-400: hsl(0, 0%, 10%);
+
+  --color-border: hsl(0, 0%, 70%);
+
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+
+  --border-radius: 0.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  accent-color: var(--color-primary);
+  caret-color: var(--color-primary);
+
+  font-family: "Vazirmatn", system-ui;
+}
+
+input,
+label,
+select,
+textarea,
+button,
+fieldset,
+legend,
+datalist,
+output,
+option,
+optgroup {
+  font: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+
+  text-decoration: none;
+}
+
+body {
+  background-color: var(--color-surface-400);
+  color: var(--color-text-400);
+
+  inline-size: min(75rem, 100% - 2rem);
+
+  margin-block: 1rem;
+  margin-inline: auto;
+
+  font-size: var(--fz-400);
+}
+
+p {
+  color: var(--color-text-300);
+}
