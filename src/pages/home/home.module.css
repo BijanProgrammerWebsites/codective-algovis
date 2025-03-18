@@ -1,0 +1,28 @@
+.home {
+  h1 {
+    margin-block-end: 1rem;
+  }
+
+  .sessions {
+    display: grid;
+    gap: 2rem;
+
+    > li {
+      h2 {
+        border-block-end: 1px solid var(--color-border);
+      }
+
+      .problems {
+        display: grid;
+        gap: 1rem;
+
+        margin-block: 1rem;
+
+        > li {
+          a {
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+.not-found {
+  display: grid;
+  place-content: center;
+
+  block-size: 100%;
+}

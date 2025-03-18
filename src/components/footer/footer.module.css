@@ -1,0 +1,17 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin-block: 1rem;
+
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
+  .footer {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
