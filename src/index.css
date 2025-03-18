@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
   --color-primary: hsl(220, 50%, 50%);
   --color-primary-fade: hsl(220, 50%, 95%);
@@ -15,14 +15,13 @@
   --color-danger-fade: hsl(0, 50%, 95%);
   --color-danger-hover: hsl(0, 50%, 40%);
 
-  --color-surface-300: hsl(0, 0%, 99%);
-  --color-surface-400: hsl(0, 0%, 97%);
+  --color-surface-300: hsl(0, 0%, 14%);
+  --color-surface-400: hsl(0, 0%, 10%);
 
-  --color-text-50: hsl(0, 0%, 97%);
-  --color-text-300: hsl(0, 0%, 40%);
-  --color-text-400: hsl(0, 0%, 10%);
+  --color-text-300: hsl(0, 0%, 95%);
+  --color-text-400: hsl(0, 0%, 90%);
 
-  --color-border: hsl(0, 0%, 70%);
+  --color-border: hsl(0, 0%, 30%);
 
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 
