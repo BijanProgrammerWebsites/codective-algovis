@@ -1,0 +1,56 @@
+.normal-input {
+  .label-text {
+    color: var(--color-text-300);
+
+    font-size: var(--fz-300);
+  }
+
+  .box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    min-inline-size: 2.5rem;
+    block-size: 2.5rem;
+
+    padding-inline: 0.5rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+
+    input {
+      flex: 1 1 0;
+
+      background-color: var(--color-surface-400);
+      color: inherit;
+
+      block-size: 1em;
+
+      border: none;
+
+      font-size: 1rem;
+      line-height: 1;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .prefix-icon,
+    .suffix-icon {
+      display: grid;
+
+      font-size: 1.25rem;
+    }
+  }
+
+  &:focus-within {
+    .label-text {
+      color: var(--color-primary);
+    }
+
+    .box {
+      border-color: var(--color-primary);
+    }
+  }
+}

@@ -9,7 +9,7 @@
   --color-success: hsl(120, 50%, 50%);
   --color-success-fade: hsl(120, 20%, 20%);
   --color-success-hover: hsl(120, 50%, 40%);
-  --color-success-opposite: hsl(0, 0%, 97%);
+  --color-success-opposite: hsl(0, 0%, 10%);
 
   --color-danger: hsl(0, 50%, 50%);
   --color-danger-fade: hsl(0, 20%, 20%);

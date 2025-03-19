@@ -109,21 +109,21 @@
   }
 
   &.small {
-    padding: 0.25rem 0.5rem;
+    min-inline-size: 1.75rem;
+    block-size: 1.75rem;
+
+    padding-inline: 0.125rem;
 
     font-size: var(--fz-300);
   }
 
   &.medium {
-    padding: 0.5rem 1rem;
+    min-inline-size: 2.5rem;
+    block-size: 2.5rem;
+
+    padding-inline: 0.5rem;
 
     font-size: var(--fz-400);
-  }
-
-  &.large {
-    padding: 1rem 2rem;
-
-    font-size: var(--fz-500);
   }
 
   &.inline {

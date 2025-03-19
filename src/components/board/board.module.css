@@ -1,0 +1,12 @@
+.board {
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  gap: 1rem;
+
+  > * {
+    padding: 0.5rem;
+
+    border: 1px solid var(--color-primary-fade);
+    border-radius: var(--border-radius);
+  }
+}

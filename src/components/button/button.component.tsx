@@ -8,7 +8,7 @@ import styles from "./button.module.css";
 
 export type ButtonVariant = "default" | "primary" | "success" | "danger";
 export type ButtonShape = "solid" | "outlined";
-export type ButtonSize = "small" | "medium" | "large";
+export type ButtonSize = "small" | "medium";
 export type ButtonPosition = "default" | "inline";
 
 type CommonProps = {
