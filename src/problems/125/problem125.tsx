@@ -8,18 +8,20 @@ import { useLogTracer } from "@/tracers/log/use-log-tracer.hook.ts";
 import styles from "./problem125.module.css";
 
 export default function Problem125(): ReactElement {
-  const { totalSteps, setTotalSteps } = useContext(TracerContext);
+  const { setTotalSteps } = useContext(TracerContext);
 
   const [logs, traceLog] = useLogTracer();
 
   const trace = (): void => {
-    traceLog(`Step ${totalSteps + 1} (${Math.random()})`);
+    traceLog(Math.random().toString());
     setTotalSteps((old) => old + 1);
   };
 
   return (
     <div className={styles.problem}>
-      <button onClick={trace}>Log</button>
+      <div>
+        <button onClick={trace}>Log</button>
+      </div>
       <LogTracer items={logs} />
     </div>
   );

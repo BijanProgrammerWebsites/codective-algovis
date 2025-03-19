@@ -1,2 +1,25 @@
 .log {
+  overflow: auto;
+
+  min-block-size: 100%;
+  block-size: 30rem;
+
+  padding: 0.5rem;
+
+  border: 1px solid var(--color-primary-fade);
+  border-radius: var(--border-radius);
+
+  .items {
+    display: grid;
+
+    > li {
+      padding: 0.5rem;
+
+      border-radius: var(--border-radius);
+
+      &.active {
+        background-color: var(--color-primary-fade);
+      }
+    }
+  }
 }

@@ -1,4 +1,6 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement, useContext, useEffect, useRef } from "react";
+
+import clsx from "clsx";
 
 import { TracerContext } from "@/context/tracer.context.ts";
 
@@ -13,9 +15,25 @@ type Props = {
 export default function LogTracer({ items }: Props): ReactElement {
   const { step } = useContext(TracerContext);
 
-  const item = items[step];
+  const itemsListRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const activeItem = itemsListRef.current?.querySelector(
+      `li.${styles.active}`,
+    );
+
+    activeItem?.scrollIntoView();
+  }, [step]);
 
   return (
-    <div className={styles.log}>{item ? item.message : "Not Available"}</div>
+    <div className={styles.log}>
+      <ul ref={itemsListRef} className={styles.items}>
+        {items.map((item, index) => (
+          <li key={index} className={clsx(index === step && styles.active)}>
+            {index}. {item.message}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

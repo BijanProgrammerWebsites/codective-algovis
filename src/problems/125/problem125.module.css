@@ -1,2 +1,5 @@
 .problem {
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  gap: 1rem;
 }
