@@ -1,4 +1,18 @@
 .problem {
   display: grid;
+  grid-template-areas: "heading stepper" "content content";
+  grid-template-columns: 1fr auto;
   gap: 1rem;
+
+  h1 {
+    grid-area: heading;
+  }
+
+  .stepper {
+    grid-area: stepper;
+  }
+
+  .content {
+    grid-area: content;
+  }
 }

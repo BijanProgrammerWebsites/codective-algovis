@@ -2,24 +2,28 @@
   color-scheme: dark;
 
   --color-primary: hsl(220, 50%, 50%);
-  --color-primary-fade: hsl(220, 50%, 95%);
+  --color-primary-fade: hsl(220, 20%, 20%);
   --color-primary-hover: hsl(220, 50%, 40%);
-  --color-primary-outline: hsl(220, 50%, 40%);
   --color-primary-opposite: hsl(0, 0%, 97%);
 
   --color-success: hsl(120, 50%, 50%);
-  --color-success-fade: hsl(120, 50%, 95%);
+  --color-success-fade: hsl(120, 20%, 20%);
   --color-success-hover: hsl(120, 50%, 40%);
+  --color-success-opposite: hsl(0, 0%, 97%);
 
   --color-danger: hsl(0, 50%, 50%);
-  --color-danger-fade: hsl(0, 50%, 95%);
+  --color-danger-fade: hsl(0, 20%, 20%);
   --color-danger-hover: hsl(0, 50%, 40%);
+  --color-danger-opposite: hsl(0, 0%, 97%);
 
+  --color-surface-200: hsl(0, 0%, 16%);
   --color-surface-300: hsl(0, 0%, 14%);
   --color-surface-400: hsl(0, 0%, 10%);
+  --color-surface-disabled: hsl(0, 0%, 24%);
 
   --color-text-300: hsl(0, 0%, 95%);
   --color-text-400: hsl(0, 0%, 90%);
+  --color-text-disabled: hsl(0, 0%, 40%);
 
   --color-border: hsl(0, 0%, 30%);
 

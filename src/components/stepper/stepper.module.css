@@ -1,0 +1,11 @@
+.stepper {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

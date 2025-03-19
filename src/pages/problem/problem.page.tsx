@@ -4,7 +4,11 @@ import { useParams } from "react-router";
 
 import { problemsData } from "@/data/problems.data.ts";
 
+import StepperComponent from "@/components/stepper/stepper.component.tsx";
+
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
+
+import TracerProvider from "@/providers/tracer.provider.tsx";
 
 import styles from "./problem.module.css";
 
@@ -20,12 +24,15 @@ function ProblemPage(): ReactElement {
   }
 
   return (
-    <div className={styles.problem}>
-      <h1>
-        {problem.id}. {problem.title}
-      </h1>
-      <div className={styles.content}>{problem.component}</div>
-    </div>
+    <TracerProvider>
+      <div className={styles.problem}>
+        <h1>
+          {problem.id}. {problem.title}
+        </h1>
+        <StepperComponent className={styles.stepper} />
+        <div className={styles.content}>{problem.component}</div>
+      </div>
+    </TracerProvider>
   );
 }
 
