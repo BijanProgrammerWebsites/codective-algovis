@@ -17,7 +17,7 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 import styles from "./problem125.module.css";
 
 export default function Problem125(): ReactElement {
-  const { setTotalSteps } = useContext(TracerContext);
+  const { changeStep, setTotalSteps } = useContext(TracerContext);
 
   const [arrayItems, traceArray, resetArray] = useTracer<ArrayTracerItem>();
   const [logItems, traceLog, resetLog] = useTracer<LogTracerItem>();
@@ -52,6 +52,8 @@ export default function Problem125(): ReactElement {
         elements[right].color = "danger";
         trace({ message: `No`, elements });
 
+        trace({ message: "Phrase is not palindrome", elements });
+
         return;
       }
 
@@ -66,7 +68,7 @@ export default function Problem125(): ReactElement {
       right--;
     }
 
-    trace({ message: "Phrase is palindrome.", elements });
+    trace({ message: "Phrase is palindrome", elements });
 
     return;
   };
@@ -74,6 +76,7 @@ export default function Problem125(): ReactElement {
   const reset = (): void => {
     resetArray();
     resetLog();
+    changeStep(0);
     setTotalSteps(0);
   };
 

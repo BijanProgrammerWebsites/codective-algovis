@@ -1,4 +1,7 @@
 .array {
+  display: grid;
+  place-content: center;
+
   .elements {
     display: flex;
     gap: 0.5rem;
