@@ -4,6 +4,7 @@
     "^(vite|@vitejs)(/(.*))?$",
     "^(react|react-dom)(/(.*))?$",
     "^react-router(/(.*))?$",
+    "^motion(/(.*))?$",
     "^clsx(/(.*))?$",
     "<THIRD_PARTY_MODULES>",
     "^@/assets",

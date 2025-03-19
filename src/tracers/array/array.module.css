@@ -8,11 +8,8 @@
     gap: 0.5rem;
 
     > li {
-      position: relative;
-
       display: grid;
       justify-items: center;
-      gap: 0.5rem;
 
       .value {
         background-color: var(--color-surface-300);
@@ -30,17 +27,21 @@
       }
 
       .pointer {
-        position: absolute;
-        inset-block-end: 0;
-        inset-inline-start: 50%;
+        position: relative;
 
-        display: grid;
-        justify-items: center;
-        gap: 0.25rem;
+        .content {
+          position: absolute;
+          inset-block-end: 0;
+          inset-inline-start: 50%;
 
-        inline-size: max-content;
+          display: grid;
+          justify-items: center;
+          gap: 0.25rem;
 
-        transform: translate(-50%, calc(100% + 0.5rem));
+          inline-size: max-content;
+
+          transform: translate(-50%, calc(100% + 0.5rem));
+        }
       }
 
       &.primary {

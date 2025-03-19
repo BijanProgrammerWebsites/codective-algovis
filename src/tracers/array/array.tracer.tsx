@@ -1,5 +1,7 @@
 import { ReactElement, useContext } from "react";
 
+import { AnimatePresence, motion } from "motion/react";
+
 import clsx from "clsx";
 
 import { ArrayTracerItem } from "@/items/array-tracer.item..ts";
@@ -24,20 +26,34 @@ export default function ArrayTracer({ items }: Props): ReactElement {
 
   return (
     <div className={styles.array}>
-      <ul className={styles.elements}>
-        {item.elements.map((element, index) => (
-          <li key={index} className={clsx(styles[element.color])}>
-            <div className={styles.index}>{index}</div>
-            <div className={styles.value}>{element.value}</div>
-            {item.pointers?.[index] && (
-              <div className={styles.pointer}>
-                <TdesignArrowUp />
-                {item.pointers?.[index]}
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+      <motion.ul className={styles.elements}>
+        {item.elements.map((element, index) => {
+          const pointer = item.pointers?.[index];
+
+          return (
+            <motion.li key={index} className={clsx(styles[element.color])}>
+              <motion.div className={styles.index}>{index}</motion.div>
+              <motion.div className={styles.value}>{element.value}</motion.div>
+              <AnimatePresence>
+                {pointer && (
+                  <motion.div
+                    className={styles.pointer}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    key={pointer}
+                  >
+                    <motion.div className={styles.content}>
+                      <TdesignArrowUp />
+                      {pointer}
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.li>
+          );
+        })}
+      </motion.ul>
     </div>
   );
 }
