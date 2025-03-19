@@ -4,48 +4,79 @@
 
   .elements {
     display: flex;
+    align-items: start;
     gap: 0.5rem;
 
     > li {
-      background-color: var(--color-surface-300);
+      position: relative;
 
       display: grid;
-      place-content: center;
+      justify-items: center;
+      gap: 0.5rem;
 
-      min-inline-size: 2.5rem;
-      block-size: 2.5rem;
+      .value {
+        background-color: var(--color-surface-300);
 
-      padding-inline: 0.5rem;
+        display: grid;
+        place-content: center;
 
-      border: 1px solid var(--color-primary);
-      border-radius: var(--border-radius);
+        min-inline-size: 2.5rem;
+        block-size: 2.5rem;
+
+        padding-inline: 0.5rem;
+
+        border: 1px solid var(--color-primary);
+        border-radius: var(--border-radius);
+      }
+
+      .pointer {
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline-start: 50%;
+
+        display: grid;
+        justify-items: center;
+        gap: 0.25rem;
+
+        inline-size: max-content;
+
+        transform: translate(-50%, calc(100% + 0.5rem));
+      }
 
       &.primary {
-        background-color: var(--color-primary);
-        color: var(--color-primary-opposite);
+        .value {
+          background-color: var(--color-primary);
+          color: var(--color-primary-opposite);
 
-        border-color: var(--color-primary);
+          border-color: var(--color-primary);
+        }
       }
 
       &.success {
-        background-color: var(--color-success);
-        color: var(--color-success-opposite);
+        .value {
+          background-color: var(--color-success);
+          color: var(--color-success-opposite);
 
-        border-color: var(--color-success);
+          border-color: var(--color-success);
+        }
       }
 
       &.danger {
-        background-color: var(--color-danger);
-        color: var(--color-danger-opposite);
+        .value {
+          background-color: var(--color-danger);
+          color: var(--color-danger-opposite);
 
-        border-color: var(--color-danger);
+          border-color: var(--color-danger);
+        }
       }
 
       &.disabled {
-        background-color: var(--color-surface-disabled);
-        color: var(--color-text-disabled);
+        .value {
+          background-color: var(--color-surface-disabled);
+          color: var(--color-text-disabled);
 
-        border-color: var(--color-surface-disabled);
+          border-color: var(--color-surface-disabled);
+        }
       }
     }
   }

@@ -40,26 +40,32 @@ export default function Problem125(): ReactElement {
     let right = elements.length - 1;
 
     while (left <= right) {
+      const pointers: ArrayTracerItem["pointers"] = {
+        [left]: "left",
+        [right]: left === right ? "left & right" : "right",
+      };
+
       elements[left].color = "primary";
       elements[right].color = "primary";
       trace({
         message: `Is ${elements[left].value} equal to ${elements[right].value}?`,
         elements,
+        pointers,
       });
 
       if (elements[left].value !== elements[right].value) {
         elements[left].color = "danger";
         elements[right].color = "danger";
-        trace({ message: `No`, elements });
+        trace({ message: `No`, elements, pointers });
 
-        trace({ message: "Phrase is not palindrome", elements });
+        trace({ message: "Phrase is not palindrome", elements, pointers });
 
         return;
       }
 
       elements[left].color = "success";
       elements[right].color = "success";
-      trace({ message: `Yes`, elements });
+      trace({ message: `Yes`, elements, pointers });
 
       elements[left].color = "disabled";
       elements[right].color = "disabled";
@@ -83,11 +89,13 @@ export default function Problem125(): ReactElement {
   const trace = ({
     message,
     elements,
+    pointers,
   }: {
     message: LogTracerItem["message"];
     elements: ArrayTracerItem["elements"];
+    pointers?: ArrayTracerItem["pointers"];
   }): void => {
-    traceArray({ elements: structuredClone(elements) });
+    traceArray(structuredClone({ elements, pointers }));
     traceLog({ message });
     setTotalSteps((old) => old + 1);
   };

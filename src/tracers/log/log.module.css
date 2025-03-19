@@ -10,6 +10,12 @@
 
       border-radius: var(--border-radius);
 
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--color-surface-300);
+      }
+
       &.active {
         background-color: var(--color-primary-fade);
       }

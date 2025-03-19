@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function LogTracer({ items }: Props): ReactElement {
-  const { step } = useContext(TracerContext);
+  const { step, changeStep } = useContext(TracerContext);
 
   const itemsListRef = useRef<HTMLUListElement>(null);
 
@@ -29,7 +29,11 @@ export default function LogTracer({ items }: Props): ReactElement {
     <div className={styles.log}>
       <ul ref={itemsListRef} className={styles.items}>
         {items.map((item, index) => (
-          <li key={index} className={clsx(index === step && styles.active)}>
+          <li
+            key={index}
+            className={clsx(index === step && styles.active)}
+            onClick={() => changeStep(index)}
+          >
             {index}. {item.message}
           </li>
         ))}

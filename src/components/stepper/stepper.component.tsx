@@ -65,7 +65,7 @@ export default function StepperComponent({ className }: Props): ReactElement {
           shape="solid"
           size="small"
           disabled={totalSteps === 0 || step === totalSteps - 1}
-          onClick={() => changeStep(totalSteps)}
+          onClick={() => changeStep(totalSteps - 1)}
         >
           <TdesignPageLast />
         </ButtonComponent>
