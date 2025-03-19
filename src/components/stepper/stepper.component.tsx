@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement, useContext, useEffect, useRef, useState } from "react";
 
 import clsx from "clsx";
 
@@ -10,6 +10,7 @@ import TdesignChevronLeft from "@/icons/TdesignChevronLeft.tsx";
 import TdesignChevronRight from "@/icons/TdesignChevronRight.tsx";
 import TdesignPageFirst from "@/icons/TdesignPageFirst.tsx";
 import TdesignPageLast from "@/icons/TdesignPageLast.tsx";
+import TdesignPause from "@/icons/TdesignPause.tsx";
 import TdesignPlay from "@/icons/TdesignPlay.tsx";
 
 import styles from "./stepper.module.css";
@@ -22,6 +23,34 @@ export default function StepperComponent({ className }: Props): ReactElement {
   const { step, totalSteps, previousStep, nextStep, changeStep } =
     useContext(TracerContext);
 
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  const interval = useRef<NodeJS.Timeout | undefined>(undefined);
+
+  const playOrPause = (): void => {
+    setIsPlaying((old) => !old);
+  };
+
+  useEffect(() => {
+    if (!isPlaying) {
+      return;
+    }
+
+    interval.current = setInterval(() => {
+      if (step >= totalSteps - 1) {
+        clearInterval(interval.current);
+        setIsPlaying(false);
+        return;
+      }
+
+      nextStep();
+    }, 1000);
+
+    return () => {
+      clearInterval(interval.current);
+    };
+  }, [step, totalSteps, nextStep, isPlaying]);
+
   return (
     <div className={clsx(styles.stepper, className)}>
       <div className={styles.actions}>
@@ -29,7 +58,7 @@ export default function StepperComponent({ className }: Props): ReactElement {
           variant="primary"
           shape="solid"
           size="small"
-          disabled={totalSteps === 0 || step === 0}
+          disabled={isPlaying || totalSteps === 0 || step === 0}
           onClick={() => changeStep(0)}
         >
           <TdesignPageFirst />
@@ -38,7 +67,7 @@ export default function StepperComponent({ className }: Props): ReactElement {
           variant="primary"
           shape="solid"
           size="small"
-          disabled={totalSteps === 0 || step === 0}
+          disabled={isPlaying || totalSteps === 0 || step === 0}
           onClick={() => previousStep()}
         >
           <TdesignChevronLeft />
@@ -48,14 +77,15 @@ export default function StepperComponent({ className }: Props): ReactElement {
           shape="solid"
           size="small"
           disabled={totalSteps === 0 || step === totalSteps - 1}
+          onClick={playOrPause}
         >
-          <TdesignPlay />
+          {isPlaying ? <TdesignPause /> : <TdesignPlay />}
         </ButtonComponent>
         <ButtonComponent
           variant="primary"
           shape="solid"
           size="small"
-          disabled={totalSteps === 0 || step === totalSteps - 1}
+          disabled={isPlaying || totalSteps === 0 || step === totalSteps - 1}
           onClick={() => nextStep()}
         >
           <TdesignChevronRight />
@@ -64,7 +94,7 @@ export default function StepperComponent({ className }: Props): ReactElement {
           variant="primary"
           shape="solid"
           size="small"
-          disabled={totalSteps === 0 || step === totalSteps - 1}
+          disabled={isPlaying || totalSteps === 0 || step === totalSteps - 1}
           onClick={() => changeStep(totalSteps - 1)}
         >
           <TdesignPageLast />
