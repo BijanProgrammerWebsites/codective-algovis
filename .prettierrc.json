@@ -20,6 +20,8 @@
     "^@/pages",
     "^@/problems",
     "^@/providers",
+    "^@/renderers",
+    "^@/structures",
     "^@/tracers",
     "^@/types",
     "^@/utils",
