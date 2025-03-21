@@ -1,8 +1,8 @@
 import { ReactElement, useContext } from "react";
 
-import { GraphTracerItem } from "@/items/graph-tracer.item..ts";
-
 import { TracerContext } from "@/context/tracer.context.ts";
+
+import { GraphTracerItem } from "@/items/graph-tracer.item..ts";
 
 import RendererProvider from "@/providers/renderer.provider.tsx";
 
