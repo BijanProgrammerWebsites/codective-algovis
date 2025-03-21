@@ -1,0 +1,119 @@
+.graph {
+  --color-node-idle-surface: hsl(0, 0%, 90%);
+  --color-node-idle-text: hsl(0, 0%, 10%);
+  --color-node-selected-surface: var(--color-primary);
+  --color-node-selected-text: var(--color-primary-opposite);
+  --color-node-visited-surface: var(--color-surface-disabled);
+  --color-node-visited-text: var(--color-text-disabled);
+
+  --color-edge-idle: hsl(0, 0%, 90%);
+  --color-edge-selected: var(--color-primary);
+  --color-edge-visited: var(--color-surface-disabled);
+
+  --color-arrow-idle: hsl(0, 0%, 90%);
+  --color-arrow-selected: var(--color-primary);
+  --color-arrow-visited: var(--color-surface-disabled);
+
+  --color-weight-idle: hsl(0, 0%, 90%);
+  --color-weight-selected: var(--color-primary);
+  --color-weight-visited: var(--color-surface-disabled);
+
+  block-size: 600px;
+  inline-size: 800px;
+
+  .node {
+    .circle {
+      fill: var(--color-node-idle-surface);
+    }
+
+    .id {
+      fill: var(--color-node-idle-text);
+      alignment-baseline: central;
+      text-anchor: middle;
+    }
+
+    .weight {
+      fill: var(--color-weight-idle);
+      font-weight: bold;
+      alignment-baseline: central;
+      text-anchor: start;
+    }
+
+    &.selected {
+      .circle {
+        fill: var(--color-node-selected-surface);
+      }
+
+      .id {
+        fill: var(--color-node-selected-text);
+      }
+    }
+
+    &.visited {
+      .circle {
+        fill: var(--color-node-visited-surface);
+      }
+
+      .id {
+        fill: var(--color-node-visited-text);
+      }
+    }
+  }
+
+  .edge {
+    .line {
+      stroke: var(--color-edge-idle);
+      stroke-width: 2;
+
+      &.directed {
+        marker-end: url(#markerArrow);
+      }
+    }
+
+    .weight {
+      fill: var(--color-weight-idle);
+      alignment-baseline: baseline;
+      text-anchor: middle;
+    }
+
+    &.selected {
+      .line {
+        stroke: var(--color-edge-selected);
+
+        &.directed {
+          marker-end: url(#markerArrowSelected);
+        }
+      }
+
+      .weight {
+        fill: var(--color-weight-selected);
+      }
+    }
+
+    &.visited {
+      .line {
+        stroke: var(--color-edge-visited);
+
+        &.directed {
+          marker-end: url(#markerArrowVisited);
+        }
+      }
+
+      .weight {
+        fill: var(--color-weight-visited);
+      }
+    }
+  }
+
+  .arrow {
+    fill: var(--color-arrow-idle);
+
+    &.selected {
+      fill: var(--color-arrow-selected);
+    }
+
+    &.visited {
+      fill: var(--color-arrow-visited);
+    }
+  }
+}
