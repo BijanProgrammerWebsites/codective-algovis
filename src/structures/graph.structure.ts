@@ -17,7 +17,7 @@ export type Config = {
   layoutCallback: () => unknown;
 };
 
-export type Node = {
+export type GraphNode = {
   id: number;
   weight: number | null;
   x: number;
@@ -26,9 +26,9 @@ export type Node = {
   selectedCount: number;
 };
 
-export type PartialNode = Partial<Node> & Pick<Node, "id">;
+export type PartialNode = Partial<GraphNode> & Pick<GraphNode, "id">;
 
-export type Edge = {
+export type GraphEdge = {
   source: number;
   target: number;
   weight: number | null;
@@ -36,7 +36,8 @@ export type Edge = {
   selectedCount: number;
 };
 
-export type PartialEdge = Partial<Edge> & Pick<Edge, "source" | "target">;
+export type PartialEdge = Partial<GraphEdge> &
+  Pick<GraphEdge, "source" | "target">;
 
 export type Rect = {
   left: number;
@@ -48,21 +49,21 @@ export type Rect = {
 };
 
 export class GraphStructure {
-  private readonly dimensions: Config["dimensions"] = {
-    baseWidth: 320,
-    baseHeight: 320,
-    padding: 32,
-    nodeRadius: 12,
+  public readonly dimensions: Config["dimensions"] = {
+    baseWidth: 800,
+    baseHeight: 600,
+    padding: 40,
+    nodeRadius: 20,
     arrowGap: 4,
     nodeWeightGap: 4,
     edgeWeightGap: 4,
   };
-  private readonly isDirected: Config["isDirected"] = true;
-  private readonly isWeighted: Config["isWeighted"] = false;
-  private layoutCallback: Config["layoutCallback"] = () => this.layoutCircle();
+  public readonly isDirected: Config["isDirected"] = true;
+  public readonly isWeighted: Config["isWeighted"] = false;
+  public layoutCallback: Config["layoutCallback"] = () => this.layoutCircle();
 
-  private nodes: Node[] = [];
-  private edges: Edge[] = [];
+  public nodes: GraphNode[] = [];
+  public edges: GraphEdge[] = [];
 
   public constructor(config?: Partial<Config>) {
     this.dimensions = config?.dimensions ?? this.dimensions;
@@ -100,7 +101,7 @@ export class GraphStructure {
       return;
     }
 
-    const node: Node = {
+    const node: GraphNode = {
       weight: null,
       x: 0,
       y: 0,
@@ -143,7 +144,7 @@ export class GraphStructure {
       return;
     }
 
-    const edge: Edge = {
+    const edge: GraphEdge = {
       weight: null,
       visitedCount: 0,
       selectedCount: 0,
@@ -181,7 +182,7 @@ export class GraphStructure {
     this.layoutCallback();
   }
 
-  public findNode(id: number): Node | undefined {
+  public findNode(id: number): GraphNode | undefined {
     return this.nodes.find((node) => node.id === id);
   }
 
@@ -198,7 +199,7 @@ export class GraphStructure {
     source: number,
     target: number,
     isDirected: boolean = this.isDirected,
-  ): Edge | undefined {
+  ): GraphEdge | undefined {
     if (isDirected) {
       return this.edges.find(
         (edge) => edge.source === source && edge.target === target,
@@ -228,7 +229,7 @@ export class GraphStructure {
   public findLinkedEdges(
     source: number,
     isDirected: boolean = this.isDirected,
-  ): Edge[] {
+  ): GraphEdge[] {
     if (isDirected) {
       return this.edges.filter((edge) => edge.source === source);
     }
@@ -251,7 +252,7 @@ export class GraphStructure {
   public findLinkedNodes(
     source: number,
     isDirected: boolean = this.isDirected,
-  ): Node[] {
+  ): GraphNode[] {
     const ids = this.findLinkedNodeIds(source, isDirected);
     return ids
       .map((id) => this.findNode(id))
@@ -338,7 +339,7 @@ export class GraphStructure {
     const vGap = rect.height / maxDepth;
     marked = {};
 
-    const recursivePosition = (node: Node, h: number, v: number): void => {
+    const recursivePosition = (node: GraphNode, h: number, v: number): void => {
       marked[node.id] = true;
 
       node.x = rect.left + (h + leafCounts[node.id] / 2) * hGap;
@@ -366,7 +367,7 @@ export class GraphStructure {
     this.layoutCallback = () => this.layoutRandom();
 
     const rect = this.getRect();
-    const placedNodes: Node[] = [];
+    const placedNodes: GraphNode[] = [];
 
     for (const node of this.nodes) {
       do {
