@@ -37,7 +37,8 @@ export function useProblem125() {
 
     return normalize(phrase)
       .split("")
-      .map((character) => ({
+      .map((character, index) => ({
+        id: index.toString(),
         value: character,
         color: "default",
       }));

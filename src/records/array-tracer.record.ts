@@ -10,6 +10,7 @@ export interface ArrayTracerRecord extends TracerRecord {
 export type Pointers = Record<number, string>;
 
 export type Item = {
+  id: string;
   value: string | number;
   color: ColorType;
 };

@@ -31,7 +31,11 @@ export default function ArrayTracer({ records }: Props): ReactElement {
           const pointer = record.pointers?.[index];
 
           return (
-            <motion.li key={index} className={clsx(styles[item.color])}>
+            <motion.li
+              key={item.id}
+              layoutId={item.id}
+              className={clsx(styles[item.color])}
+            >
               <motion.div className={styles.index}>{index}</motion.div>
               <motion.div className={styles.value}>{item.value}</motion.div>
               <AnimatePresence>

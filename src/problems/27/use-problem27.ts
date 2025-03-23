@@ -14,7 +14,8 @@ export function useProblem27() {
   const generateItems = (nums: string): Item[] => {
     const numbers = JSON.parse(nums) as number[];
 
-    return numbers.map((x) => ({
+    return numbers.map((x, index) => ({
+      id: index.toString(),
       value: x.toString(),
       color: "default",
     }));
@@ -93,6 +94,8 @@ export function useProblem27() {
   const traceSwap = (items: Item[], left: number, right: number): void => {
     const pointers = generatePointers(left, right);
 
+    items[left].color = "success";
+    items[right].color = "success";
     trace([{ message: "Swap" }, { items, pointers }]);
 
     items[left].color = "disabled";
