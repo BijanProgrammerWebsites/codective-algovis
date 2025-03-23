@@ -6,6 +6,8 @@ import { problemsData } from "@/data/problems.data.ts";
 
 import StepperComponent from "@/components/stepper/stepper.component.tsx";
 
+import HugeiconsLinkSquare01 from "@/icons/HugeiconsLinkSquare01.tsx";
+
 import NotFoundPage from "@/pages/not-found/not-found.page.tsx";
 
 import TracerProvider from "@/providers/tracer.provider.tsx";
@@ -28,6 +30,9 @@ function ProblemPage(): ReactElement {
       <div className={styles.problem}>
         <h1>
           {problem.id}. {problem.title}
+          <a href={problem.link} target="_blank">
+            <HugeiconsLinkSquare01 />
+          </a>
         </h1>
         <StepperComponent className={styles.stepper} />
         <div className={styles.content}>{problem.component}</div>

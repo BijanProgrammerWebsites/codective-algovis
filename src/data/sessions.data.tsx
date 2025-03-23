@@ -8,12 +8,29 @@ import { SessionType } from "@/types/session.type.ts";
 export const sessionsData: SessionType[] = [
   {
     problems: [
-      { id: 125, title: "Valid Palindrome", component: <Problem125 /> },
-      { id: 27, title: "Valid Palindrome", component: <Problem27 /> },
-      { id: 28, title: "Valid Palindrome", component: <Problem28 /> },
+      {
+        id: 125,
+        title: "Valid Palindrome",
+        component: <Problem125 />,
+        link: "https://leetcode.com/problems/valid-palindrome/description/",
+      },
+      {
+        id: 27,
+        title: "Remove Element",
+        component: <Problem27 />,
+        link: "https://leetcode.com/problems/remove-element/description/",
+      },
+      {
+        id: 28,
+        title: "Find the Index of the First Occurrence in a String",
+        component: <Problem28 />,
+        link: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/",
+      },
     ],
   },
   {
-    problems: [{ id: 94, title: "Valid Palindrome", component: <Problem94 /> }],
+    problems: [
+      { id: 94, title: "Graph (Test)", component: <Problem94 />, link: "" },
+    ],
   },
 ];
