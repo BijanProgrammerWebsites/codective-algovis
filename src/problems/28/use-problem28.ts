@@ -125,6 +125,11 @@ export function useProblem28() {
   ): void => {
     const haystackPointers = generatePointers({ start });
 
+    for (let index = 0; index < needleItems.length; index++) {
+      haystackItems[start + index].color = "primary";
+      needleItems[index].color = "primary";
+    }
+
     trace([
       { message: `Found substring at ${start}` },
       { items: haystackItems, pointers: haystackPointers },
