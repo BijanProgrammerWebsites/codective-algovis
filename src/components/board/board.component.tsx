@@ -1,9 +1,18 @@
 import { PropsWithChildren, ReactElement } from "react";
 
+import clsx from "clsx";
+
 import styles from "./board.module.css";
 
-type Props = PropsWithChildren;
+type BoardLayout = "one-one" | "two-one";
 
-export default function BoardComponent({ children }: Props): ReactElement {
-  return <div className={styles.board}>{children}</div>;
+type Props = PropsWithChildren<{
+  layout?: BoardLayout;
+}>;
+
+export default function BoardComponent({
+  children,
+  layout = "one-one",
+}: Props): ReactElement {
+  return <div className={clsx(styles.board, styles[layout])}>{children}</div>;
 }
