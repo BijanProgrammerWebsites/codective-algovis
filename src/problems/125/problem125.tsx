@@ -19,7 +19,7 @@ export default function Problem125(): ReactElement {
     records,
     reset,
     generateItems,
-    traceStart,
+    traceBeforeWeBegin,
     traceCheck,
     traceNo,
     traceYes,
@@ -30,7 +30,7 @@ export default function Problem125(): ReactElement {
     reset();
 
     const items = generateItems(s);
-    traceStart(items);
+    traceBeforeWeBegin(items);
 
     let left = 0;
     let right = items.length - 1;
@@ -50,8 +50,6 @@ export default function Problem125(): ReactElement {
     }
 
     traceIsPalindrome(items);
-
-    return;
   };
 
   useEffect(() => {

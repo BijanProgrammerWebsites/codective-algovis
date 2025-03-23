@@ -11,6 +11,13 @@ export function useProblem125() {
   const [records, trace, reset] =
     useTracer<[LogTracerRecord, ArrayTracerRecord]>();
 
+  const generatePointers = (left: number, right: number): Pointers => {
+    return {
+      [left]: "left",
+      [right]: left === right ? "left & right" : "right",
+    };
+  };
+
   const generateItems = (phrase: string): Item[] => {
     function normalize(s: string): string {
       let text = "";
@@ -44,15 +51,8 @@ export function useProblem125() {
       }));
   };
 
-  const generatePointers = (left: number, right: number): Pointers => {
-    return {
-      [left]: "left",
-      [right]: left === right ? "left & right" : "right",
-    };
-  };
-
-  const traceStart = (items: Item[]): void => {
-    trace([{ message: "Start" }, { items }]);
+  const traceBeforeWeBegin = (items: Item[]): void => {
+    trace([{ message: "Before We Begin" }, { items }]);
   };
 
   const traceCheck = (items: Item[], left: number, right: number): void => {
@@ -97,7 +97,7 @@ export function useProblem125() {
     records,
     reset,
     generateItems,
-    traceStart,
+    traceBeforeWeBegin,
     traceCheck,
     traceNo,
     traceYes,

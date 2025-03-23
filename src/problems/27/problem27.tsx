@@ -20,7 +20,7 @@ export default function Problem27(): ReactElement {
     records,
     reset,
     generateItems,
-    traceStart,
+    traceBeforeWeBegin,
     traceLeftAndRight,
     traceCheck,
     traceContinue,
@@ -35,7 +35,7 @@ export default function Problem27(): ReactElement {
     reset();
 
     const items = generateItems(nums);
-    traceStart(items);
+    traceBeforeWeBegin(items);
 
     let left = 0;
     let right = items.length - 1;
