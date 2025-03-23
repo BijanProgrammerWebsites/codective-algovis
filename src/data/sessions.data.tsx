@@ -4,6 +4,7 @@ import Problem75 from "@/problems/75/problem75.tsx";
 import Problem94 from "@/problems/94/problem94";
 import Problem121 from "@/problems/121/problem121.tsx";
 import Problem125 from "@/problems/125/problem125.tsx";
+import Problem1652 from "@/problems/1652/problem1652.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -39,6 +40,12 @@ export const sessionsData: SessionType[] = [
         title: "Best Time to Buy and Sell Stock",
         component: <Problem121 />,
         link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/",
+      },
+      {
+        id: 1652,
+        title: "Defuse the Bomb",
+        component: <Problem1652 />,
+        link: "https://leetcode.com/problems/defuse-the-bomb/description/",
       },
     ],
   },

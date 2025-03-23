@@ -13,7 +13,7 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 import styles from "./problem121.module.css";
 
 export default function Problem121(): ReactElement {
-  const [prices, setPrices] = useState<string>(" [7, 1, 5, 3, 6, 4]");
+  const [prices, setPrices] = useState<string>("[7, 1, 5, 3, 6, 4]");
 
   const {
     records,
