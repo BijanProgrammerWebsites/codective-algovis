@@ -2,6 +2,7 @@ import Problem27 from "@/problems/27/problem27.tsx";
 import Problem28 from "@/problems/28/problem28.tsx";
 import Problem75 from "@/problems/75/problem75.tsx";
 import Problem94 from "@/problems/94/problem94";
+import Problem121 from "@/problems/121/problem121.tsx";
 import Problem125 from "@/problems/125/problem125.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
@@ -32,6 +33,12 @@ export const sessionsData: SessionType[] = [
         title: "Sort Colors",
         component: <Problem75 />,
         link: "https://leetcode.com/problems/sort-colors/description/",
+      },
+      {
+        id: 121,
+        title: "Best Time to Buy and Sell Stock",
+        component: <Problem121 />,
+        link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/",
       },
     ],
   },
