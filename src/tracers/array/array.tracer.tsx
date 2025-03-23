@@ -4,11 +4,11 @@ import { AnimatePresence, motion } from "motion/react";
 
 import clsx from "clsx";
 
-import { ArrayTracerItem } from "@/items/array-tracer.item..ts";
-
 import { TracerContext } from "@/context/tracer.context.ts";
 
 import TdesignArrowUp from "@/icons/TdesignArrowUp.tsx";
+
+import { ArrayTracerItem } from "@/items/array-tracer.item..ts";
 
 import styles from "./array.module.css";
 

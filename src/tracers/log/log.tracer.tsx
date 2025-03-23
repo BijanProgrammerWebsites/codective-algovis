@@ -2,9 +2,9 @@ import { ReactElement, useContext, useEffect, useRef } from "react";
 
 import clsx from "clsx";
 
-import { LogTracerItem } from "@/items/log-tracer.item..ts";
-
 import { TracerContext } from "@/context/tracer.context.ts";
+
+import { LogTracerItem } from "@/items/log-tracer.item..ts";
 
 import styles from "./log.module.css";
 
