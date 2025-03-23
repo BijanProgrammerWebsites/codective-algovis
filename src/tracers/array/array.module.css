@@ -34,6 +34,8 @@
         inset-inline-start: 50%;
 
         display: grid;
+        justify-items: center;
+        gap: 0.5rem;
 
         transform: translate(-50%, calc(100% + 0.5rem));
 
@@ -41,7 +43,6 @@
           .content {
             display: grid;
             justify-items: center;
-            gap: 0.25rem;
 
             inline-size: max-content;
           }
