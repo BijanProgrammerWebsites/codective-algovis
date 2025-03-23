@@ -13,7 +13,7 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 import styles from "./problem125.module.css";
 
 export default function Problem125(): ReactElement {
-  const [phrase, setPhrase] = useState<string>("radar");
+  const [s, setS] = useState<string>("radar");
 
   const {
     records,
@@ -29,7 +29,7 @@ export default function Problem125(): ReactElement {
   const solve = (): void => {
     reset();
 
-    const items = generateItems(phrase);
+    const items = generateItems(s);
     traceStart(items);
 
     let left = 0;
@@ -62,11 +62,10 @@ export default function Problem125(): ReactElement {
     <div className={styles.problem}>
       <FormComponent onSubmit={solve}>
         <NormalInputComponent
-          label="phrase"
+          label="s"
           type="text"
-          name="phrase"
-          value={phrase}
-          onChange={(e) => setPhrase(e.currentTarget.value)}
+          value={s}
+          onChange={(e) => setS(e.currentTarget.value)}
         />
         <ButtonComponent variant="primary">Solve</ButtonComponent>
       </FormComponent>

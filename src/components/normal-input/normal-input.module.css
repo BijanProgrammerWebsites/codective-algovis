@@ -1,8 +1,20 @@
 .normal-input {
+  position: relative;
+
   .label-text {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+
+    background-color: var(--color-surface-400);
     color: var(--color-text-300);
 
+    padding: 0.25rem 0.5rem;
+
+    transform: translate(0.5rem, -50%);
+
     font-size: var(--fz-300);
+    line-height: 1;
   }
 
   .box {
