@@ -1,22 +1,13 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import {
-  ArrayTracerRecord,
-  Item,
-  Pointers,
-} from "@/records/array-tracer.record.ts";
+import { ArrayTracerRecord, Item } from "@/records/array-tracer.record.ts";
 import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+
+import { generatePointers } from "@/utils/generator.utils.ts";
 
 export function useProblem27() {
   const [records, trace, reset] =
     useTracer<[LogTracerRecord, ArrayTracerRecord]>();
-
-  const generatePointers = (left: number, right: number): Pointers => {
-    return {
-      [left]: "left",
-      [right]: left === right ? "left & right" : "right",
-    };
-  };
 
   const generateItems = (nums: string): Item[] => {
     const numbers = JSON.parse(nums) as number[];
@@ -37,7 +28,7 @@ export function useProblem27() {
     left: number,
     right: number,
   ): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     trace([{ message: `Initialize pointers` }, { items, pointers }]);
   };
@@ -48,7 +39,7 @@ export function useProblem27() {
     right: number,
     index: number,
   ): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[index].color = "primary";
     trace([
@@ -63,7 +54,7 @@ export function useProblem27() {
     right: number,
     index: number,
   ): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[index].color = "success";
     trace([{ message: `No, continue` }, { items, pointers }]);
@@ -77,14 +68,14 @@ export function useProblem27() {
     right: number,
     index: number,
   ): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[index].color = "danger";
     trace([{ message: `Yes, stop` }, { items, pointers }]);
   };
 
   const traceBreak = (items: Item[], left: number, right: number): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[left].color = "disabled";
     items[right].color = "disabled";
@@ -92,7 +83,7 @@ export function useProblem27() {
   };
 
   const traceSwap = (items: Item[], left: number, right: number): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[left].color = "success";
     items[right].color = "success";
@@ -107,7 +98,7 @@ export function useProblem27() {
     left: number,
     right: number,
   ): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     trace([{ message: `Continue` }, { items, pointers }]);
   };

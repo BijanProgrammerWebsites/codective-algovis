@@ -28,7 +28,7 @@ export default function ArrayTracer({ records }: Props): ReactElement {
     <div className={styles.array}>
       <motion.ul className={styles.items}>
         {record.items.map((item, index) => {
-          const pointer = record.pointers?.[index];
+          const pointers = record.pointers?.[index];
 
           return (
             <motion.li
@@ -39,18 +39,22 @@ export default function ArrayTracer({ records }: Props): ReactElement {
               <motion.div className={styles.index}>{index}</motion.div>
               <motion.div className={styles.value}>{item.value}</motion.div>
               <AnimatePresence>
-                {pointer && (
-                  <motion.div
-                    className={styles.pointer}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0 }}
-                    key={pointer}
-                  >
-                    <motion.div className={styles.content}>
-                      <TdesignArrowUp />
-                      {pointer}
-                    </motion.div>
+                {pointers && (
+                  <motion.div className={styles.pointers}>
+                    {pointers.map((pointer) => (
+                      <motion.div
+                        className={styles.pointer}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0 }}
+                        key={pointer}
+                      >
+                        <motion.div className={styles.content} layout>
+                          <TdesignArrowUp />
+                          {pointer}
+                        </motion.div>
+                      </motion.div>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>

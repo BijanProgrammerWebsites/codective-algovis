@@ -1,29 +1,13 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import {
-  ArrayTracerRecord,
-  Item,
-  Pointers,
-} from "@/records/array-tracer.record.ts";
+import { ArrayTracerRecord, Item } from "@/records/array-tracer.record.ts";
 import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+
+import { generatePointers } from "@/utils/generator.utils.ts";
 
 export function useProblem75() {
   const [records, trace, reset] =
     useTracer<[LogTracerRecord, ArrayTracerRecord]>();
-
-  const generatePointers = (
-    left: number,
-    mid: number,
-    right: number,
-  ): Pointers => {
-    const result: Pointers = {};
-
-    result[left] = "left";
-    result[mid] = result[mid] ? `${result[mid]} & mid` : "mid";
-    result[right] = result[right] ? `${result[right]} & right` : "right";
-
-    return result;
-  };
 
   const generateItems = (nums: string): Item[] => {
     const numbers = JSON.parse(nums) as number[];
@@ -45,7 +29,7 @@ export function useProblem75() {
     mid: number,
     right: number,
   ): void => {
-    const pointers = generatePointers(left, mid, right);
+    const pointers = generatePointers({ left, mid, right });
 
     trace([{ message: "Move pointers" }, { items, pointers }]);
   };
@@ -56,7 +40,7 @@ export function useProblem75() {
     mid: number,
     right: number,
   ): void => {
-    const pointers = generatePointers(left, mid, right);
+    const pointers = generatePointers({ left, mid, right });
 
     items[mid].color = "primary";
     trace([{ message: "`mid` is 0" }, { items, pointers }]);
@@ -71,7 +55,7 @@ export function useProblem75() {
     mid: number,
     right: number,
   ): void => {
-    const pointers = generatePointers(left, mid, right);
+    const pointers = generatePointers({ left, mid, right });
 
     items[mid].color = "primary";
     trace([{ message: "`mid` is 1; Skip" }, { items, pointers }]);
@@ -85,7 +69,7 @@ export function useProblem75() {
     mid: number,
     right: number,
   ): void => {
-    const pointers = generatePointers(left, mid, right);
+    const pointers = generatePointers({ left, mid, right });
 
     items[mid].color = "primary";
     trace([{ message: "`mid` is 2" }, { items, pointers }]);
@@ -101,7 +85,7 @@ export function useProblem75() {
     right: number,
     swap: number,
   ): void => {
-    const pointers = generatePointers(left, mid, right);
+    const pointers = generatePointers({ left, mid, right });
 
     items[mid].color = "primary";
     items[swap].color = "primary";

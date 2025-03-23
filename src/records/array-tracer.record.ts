@@ -7,7 +7,7 @@ export interface ArrayTracerRecord extends TracerRecord {
   pointers?: Pointers;
 }
 
-export type Pointers = Record<number, string>;
+export type Pointers = Record<number, string[]>;
 
 export type Item = {
   id: string;

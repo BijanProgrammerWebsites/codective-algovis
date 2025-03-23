@@ -1,36 +1,13 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import {
-  ArrayTracerRecord,
-  Item,
-  Pointers,
-} from "@/records/array-tracer.record.ts";
+import { ArrayTracerRecord, Item } from "@/records/array-tracer.record.ts";
 import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+
+import { generatePointers } from "@/utils/generator.utils.ts";
 
 export function useProblem28() {
   const [records, trace, reset] =
     useTracer<[LogTracerRecord, ArrayTracerRecord, ArrayTracerRecord]>();
-
-  const generateHaystackPointers = (
-    start: number,
-    index?: number,
-  ): Pointers => {
-    if (typeof index === "number") {
-      return {
-        [start + index]: "start+index",
-      };
-    }
-
-    return {
-      [start]: "start",
-    };
-  };
-
-  const generateNeedlePointers = (index: number): Pointers => {
-    return {
-      [index]: "index",
-    };
-  };
 
   const generateItems = (text: string): Item[] => {
     return text.split("").map((character, index) => ({
@@ -56,7 +33,7 @@ export function useProblem28() {
     needleItems: Item[],
     start: number,
   ): void => {
-    const haystackPointers = generateHaystackPointers(start);
+    const haystackPointers = generatePointers({ start });
 
     trace([
       { message: "Initialize `start`" },
@@ -71,8 +48,8 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generateHaystackPointers(start, index);
-    const needlePointers = generateNeedlePointers(index);
+    const haystackPointers = generatePointers({ start, index });
+    const needlePointers = generatePointers({ index });
 
     trace([
       { message: "Move pointers" },
@@ -87,8 +64,8 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generateHaystackPointers(start, index);
-    const needlePointers = generateNeedlePointers(index);
+    const haystackPointers = generatePointers({ start, index });
+    const needlePointers = generatePointers({ index });
 
     haystackItems[start + index].color = "primary";
     needleItems[index].color = "primary";
@@ -105,8 +82,8 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generateHaystackPointers(start, index);
-    const needlePointers = generateNeedlePointers(index);
+    const haystackPointers = generatePointers({ start, index });
+    const needlePointers = generatePointers({ index });
 
     haystackItems[start + index].color = "success";
     needleItems[index].color = "success";
@@ -126,8 +103,8 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generateHaystackPointers(start, index);
-    const needlePointers = generateNeedlePointers(index);
+    const haystackPointers = generatePointers({ start, index });
+    const needlePointers = generatePointers({ index });
 
     haystackItems[start + index].color = "danger";
     needleItems[index].color = "danger";
@@ -146,7 +123,7 @@ export function useProblem28() {
     needleItems: Item[],
     start: number,
   ): void => {
-    const haystackPointers = generateHaystackPointers(start);
+    const haystackPointers = generatePointers({ start });
 
     trace([
       { message: `Found substring at ${start}` },

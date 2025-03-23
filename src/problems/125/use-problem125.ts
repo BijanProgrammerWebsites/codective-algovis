@@ -1,22 +1,13 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import {
-  ArrayTracerRecord,
-  Item,
-  Pointers,
-} from "@/records/array-tracer.record.ts";
+import { ArrayTracerRecord, Item } from "@/records/array-tracer.record.ts";
 import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+
+import { generatePointers } from "@/utils/generator.utils.ts";
 
 export function useProblem125() {
   const [records, trace, reset] =
     useTracer<[LogTracerRecord, ArrayTracerRecord]>();
-
-  const generatePointers = (left: number, right: number): Pointers => {
-    return {
-      [left]: "left",
-      [right]: left === right ? "left & right" : "right",
-    };
-  };
 
   const generateItems = (phrase: string): Item[] => {
     function normalize(s: string): string {
@@ -56,7 +47,7 @@ export function useProblem125() {
   };
 
   const traceCheck = (items: Item[], left: number, right: number): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[left].color = "primary";
     items[right].color = "primary";
@@ -69,7 +60,7 @@ export function useProblem125() {
   };
 
   const traceNo = (items: Item[], left: number, right: number): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[left].color = "danger";
     items[right].color = "danger";
@@ -79,7 +70,7 @@ export function useProblem125() {
   };
 
   const traceYes = (items: Item[], left: number, right: number): void => {
-    const pointers = generatePointers(left, right);
+    const pointers = generatePointers({ left, right });
 
     items[left].color = "success";
     items[right].color = "success";

@@ -8,6 +8,8 @@
     gap: 0.5rem;
 
     > li {
+      position: relative;
+
       display: grid;
       justify-items: center;
 
@@ -26,21 +28,23 @@
         border-radius: var(--border-radius);
       }
 
-      .pointer {
-        position: relative;
+      .pointers {
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline-start: 50%;
 
-        .content {
-          position: absolute;
-          inset-block-end: 0;
-          inset-inline-start: 50%;
+        display: grid;
 
-          display: grid;
-          justify-items: center;
-          gap: 0.25rem;
+        transform: translate(-50%, calc(100% + 0.5rem));
 
-          inline-size: max-content;
+        .pointer {
+          .content {
+            display: grid;
+            justify-items: center;
+            gap: 0.25rem;
 
-          transform: translate(-50%, calc(100% + 0.5rem));
+            inline-size: max-content;
+          }
         }
       }
 
