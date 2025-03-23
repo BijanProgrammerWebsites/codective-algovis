@@ -1,15 +1,16 @@
 import { ReactElement, useContext, useEffect, useState } from "react";
 
-import { useTracer } from "@/hooks/use-tracer.hook.ts";
-import { ArrayTracerItem } from "@/items/array-tracer.item..ts";
-import { LogTracerItem } from "@/items/log-tracer.item..ts";
-
 import BoardComponent from "@/components/board/board.component.tsx";
 import { ButtonComponent } from "@/components/button/button.component.tsx";
 import FormComponent from "@/components/form/form.component.tsx";
 import NormalInputComponent from "@/components/normal-input/normal-input.component.tsx";
 
 import { TracerContext } from "@/context/tracer.context.ts";
+
+import { useTracer } from "@/hooks/use-tracer.hook.ts";
+
+import { ArrayTracerItem } from "@/items/array-tracer.item..ts";
+import { LogTracerItem } from "@/items/log-tracer.item..ts";
 
 import ArrayTracer from "@/tracers/array/array.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
@@ -95,7 +96,7 @@ export default function Problem125(): ReactElement {
     elements: ArrayTracerItem["elements"];
     pointers?: ArrayTracerItem["pointers"];
   }): void => {
-    traceArray(structuredClone({ elements, pointers }));
+    traceArray({ elements, pointers });
     traceLog({ message });
     setTotalSteps((old) => old + 1);
   };
