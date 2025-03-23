@@ -1,11 +1,17 @@
 .stepper {
   display: grid;
   gap: 0.5rem;
-  justify-items: center;
 
-  .actions {
+  .primary-row {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
+  }
+
+  .secondary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
   }
 }

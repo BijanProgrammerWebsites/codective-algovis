@@ -15,6 +15,8 @@ import TdesignPlay from "@/icons/TdesignPlay.tsx";
 
 import styles from "./stepper.module.css";
 
+const SPEEDS = [1, 1.5, 2] as const;
+
 type Props = {
   className?: string;
 };
@@ -24,11 +26,16 @@ export default function StepperComponent({ className }: Props): ReactElement {
     useContext(TracerContext);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [speedIndex, setSpeedIndex] = useState<number>(0);
 
   const interval = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const playOrPause = (): void => {
     setIsPlaying((old) => !old);
+  };
+
+  const cycleSpeed = (): void => {
+    setSpeedIndex((old) => (old + 1) % SPEEDS.length);
   };
 
   useEffect(() => {
@@ -44,16 +51,16 @@ export default function StepperComponent({ className }: Props): ReactElement {
       }
 
       nextStep();
-    }, 1000);
+    }, 1000 / SPEEDS[speedIndex]);
 
     return () => {
       clearInterval(interval.current);
     };
-  }, [step, totalSteps, nextStep, isPlaying]);
+  }, [step, totalSteps, nextStep, isPlaying, speedIndex]);
 
   return (
     <div className={clsx(styles.stepper, className)}>
-      <div className={styles.actions}>
+      <div className={styles["primary-row"]}>
         <ButtonComponent
           variant="primary"
           shape="solid"
@@ -100,7 +107,17 @@ export default function StepperComponent({ className }: Props): ReactElement {
           <TdesignPageLast />
         </ButtonComponent>
       </div>
-      <div className={styles.info}>Step: {step}</div>
+      <div className={styles["secondary-row"]}>
+        <div className={styles.info}>Step: {step}</div>
+        <ButtonComponent
+          variant="primary"
+          shape="outlined"
+          size="small"
+          onClick={() => cycleSpeed()}
+        >
+          {SPEEDS[speedIndex]}x
+        </ButtonComponent>
+      </div>
     </div>
   );
 }
