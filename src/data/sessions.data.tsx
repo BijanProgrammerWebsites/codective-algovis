@@ -1,5 +1,6 @@
 import Problem27 from "@/problems/27/problem27.tsx";
 import Problem28 from "@/problems/28/problem28.tsx";
+import Problem75 from "@/problems/75/problem75.tsx";
 import Problem94 from "@/problems/94/problem94";
 import Problem125 from "@/problems/125/problem125.tsx";
 
@@ -25,6 +26,12 @@ export const sessionsData: SessionType[] = [
         title: "Find the Index of the First Occurrence in a String",
         component: <Problem28 />,
         link: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/",
+      },
+      {
+        id: 75,
+        title: "Sort Colors",
+        component: <Problem75 />,
+        link: "https://leetcode.com/problems/sort-colors/description/",
       },
     ],
   },
