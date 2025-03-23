@@ -8,32 +8,32 @@ import { TracerContext } from "@/context/tracer.context.ts";
 
 import TdesignArrowUp from "@/icons/TdesignArrowUp.tsx";
 
-import { ArrayTracerItem } from "@/items/array-tracer.item..ts";
+import { ArrayTracerRecord } from "@/records/array-tracer.record.ts";
 
 import styles from "./array.module.css";
 
 type Props = {
-  items: ArrayTracerItem[];
+  records: ArrayTracerRecord[];
 };
 
-export default function ArrayTracer({ items }: Props): ReactElement {
+export default function ArrayTracer({ records }: Props): ReactElement {
   const { step } = useContext(TracerContext);
 
-  const item = items[step];
-  if (!item) {
+  const record = records[step];
+  if (!record) {
     return <div className={styles.array}>Not Available</div>;
   }
 
   return (
     <div className={styles.array}>
-      <motion.ul className={styles.elements}>
-        {item.elements.map((element, index) => {
-          const pointer = item.pointers?.[index];
+      <motion.ul className={styles.items}>
+        {record.items.map((item, index) => {
+          const pointer = record.pointers?.[index];
 
           return (
-            <motion.li key={index} className={clsx(styles[element.color])}>
+            <motion.li key={index} className={clsx(styles[item.color])}>
               <motion.div className={styles.index}>{index}</motion.div>
-              <motion.div className={styles.value}>{element.value}</motion.div>
+              <motion.div className={styles.value}>{item.value}</motion.div>
               <AnimatePresence>
                 {pointer && (
                   <motion.div

@@ -2,7 +2,7 @@
   display: grid;
   place-content: center;
 
-  .elements {
+  .items {
     display: flex;
     align-items: start;
     gap: 0.5rem;

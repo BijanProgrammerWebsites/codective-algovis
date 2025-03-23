@@ -2,7 +2,7 @@
   min-block-size: 100%;
   block-size: 30rem;
 
-  .items {
+  .records {
     display: grid;
 
     > li {

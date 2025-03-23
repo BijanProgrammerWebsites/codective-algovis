@@ -1,13 +1,11 @@
-import { ReactElement, useContext, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 
 import BoardComponent from "@/components/board/board.component.tsx";
 
-import { TracerContext } from "@/context/tracer.context.ts";
-
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { GraphTracerItem } from "@/items/graph-tracer.item..ts";
-import { LogTracerItem } from "@/items/log-tracer.item..ts";
+import { GraphTracerRecord } from "@/records/graph-tracer.record.ts";
+import { LogTracerRecord } from "@/records/log-tracer.record.ts";
 
 import { GraphNode, GraphStructure } from "@/structures/graph.structure.ts";
 
@@ -32,10 +30,8 @@ const G: number[][] = [
 ];
 
 export default function Problem94(): ReactElement {
-  const { changeStep, setTotalSteps } = useContext(TracerContext);
-
-  const [graphItems, traceGraph, resetGraph] = useTracer<GraphTracerItem>();
-  const [logItems, traceLog, resetLog] = useTracer<LogTracerItem>();
+  const [records, trace, reset] =
+    useTracer<[LogTracerRecord, GraphTracerRecord]>();
 
   const solve = (): void => {
     reset();
@@ -44,7 +40,7 @@ export default function Problem94(): ReactElement {
     graph.set(G);
     graph.layoutTree(5);
 
-    trace({ message: "Start", graph });
+    trace([{ message: "Start" }, { graph }]);
 
     const dfs = (node: GraphNode): void => {
       const linkedNodes = graph.findLinkedNodes(node.id);
@@ -52,7 +48,7 @@ export default function Problem94(): ReactElement {
       for (let i = 0; i < linkedNodes.length; i++) {
         if (linkedNodes[i].visitedCount === 0) {
           graph.visit(linkedNodes[i].id, node.id);
-          trace({ message: `Visiting ${linkedNodes[i].id}`, graph });
+          trace([{ message: `Visiting ${linkedNodes[i].id}` }, { graph }]);
 
           dfs(linkedNodes[i]);
         }
@@ -61,32 +57,13 @@ export default function Problem94(): ReactElement {
 
     const root = graph.findNode(5)!;
     graph.visit(root.id);
-    trace({ message: `Visiting ${root.id}`, graph });
+    trace([{ message: `Visiting ${root.id}` }, { graph }]);
 
     dfs(root);
 
-    trace({ message: "End", graph });
+    trace([{ message: "End" }, { graph }]);
 
     return;
-  };
-
-  const reset = (): void => {
-    resetGraph();
-    resetLog();
-    changeStep(0);
-    setTotalSteps(0);
-  };
-
-  const trace = ({
-    message,
-    graph,
-  }: {
-    message: LogTracerItem["message"];
-    graph: GraphTracerItem["graph"];
-  }): void => {
-    traceGraph({ graph });
-    traceLog({ message });
-    setTotalSteps((old) => old + 1);
   };
 
   useEffect(() => {
@@ -96,8 +73,8 @@ export default function Problem94(): ReactElement {
   return (
     <div className={styles.problem}>
       <BoardComponent>
-        <GraphTracer items={graphItems} />
-        <LogTracer items={logItems} />
+        <GraphTracer records={records.map((x) => x[1])} />
+        <LogTracer records={records.map((x) => x[0])} />
       </BoardComponent>
     </div>
   );

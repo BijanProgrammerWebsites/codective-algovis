@@ -4,37 +4,34 @@ import clsx from "clsx";
 
 import { TracerContext } from "@/context/tracer.context.ts";
 
-import { LogTracerItem } from "@/items/log-tracer.item..ts";
+import { LogTracerRecord } from "@/records/log-tracer.record.ts";
 
 import styles from "./log.module.css";
 
 type Props = {
-  items: LogTracerItem[];
+  records: LogTracerRecord[];
 };
 
-export default function LogTracer({ items }: Props): ReactElement {
+export default function LogTracer({ records }: Props): ReactElement {
   const { step, changeStep } = useContext(TracerContext);
 
-  const itemsListRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    const activeItem = itemsListRef.current?.querySelector(
-      `li.${styles.active}`,
-    );
-
-    activeItem?.scrollIntoView();
+    const activeRecord = listRef.current?.querySelector(`li.${styles.active}`);
+    activeRecord?.scrollIntoView();
   }, [step]);
 
   return (
     <div className={styles.log}>
-      <ul ref={itemsListRef} className={styles.items}>
-        {items.map((item, index) => (
+      <ul ref={listRef} className={styles.records}>
+        {records.map((record, index) => (
           <li
             key={index}
             className={clsx(index === step && styles.active)}
             onClick={() => changeStep(index)}
           >
-            {index}. {item.message}
+            {index}. {record.message}
           </li>
         ))}
       </ul>
