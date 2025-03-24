@@ -6,7 +6,7 @@ import RendererProvider from "@/providers/renderer.provider.tsx";
 
 import { GraphTracerRecord } from "@/records/graph-tracer.record.ts";
 
-import GraphComponent from "./components/graph/graph.component.tsx";
+import GraphRenderer from "@/renderers/graph/graph.renderer.tsx";
 
 import styles from "./graph.module.css";
 
@@ -25,7 +25,7 @@ export default function GraphTracer({ records }: Props): ReactElement {
   return (
     <RendererProvider>
       <div className={styles.graph}>
-        <GraphComponent graph={record.graph} />
+        <GraphRenderer graph={record.graph} />
       </div>
     </RendererProvider>
   );

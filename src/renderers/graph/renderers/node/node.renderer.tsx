@@ -1,0 +1,39 @@
+import { ReactElement } from "react";
+
+import clsx from "clsx";
+
+import { GraphNode, GraphStructure } from "@/structures/graph.structure.ts";
+
+import { stringify } from "@/utils/graph.utils.ts";
+
+import styles from "./node.module.css";
+
+type Props = {
+  graph: GraphStructure;
+  node: GraphNode;
+};
+
+export default function NodeRenderer({ graph, node }: Props): ReactElement {
+  const { isWeighted, dimensions } = graph;
+  const { nodeRadius, nodeWeightGap } = dimensions;
+  const { id, x, y, weight, visitedCount, selectedCount } = node;
+
+  return (
+    <g
+      className={clsx(
+        styles.node,
+        selectedCount && styles.selected,
+        visitedCount && styles.visited,
+      )}
+      transform={`translate(${x},${y})`}
+    >
+      <circle className={styles.circle} r={nodeRadius} />
+      <text className={styles.id}>{id}</text>
+      {isWeighted && (
+        <text className={styles.weight} x={nodeRadius + nodeWeightGap}>
+          {stringify(weight)}
+        </text>
+      )}
+    </g>
+  );
+}
