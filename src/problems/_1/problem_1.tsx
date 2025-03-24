@@ -5,9 +5,14 @@ import { ButtonComponent } from "@/components/button/button.component.tsx";
 import FormComponent from "@/components/form/form.component.tsx";
 import NormalInputComponent from "@/components/normal-input/normal-input.component.tsx";
 
-import { useProblem_1 } from "@/problems/_1/use-problem_1.ts";
+import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import ArrayTracer from "@/tracers/array/array.tracer.tsx";
+import { CallstackTracerRecord } from "@/records/callstack-tracer.record.ts";
+import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+
+import { CallstackStructure } from "@/structures/callstack.structure.ts";
+
+import CallstackTracer from "@/tracers/callstack/callstack.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
 
 import styles from "./problem_1.module.css";
@@ -15,11 +20,34 @@ import styles from "./problem_1.module.css";
 export default function Problem_1(): ReactElement {
   const [n, setN] = useState<string>("4");
 
-  const { records, reset, traceDone } = useProblem_1();
+  const [records, trace, reset] =
+    useTracer<[LogTracerRecord, CallstackTracerRecord]>();
 
   const solve = (): void => {
     reset();
-    traceDone([]);
+
+    const callstack = new CallstackStructure();
+    callstack.addNode({ id: 0 });
+
+    trace([{ message: "Start" }, { callstack }]);
+
+    callstack.addNode({ id: 1 });
+    callstack.addEdge({ source: 0, target: 1 });
+    trace([{ message: "Call 1" }, { callstack }]);
+
+    callstack.addNode({ id: 2 });
+    callstack.addEdge({ source: 1, target: 2 });
+    trace([{ message: "Call 2" }, { callstack }]);
+
+    callstack.removeNode(2);
+    trace([{ message: "Return 2" }, { callstack }]);
+
+    callstack.removeNode(1);
+    trace([{ message: "Return 1" }, { callstack }]);
+
+    trace([{ message: "End" }, { callstack }]);
+
+    return;
   };
 
   useEffect(() => {
@@ -38,7 +66,7 @@ export default function Problem_1(): ReactElement {
         <ButtonComponent variant="primary">Solve</ButtonComponent>
       </FormComponent>
       <BoardComponent>
-        <ArrayTracer records={records.map((x) => x[1])} />
+        <CallstackTracer records={records.map((x) => x[1])} />
         <LogTracer records={records.map((x) => x[0])} />
       </BoardComponent>
     </div>

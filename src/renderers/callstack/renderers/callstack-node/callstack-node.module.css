@@ -1,0 +1,38 @@
+.node {
+  .circle {
+    fill: var(--color-node-idle-surface);
+  }
+
+  .id {
+    fill: var(--color-node-idle-text);
+    alignment-baseline: central;
+    text-anchor: middle;
+  }
+
+  .weight {
+    fill: var(--color-weight-idle);
+    font-weight: bold;
+    alignment-baseline: central;
+    text-anchor: start;
+  }
+
+  &.selected {
+    .circle {
+      fill: var(--color-node-selected-surface);
+    }
+
+    .id {
+      fill: var(--color-node-selected-text);
+    }
+  }
+
+  &.visited {
+    .circle {
+      fill: var(--color-node-visited-surface);
+    }
+
+    .id {
+      fill: var(--color-node-visited-text);
+    }
+  }
+}
