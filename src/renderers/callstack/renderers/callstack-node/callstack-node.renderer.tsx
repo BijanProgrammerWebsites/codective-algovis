@@ -2,12 +2,12 @@ import { ReactElement } from "react";
 
 import clsx from "clsx";
 
-import styles from "@/renderers/callstack/renderers/callstack-node/callstack-node.module.css";
-
 import {
   CallstackNode,
   CallstackStructure,
 } from "@/structures/callstack.structure.ts";
+
+import styles from "./callstack-node.module.css";
 
 type Props = {
   callstack: CallstackStructure;
@@ -19,13 +19,36 @@ export default function CallstackNodeRenderer({
   node,
 }: Props): ReactElement {
   const { dimensions } = callstack;
-  const { padding } = dimensions;
-  const { id, x, y } = node;
+  const { statementWidth, statementHeight } = dimensions;
+  const { x, y, title, statements } = node;
 
   return (
     <g className={clsx(styles.node)} transform={`translate(${x},${y})`}>
-      <circle className={styles.circle} r={20} />
-      <text className={styles.id}>{id}</text>
+      <g className={styles.title}>
+        <rect
+          className={styles.box}
+          width={statementWidth}
+          height={statementHeight}
+        />
+        <text className={styles.text} x="10" y="24">
+          {title}
+        </text>
+      </g>
+      {statements.map((statement, i) => (
+        <g
+          className={clsx(styles.statement)}
+          transform={`translate(${0},${(i + 1) * 40})`}
+        >
+          <rect
+            className={styles.box}
+            width={statementWidth}
+            height={statementHeight}
+          />
+          <text className={styles.text} x="10" y="24">
+            {statement}
+          </text>
+        </g>
+      ))}
     </g>
   );
 }

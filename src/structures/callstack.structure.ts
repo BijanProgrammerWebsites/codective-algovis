@@ -8,6 +8,10 @@ export type CallstackDimensions = {
   baseHeight: number;
   padding: number;
   arrowGap: number;
+  statementWidth: number;
+  statementHeight: number;
+  horizontalGap: number;
+  verticalGap: number;
 };
 
 export type CallstackConfig = {
@@ -20,6 +24,8 @@ export type CallstackNode = {
   id: number;
   x: number;
   y: number;
+  title: string;
+  statements: string[];
 };
 
 export type CallstackEdge = {
@@ -27,7 +33,8 @@ export type CallstackEdge = {
   target: number;
 };
 
-type PartialNode = Partial<CallstackNode> & Pick<CallstackNode, "id">;
+type PartialNode = Omit<CallstackNode, "x" | "y"> &
+  Partial<Pick<CallstackNode, "x" | "y">>;
 
 type PartialEdge = Partial<CallstackEdge> &
   Pick<CallstackEdge, "source" | "target">;
@@ -44,7 +51,11 @@ export class CallstackStructure extends RendererStructure<
         baseWidth: 800,
         baseHeight: 600,
         padding: 40,
-        arrowGap: 4,
+        arrowGap: 8,
+        statementWidth: 200,
+        statementHeight: 40,
+        horizontalGap: 240,
+        verticalGap: 100,
       },
       layoutCallback: () => this.layoutTree(),
       ...config,
@@ -75,43 +86,13 @@ export class CallstackStructure extends RendererStructure<
 
     const rect = this.getRect();
 
-    if (this.nodes.length === 1) {
-      const [node] = this.nodes;
-      node.x = (rect.left + rect.right) / 2;
-      node.y = (rect.top + rect.bottom) / 2;
-      return;
-    }
-
-    let marked: Record<number, boolean> = {};
-    let maxDepth = 0;
-
-    const findMaxDepth = (id: number, depth: number): void => {
-      marked[id] = true;
-
-      if (maxDepth < depth) {
-        maxDepth = depth;
-      }
-
-      const linkedNodeIds = this.findLinkedNodeIds(id, false);
-      for (const linkedNodeId of linkedNodeIds) {
-        if (marked[linkedNodeId]) {
-          continue;
-        }
-
-        findMaxDepth(linkedNodeId, depth + 1);
-      }
-    };
-    findMaxDepth(rootId, 0);
-
-    const hGap = rect.width / maxDepth;
-    const vGap = rect.height / maxDepth;
-    marked = {};
+    const marked: Record<number, boolean> = {};
 
     const setPositions = (node: RendererNode, depth: number): void => {
       marked[node.id] = true;
 
-      node.x = rect.left + depth * hGap;
-      node.y = rect.top + depth * vGap;
+      node.x = rect.left + depth * this.dimensions.horizontalGap;
+      node.y = rect.top + depth * this.dimensions.verticalGap;
 
       const linkedNodes = this.findLinkedNodes(node.id, false);
 

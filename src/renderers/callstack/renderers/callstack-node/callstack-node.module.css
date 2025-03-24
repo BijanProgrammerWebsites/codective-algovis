@@ -1,38 +1,25 @@
 .node {
-  .circle {
-    fill: var(--color-node-idle-surface);
-  }
+  font-family: monospace;
 
-  .id {
-    fill: var(--color-node-idle-text);
-    alignment-baseline: central;
-    text-anchor: middle;
-  }
-
-  .weight {
-    fill: var(--color-weight-idle);
-    font-weight: bold;
-    alignment-baseline: central;
-    text-anchor: start;
-  }
-
-  &.selected {
-    .circle {
-      fill: var(--color-node-selected-surface);
+  .title {
+    .box {
+      fill: var(--color-text-400);
+      stroke: var(--color-text-400);
     }
 
-    .id {
-      fill: var(--color-node-selected-text);
+    .text {
+      fill: var(--color-surface-200);
     }
   }
 
-  &.visited {
-    .circle {
-      fill: var(--color-node-visited-surface);
+  .statement {
+    .box {
+      fill: var(--color-surface-200);
+      stroke: var(--color-text-400);
     }
 
-    .id {
-      fill: var(--color-node-visited-text);
+    .text {
+      fill: var(--color-text-400);
     }
   }
 }

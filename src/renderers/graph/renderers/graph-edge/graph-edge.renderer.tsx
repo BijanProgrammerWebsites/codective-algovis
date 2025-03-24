@@ -35,7 +35,8 @@ export default function GraphEdgeRenderer({ graph, edge }: Props): ReactNode {
       start={{ x: sourceNode.x, y: sourceNode.y }}
       end={{ x: targetNode.x, y: targetNode.y }}
       weight={weight}
-      nodeRadius={nodeRadius}
+      nodeWidth={nodeRadius}
+      nodeHeight={nodeRadius}
       arrowGap={arrowGap}
       weightGap={edgeWeightGap}
       isDirected={isDirected}

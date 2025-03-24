@@ -19,7 +19,7 @@ export default function CallstackEdgeRenderer({
   edge,
 }: Props): ReactNode {
   const { dimensions } = callstack;
-  const { arrowGap } = dimensions;
+  const { arrowGap, statementWidth, statementHeight } = dimensions;
   const { source, target } = edge;
 
   const sourceNode = callstack.findNode(source);
@@ -32,9 +32,10 @@ export default function CallstackEdgeRenderer({
   return (
     <EdgeRenderer
       className={styles.edge}
-      start={{ x: sourceNode.x, y: sourceNode.y }}
-      end={{ x: targetNode.x, y: targetNode.y }}
-      nodeRadius={20}
+      start={{ x: sourceNode.x, y: sourceNode.y + statementHeight / 2 }}
+      end={{ x: targetNode.x + 20, y: targetNode.y - 4 }}
+      nodeWidth={statementWidth}
+      nodeHeight={0}
       arrowGap={arrowGap}
       isDirected={true}
       isStraight={false}

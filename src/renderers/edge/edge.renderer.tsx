@@ -13,7 +13,8 @@ type Props = {
   start: Point;
   end: Point;
   weight?: number | null;
-  nodeRadius?: number;
+  nodeWidth?: number;
+  nodeHeight?: number;
   arrowGap?: number;
   weightGap?: number;
   isDirected?: boolean;
@@ -26,7 +27,8 @@ export default function EdgeRenderer({
   start,
   end,
   weight,
-  nodeRadius = 0,
+  nodeWidth = 0,
+  nodeHeight = 0,
   arrowGap = 0,
   weightGap = 0,
   isDirected = false,
@@ -43,7 +45,7 @@ export default function EdgeRenderer({
   if (isDirected) {
     if (isStraight) {
       const totalLength = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-      const lineLength = totalLength - nodeRadius - arrowGap;
+      const lineLength = totalLength - nodeWidth - arrowGap;
 
       const lineRatio = lineLength / totalLength;
 
@@ -54,9 +56,13 @@ export default function EdgeRenderer({
         };
       }
     } else {
+      start = {
+        x: start.x + nodeWidth + arrowGap,
+        y: start.y,
+      };
       end = {
         x: end.x,
-        y: end.y - nodeRadius - arrowGap,
+        y: end.y - nodeHeight - arrowGap,
       };
     }
   }

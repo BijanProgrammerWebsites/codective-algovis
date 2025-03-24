@@ -27,15 +27,27 @@ export default function Problem_1(): ReactElement {
     reset();
 
     const callstack = new CallstackStructure();
-    callstack.addNode({ id: 0 });
+    callstack.addNode({
+      id: 0,
+      title: "f(3)",
+      statements: ["if(n === 1) return", "return 3 * f(2)"],
+    });
 
     trace([{ message: "Start" }, { callstack }]);
 
-    callstack.addNode({ id: 1 });
+    callstack.addNode({
+      id: 1,
+      title: "f(2)",
+      statements: ["if(n === 1) return", "return 2 * f(1)"],
+    });
     callstack.addEdge({ source: 0, target: 1 });
     trace([{ message: "Call 1" }, { callstack }]);
 
-    callstack.addNode({ id: 2 });
+    callstack.addNode({
+      id: 2,
+      title: "f(1)",
+      statements: ["if(n === 1) return"],
+    });
     callstack.addEdge({ source: 1, target: 2 });
     trace([{ message: "Call 2" }, { callstack }]);
 
