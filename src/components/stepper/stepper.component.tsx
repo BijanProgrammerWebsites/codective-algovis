@@ -15,7 +15,7 @@ import TdesignPlay from "@/icons/TdesignPlay.tsx";
 
 import styles from "./stepper.module.css";
 
-const SPEEDS = [0.5, 1, 1.5, 2] as const;
+const SPEEDS = [0.5, 1, 2, 4] as const;
 
 type Props = {
   className?: string;
