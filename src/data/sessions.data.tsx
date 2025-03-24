@@ -1,3 +1,4 @@
+import Problem7 from "@/problems/7/problem7.tsx";
 import Problem27 from "@/problems/27/problem27.tsx";
 import Problem28 from "@/problems/28/problem28.tsx";
 import Problem75 from "@/problems/75/problem75.tsx";
@@ -61,6 +62,12 @@ export const sessionsData: SessionType[] = [
         title: "Fibonacci Number",
         component: <Problem509 />,
         link: "https://leetcode.com/problems/fibonacci-number/description/",
+      },
+      {
+        id: 7,
+        title: "Reverse Integer",
+        component: <Problem7 />,
+        link: "https://leetcode.com/problems/reverse-integer/description/",
       },
       // { id: 94, title: "Graph (Test)", component: <Problem94 />, link: "" },
     ],

@@ -98,6 +98,21 @@ export function useCallstackTracer() {
     trace([{ message: statement }, { callstack }]);
   };
 
+  const traceStatement = (
+    callstack: CallstackStructure,
+    currentId: number,
+    statement: string,
+  ): void => {
+    const node = callstack.findNode(currentId)!;
+
+    callstack.updateNode({
+      id: currentId,
+      statements: [...node.statements, statement],
+    });
+
+    trace([{ message: statement }, { callstack }]);
+  };
+
   return {
     records,
     reset,
@@ -106,5 +121,6 @@ export function useCallstackTracer() {
     traceCalled,
     traceReturning,
     traceReturned,
+    traceStatement,
   };
 }
