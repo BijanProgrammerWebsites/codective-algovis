@@ -15,7 +15,7 @@ import TdesignPlay from "@/icons/TdesignPlay.tsx";
 
 import styles from "./stepper.module.css";
 
-const SPEEDS = [1, 1.5, 2] as const;
+const SPEEDS = [0.5, 1, 1.5, 2] as const;
 
 type Props = {
   className?: string;
@@ -26,7 +26,7 @@ export default function StepperComponent({ className }: Props): ReactElement {
     useContext(TracerContext);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [speedIndex, setSpeedIndex] = useState<number>(0);
+  const [speedIndex, setSpeedIndex] = useState<number>(1);
 
   const interval = useRef<NodeJS.Timeout | undefined>(undefined);
 
