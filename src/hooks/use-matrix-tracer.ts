@@ -18,8 +18,10 @@ export function useMatrixTracer() {
     row: number,
     col: number,
   ): void => {
+    const previousStatus = matrix.table[row][col].status;
     matrix.update({ row, col, status: "warning" });
     trace([{ message: `Considering ${row}:${col}` }, { matrix }]);
+    matrix.update({ row, col, status: previousStatus });
   };
 
   const traceCant = (
@@ -27,9 +29,10 @@ export function useMatrixTracer() {
     row: number,
     col: number,
   ): void => {
+    const previousStatus = matrix.table[row][col].status;
     matrix.update({ row, col, status: "danger" });
     trace([{ message: `Can't place Q in ${row}:${col}` }, { matrix }]);
-    matrix.update({ row, col, status: "default" });
+    matrix.update({ row, col, status: previousStatus });
   };
 
   const traceCheck = (
@@ -37,9 +40,10 @@ export function useMatrixTracer() {
     row: number,
     col: number,
   ): void => {
+    const previousStatus = matrix.table[row][col].status;
     matrix.update({ row, col, status: "primary" });
     trace([{ message: `Checking ${row}:${col}` }, { matrix }]);
-    matrix.update({ row, col, status: "default" });
+    matrix.update({ row, col, status: previousStatus });
   };
 
   const tracePass = (
@@ -47,9 +51,10 @@ export function useMatrixTracer() {
     row: number,
     col: number,
   ): void => {
+    const previousStatus = matrix.table[row][col].status;
     matrix.update({ row, col, status: "success" });
     trace([{ message: "Pass" }, { matrix }]);
-    matrix.update({ row, col, status: "default" });
+    matrix.update({ row, col, status: previousStatus });
   };
 
   const traceFail = (
@@ -57,9 +62,10 @@ export function useMatrixTracer() {
     row: number,
     col: number,
   ): void => {
+    const previousStatus = matrix.table[row][col].status;
     matrix.update({ row, col, status: "danger" });
     trace([{ message: "Fail" }, { matrix }]);
-    matrix.update({ row, col, status: "default" });
+    matrix.update({ row, col, status: previousStatus });
   };
 
   const traceAdd = (
