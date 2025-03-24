@@ -7,6 +7,9 @@
     .box {
       fill: var(--color);
       stroke: var(--color);
+
+      transition: 0.3s ease-out;
+      transition-property: fill, stroke;
     }
 
     .text {
@@ -18,6 +21,8 @@
     .box {
       fill: var(--color-surface-200);
       stroke: var(--color);
+
+      transition: fill 0.3s ease-out;
     }
 
     .text {

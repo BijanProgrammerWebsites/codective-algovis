@@ -1,5 +1,7 @@
 import { ReactElement, useContext } from "react";
 
+import { AnimatePresence, motion } from "motion/react";
+
 import { RendererContext } from "@/context/renderer.context.ts";
 
 import ArrowsRenderer from "@/renderers/arrows/arrows.renderer.tsx";
@@ -31,20 +33,28 @@ export default function CallstackRenderer({ callstack }: Props): ReactElement {
   return (
     <svg className={styles.callstack} viewBox={viewBox}>
       <ArrowsRenderer />
-      {edges.map((edge) => (
-        <CallstackEdgeRenderer
-          key={`${edge.source}-${edge.target}`}
-          callstack={callstack}
-          edge={edge}
-        />
-      ))}
-      {nodes.map((node) => (
-        <CallstackNodeRenderer
-          key={node.id}
-          callstack={callstack}
-          node={node}
-        />
-      ))}
+      <AnimatePresence>
+        {edges.map((edge) => (
+          <motion.g
+            key={`edge-${edge.source}-${edge.target}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <CallstackEdgeRenderer callstack={callstack} edge={edge} />
+          </motion.g>
+        ))}
+        {nodes.map((node) => (
+          <motion.g
+            key={`node-${node.id}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <CallstackNodeRenderer callstack={callstack} node={node} />
+          </motion.g>
+        ))}
+      </AnimatePresence>
     </svg>
   );
 }

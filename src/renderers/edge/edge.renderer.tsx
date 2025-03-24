@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 
 import clsx from "clsx";
 
+import PathRenderer from "@/renderers/path/path.renderer.tsx";
+
 import { Point } from "@/structures/point.ts";
 
 import { stringify } from "@/utils/graph.utils.ts";
@@ -70,19 +72,24 @@ export default function EdgeRenderer({
   return (
     <g className={clsx(styles.edge, className)}>
       {isStraight ? (
-        <path
-          d={`M${start.x},${start.y} L${end.x},${end.y}`}
+        <PathRenderer
           className={clsx(styles.line, isDirected && styles.directed)}
+          start={{ x: start.x, y: start.y }}
+          end={{ x: end.x, y: end.y }}
         />
       ) : (
         <>
-          <path
-            d={`M${start.x},${start.y} L${end.x},${start.y}`}
+          <PathRenderer
             className={clsx(styles.line)}
+            start={{ x: start.x, y: start.y }}
+            end={{ x: end.x, y: start.y }}
+            transition={{ duration: 0.1 }}
           />
-          <path
-            d={`M${end.x},${start.y} L${end.x},${end.y}`}
+          <PathRenderer
             className={clsx(styles.line, isDirected && styles.directed)}
+            start={{ x: end.x, y: start.y }}
+            end={{ x: end.x, y: end.y }}
+            transition={{ duration: 0.1, delay: 0.1 }}
           />
         </>
       )}
