@@ -15,7 +15,7 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 import styles from "./problem_1.module.css";
 
 export default function Problem_1(): ReactElement {
-  const [n, setN] = useState<string>("4");
+  const [n, setN] = useState<string>("3");
 
   const {
     records,

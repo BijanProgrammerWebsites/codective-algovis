@@ -20,10 +20,13 @@ export default function CallstackNodeRenderer({
 }: Props): ReactElement {
   const { dimensions } = callstack;
   const { statementWidth, statementHeight } = dimensions;
-  const { x, y, title, statements } = node;
+  const { x, y, title, statements, status } = node;
 
   return (
-    <g className={clsx(styles.node)} transform={`translate(${x},${y})`}>
+    <g
+      className={clsx(styles.node, styles[status])}
+      transform={`translate(${x},${y})`}
+    >
       <g className={styles.title}>
         <rect
           className={styles.box}

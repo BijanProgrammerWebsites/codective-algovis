@@ -1,10 +1,12 @@
 .node {
+  --color: var(--color-text-400);
+
   font-family: monospace;
 
   .title {
     .box {
-      fill: var(--color-text-400);
-      stroke: var(--color-text-400);
+      fill: var(--color);
+      stroke: var(--color);
     }
 
     .text {
@@ -15,11 +17,19 @@
   .statement {
     .box {
       fill: var(--color-surface-200);
-      stroke: var(--color-text-400);
+      stroke: var(--color);
     }
 
     .text {
       fill: var(--color-text-400);
     }
+  }
+
+  &.success {
+    --color: var(--color-success);
+  }
+
+  &.warning {
+    --color: var(--color-warning);
   }
 }
