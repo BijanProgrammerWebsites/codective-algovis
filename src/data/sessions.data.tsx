@@ -7,6 +7,7 @@ import Problem125 from "@/problems/125/problem125.tsx";
 import Problem509 from "@/problems/509/problem509.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
 import Problem_1 from "@/problems/_1/problem_1.tsx";
+import Problem_2 from "@/problems/_2/problem_2.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -69,6 +70,7 @@ export const sessionsData: SessionType[] = [
         component: <Problem7 />,
         link: "https://leetcode.com/problems/reverse-integer/description/",
       },
+      { id: -2, title: "Max", component: <Problem_2 />, link: "" },
       // { id: 94, title: "Graph (Test)", component: <Problem94 />, link: "" },
     ],
   },
