@@ -306,13 +306,13 @@ export class GraphStructure {
       return;
     }
 
-    const leafCounts: Record<number, number> = {};
+    const leafsCount: Record<number, number> = {};
     let marked: Record<number, boolean> = {};
     let maxDepth = 0;
 
-    const recursiveAnalyze = (id: number, depth: number): number => {
+    const findLeafsCount = (id: number, depth: number): number => {
       marked[id] = true;
-      leafCounts[id] = 0;
+      leafsCount[id] = 0;
 
       if (maxDepth < depth) {
         maxDepth = depth;
@@ -324,25 +324,25 @@ export class GraphStructure {
           continue;
         }
 
-        leafCounts[id] += recursiveAnalyze(linkedNodeId, depth + 1);
+        leafsCount[id] += findLeafsCount(linkedNodeId, depth + 1);
       }
 
-      if (leafCounts[id] === 0) {
-        leafCounts[id] = 1;
+      if (leafsCount[id] === 0) {
+        leafsCount[id] = 1;
       }
 
-      return leafCounts[id];
+      return leafsCount[id];
     };
-    recursiveAnalyze(rootId, 0);
+    findLeafsCount(rootId, 0);
 
-    const hGap = rect.width / leafCounts[rootId];
+    const hGap = rect.width / leafsCount[rootId];
     const vGap = rect.height / maxDepth;
     marked = {};
 
-    const recursivePosition = (node: GraphNode, h: number, v: number): void => {
+    const setPositions = (node: GraphNode, h: number, v: number): void => {
       marked[node.id] = true;
 
-      node.x = rect.left + (h + leafCounts[node.id] / 2) * hGap;
+      node.x = rect.left + (h + leafsCount[node.id] / 2) * hGap;
       node.y = rect.top + v * vGap;
 
       const linkedNodes = this.findLinkedNodes(node.id, false);
@@ -355,12 +355,12 @@ export class GraphStructure {
           continue;
         }
 
-        recursivePosition(linkedNode, h, v + 1);
-        h += leafCounts[linkedNode.id];
+        setPositions(linkedNode, h, v + 1);
+        h += leafsCount[linkedNode.id];
       }
     };
 
-    recursivePosition(rootNode, 0, 0);
+    setPositions(rootNode, 0, 0);
   }
 
   public layoutRandom(): void {
@@ -381,7 +381,6 @@ export class GraphStructure {
     }
   }
 
-  // implemented
   private visitOrLeave(
     isVisiting: boolean,
     target: number,
@@ -403,7 +402,6 @@ export class GraphStructure {
     }
   }
 
-  // implemented
   public visit(
     target: number,
     source: number | null = null,
@@ -412,7 +410,6 @@ export class GraphStructure {
     this.visitOrLeave(true, target, source, weight);
   }
 
-  // implemented
   public leave(
     target: number,
     source: number | null = null,
