@@ -1,10 +1,10 @@
 import Problem27 from "@/problems/27/problem27.tsx";
 import Problem28 from "@/problems/28/problem28.tsx";
 import Problem75 from "@/problems/75/problem75.tsx";
-import Problem94 from "@/problems/94/problem94";
 import Problem121 from "@/problems/121/problem121.tsx";
 import Problem125 from "@/problems/125/problem125.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
+import Problem_1 from "@/problems/_1/problem_1.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -54,7 +54,7 @@ export const sessionsData: SessionType[] = [
   },
   {
     problems: [
-      { id: 94, title: "Graph (Test)", component: <Problem94 />, link: "" },
+      { id: -1, title: "Factorial", component: <Problem_1 />, link: "" },
     ],
   },
 ];

@@ -30,9 +30,11 @@ function ProblemPage(): ReactElement {
       <div className={styles.problem}>
         <h1>
           {problem.id}. {problem.title}
-          <a href={problem.link} target="_blank">
-            <HugeiconsLinkSquare01 />
-          </a>
+          {problem.link && (
+            <a href={problem.link} target="_blank">
+              <HugeiconsLinkSquare01 />
+            </a>
+          )}
         </h1>
         <StepperComponent className={styles.stepper} />
         <div className={styles.content}>{problem.component}</div>
