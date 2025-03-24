@@ -2,11 +2,11 @@ import { ReactElement } from "react";
 
 import clsx from "clsx";
 
-import styles from "./defs.module.css";
+import styles from "./arrows.module.css";
 
-export default function DefsRenderer(): ReactElement {
+export default function ArrowsRenderer(): ReactElement {
   return (
-    <defs className={styles.defs}>
+    <defs>
       <marker
         id="markerArrow"
         markerWidth="4"

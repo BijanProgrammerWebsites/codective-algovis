@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 
 import clsx from "clsx";
 
-import { GraphEdge, GraphStructure } from "@/structures/graph.structure.ts";
 import { Point } from "@/structures/point.ts";
 
 import { stringify } from "@/utils/graph.utils.ts";
@@ -10,25 +9,28 @@ import { stringify } from "@/utils/graph.utils.ts";
 import styles from "./edge.module.css";
 
 type Props = {
-  graph: GraphStructure;
-  edge: GraphEdge;
+  className?: string;
+  start: Point;
+  end: Point;
+  weight?: number | null;
+  nodeRadius?: number;
+  arrowGap?: number;
+  weightGap?: number;
+  isDirected?: boolean;
+  isWeighted?: boolean;
 };
 
-export default function EdgeRenderer({ graph, edge }: Props): ReactNode {
-  const { isDirected, isWeighted, dimensions } = graph;
-  const { nodeRadius, arrowGap, edgeWeightGap } = dimensions;
-  const { source, target, weight, visitedCount, selectedCount } = edge;
-
-  const sourceNode = graph.findNode(source);
-  const targetNode = graph.findNode(target);
-
-  if (!sourceNode || !targetNode) {
-    return null;
-  }
-
-  const start: Point = { x: sourceNode.x, y: sourceNode.y };
-  const end: Point = { x: targetNode.x, y: targetNode.y };
-
+export default function EdgeRenderer({
+  className,
+  start,
+  end,
+  weight,
+  nodeRadius = 0,
+  arrowGap = 0,
+  weightGap = 0,
+  isDirected = false,
+  isWeighted = false,
+}: Props): ReactNode {
   const middle: Point = { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 };
 
   const deltaX = end.x - start.x;
@@ -43,20 +45,15 @@ export default function EdgeRenderer({ graph, edge }: Props): ReactNode {
     const lineRatio = lineLength / totalLength;
 
     if (totalLength !== 0) {
-      end.x = start.x + deltaX * lineRatio;
-      end.y = start.y + deltaY * lineRatio;
+      end = {
+        x: start.x + deltaX * lineRatio,
+        y: start.y + deltaY * lineRatio,
+      };
     }
   }
 
   return (
-    <g
-      className={clsx(
-        styles.edge,
-        selectedCount && styles.selected,
-        visitedCount && styles.visited,
-      )}
-      key={`${source}-${target}`}
-    >
+    <g className={clsx(styles.edge, className)}>
       <path
         d={`M${start.x},${start.y} L${end.x},${end.y}`}
         className={clsx(styles.line, isDirected && styles.directed)}
@@ -66,7 +63,7 @@ export default function EdgeRenderer({ graph, edge }: Props): ReactNode {
           <text
             className={styles.weight}
             transform={`rotate(${degree})`}
-            y={-edgeWeightGap}
+            y={-weightGap}
           >
             {stringify(weight)}
           </text>

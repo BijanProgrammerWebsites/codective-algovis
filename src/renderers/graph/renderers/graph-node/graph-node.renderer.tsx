@@ -6,14 +6,17 @@ import { GraphNode, GraphStructure } from "@/structures/graph.structure.ts";
 
 import { stringify } from "@/utils/graph.utils.ts";
 
-import styles from "./node.module.css";
+import styles from "./graph-node.module.css";
 
 type Props = {
   graph: GraphStructure;
   node: GraphNode;
 };
 
-export default function NodeRenderer({ graph, node }: Props): ReactElement {
+export default function GraphNodeRenderer({
+  graph,
+  node,
+}: Props): ReactElement {
   const { isWeighted, dimensions } = graph;
   const { nodeRadius, nodeWeightGap } = dimensions;
   const { id, x, y, weight, visitedCount, selectedCount } = node;

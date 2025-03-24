@@ -9,9 +9,9 @@ import {
 
 import { RendererContext } from "@/context/renderer.context.ts";
 
-import DefsRenderer from "@/renderers/graph/renderers/defs/defs.renderer.tsx";
-import EdgeRenderer from "@/renderers/graph/renderers/edge/edge.renderer.tsx";
-import NodeRenderer from "@/renderers/graph/renderers/node/node.renderer.tsx";
+import ArrowsRenderer from "@/renderers/arrows/arrows.renderer.tsx";
+import GraphEdgeRenderer from "@/renderers/graph/renderers/graph-edge/graph-edge.renderer.tsx";
+import GraphNodeRenderer from "@/renderers/graph/renderers/graph-node/graph-node.renderer.tsx";
 
 import { GraphNode, GraphStructure } from "@/structures/graph.structure.ts";
 import { Point } from "@/structures/point.ts";
@@ -105,16 +105,16 @@ export default function GraphRenderer({ graph }: Props): ReactElement {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
-      <DefsRenderer />
+      <ArrowsRenderer />
       {edges.map((edge) => (
-        <EdgeRenderer
+        <GraphEdgeRenderer
           key={`${edge.source}-${edge.target}`}
           graph={graph}
           edge={edge}
         />
       ))}
       {nodes.map((node) => (
-        <NodeRenderer key={node.id} graph={graph} node={node} />
+        <GraphNodeRenderer key={node.id} graph={graph} node={node} />
       ))}
     </svg>
   );
