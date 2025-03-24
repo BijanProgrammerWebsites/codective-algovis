@@ -10,6 +10,9 @@ import { SessionType } from "@/types/session.type.ts";
 
 export const sessionsData: SessionType[] = [
   {
+    problems: [],
+  },
+  {
     problems: [
       {
         id: 125,
