@@ -3,6 +3,8 @@ import {
   RendererStructure,
 } from "@/structures/renderer.structure.ts";
 
+import { ColorType } from "@/types/color.type.ts";
+
 export type CallstackDimensions = {
   baseWidth: number;
   baseHeight: number;
@@ -26,6 +28,7 @@ export type CallstackNode = {
   y: number;
   title: string;
   statements: string[];
+  status: ColorType;
 };
 
 export type CallstackEdge = {
@@ -33,8 +36,8 @@ export type CallstackEdge = {
   target: number;
 };
 
-type PartialNode = Omit<CallstackNode, "x" | "y"> &
-  Partial<Pick<CallstackNode, "x" | "y">>;
+type PartialNode = Omit<CallstackNode, "x" | "y" | "status"> &
+  Partial<Pick<CallstackNode, "x" | "y" | "status">>;
 
 type PartialEdge = Partial<CallstackEdge> &
   Pick<CallstackEdge, "source" | "target">;
@@ -66,6 +69,7 @@ export class CallstackStructure extends RendererStructure<
     super.addNode({
       x: 0,
       y: 0,
+      status: "default",
       ...partialNode,
     });
   }

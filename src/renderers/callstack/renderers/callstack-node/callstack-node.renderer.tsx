@@ -36,6 +36,7 @@ export default function CallstackNodeRenderer({
       </g>
       {statements.map((statement, i) => (
         <g
+          key={i}
           className={clsx(styles.statement)}
           transform={`translate(${0},${(i + 1) * 40})`}
         >

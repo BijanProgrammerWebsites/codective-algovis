@@ -5,10 +5,7 @@ import { ButtonComponent } from "@/components/button/button.component.tsx";
 import FormComponent from "@/components/form/form.component.tsx";
 import NormalInputComponent from "@/components/normal-input/normal-input.component.tsx";
 
-import { useTracer } from "@/hooks/use-tracer.hook.ts";
-
-import { CallstackTracerRecord } from "@/records/callstack-tracer.record.ts";
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+import { useCallstackTracer } from "@/hooks/use-callstack-tracer.ts";
 
 import { CallstackStructure } from "@/structures/callstack.structure.ts";
 
@@ -20,46 +17,41 @@ import styles from "./problem_1.module.css";
 export default function Problem_1(): ReactElement {
   const [n, setN] = useState<string>("4");
 
-  const [records, trace, reset] =
-    useTracer<[LogTracerRecord, CallstackTracerRecord]>();
+  const {
+    records,
+    reset,
+    traceBeforeWeBegin,
+    traceBeforeCall,
+    traceCalled,
+    traceReturning,
+    traceReturned,
+  } = useCallstackTracer();
 
   const solve = (): void => {
     reset();
 
     const callstack = new CallstackStructure();
-    callstack.addNode({
-      id: 0,
-      title: "f(3)",
-      statements: ["if(n === 1) return", "return 3 * f(2)"],
-    });
+    traceBeforeWeBegin(callstack, `n = ${n}`);
 
-    trace([{ message: "Start" }, { callstack }]);
+    function factorial(parentId: number, id: number, n: number): number {
+      traceCalled(callstack, parentId, id, n);
 
-    callstack.addNode({
-      id: 1,
-      title: "f(2)",
-      statements: ["if(n === 1) return", "return 2 * f(1)"],
-    });
-    callstack.addEdge({ source: 0, target: 1 });
-    trace([{ message: "Call 1" }, { callstack }]);
+      if (n === 1) {
+        traceReturning(callstack, id, 1);
+        return 1;
+      }
 
-    callstack.addNode({
-      id: 2,
-      title: "f(1)",
-      statements: ["if(n === 1) return"],
-    });
-    callstack.addEdge({ source: 1, target: 2 });
-    trace([{ message: "Call 2" }, { callstack }]);
+      traceBeforeCall(callstack, id, n - 1);
+      const result = factorial(id, id + 1, n - 1);
+      traceReturned(callstack, id, result);
 
-    callstack.removeNode(2);
-    trace([{ message: "Return 2" }, { callstack }]);
+      traceReturning(callstack, id, `${n} * ${result}`);
+      return n * result;
+    }
 
-    callstack.removeNode(1);
-    trace([{ message: "Return 1" }, { callstack }]);
-
-    trace([{ message: "End" }, { callstack }]);
-
-    return;
+    traceBeforeCall(callstack, 0, +n);
+    const result = factorial(0, 1, +n);
+    traceReturned(callstack, 0, result);
   };
 
   useEffect(() => {
