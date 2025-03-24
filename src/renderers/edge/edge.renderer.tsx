@@ -18,6 +18,7 @@ type Props = {
   weightGap?: number;
   isDirected?: boolean;
   isWeighted?: boolean;
+  isStraight?: boolean;
 };
 
 export default function EdgeRenderer({
@@ -30,6 +31,7 @@ export default function EdgeRenderer({
   weightGap = 0,
   isDirected = false,
   isWeighted = false,
+  isStraight = true,
 }: Props): ReactNode {
   const middle: Point = { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 };
 
@@ -39,25 +41,45 @@ export default function EdgeRenderer({
   const degree = (Math.atan2(deltaY, deltaX) / Math.PI) * 180;
 
   if (isDirected) {
-    const totalLength = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    const lineLength = totalLength - nodeRadius - arrowGap;
+    if (isStraight) {
+      const totalLength = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      const lineLength = totalLength - nodeRadius - arrowGap;
 
-    const lineRatio = lineLength / totalLength;
+      const lineRatio = lineLength / totalLength;
 
-    if (totalLength !== 0) {
+      if (totalLength !== 0) {
+        end = {
+          x: start.x + deltaX * lineRatio,
+          y: start.y + deltaY * lineRatio,
+        };
+      }
+    } else {
       end = {
-        x: start.x + deltaX * lineRatio,
-        y: start.y + deltaY * lineRatio,
+        x: end.x,
+        y: end.y - nodeRadius - arrowGap,
       };
     }
   }
 
   return (
     <g className={clsx(styles.edge, className)}>
-      <path
-        d={`M${start.x},${start.y} L${end.x},${end.y}`}
-        className={clsx(styles.line, isDirected && styles.directed)}
-      />
+      {isStraight ? (
+        <path
+          d={`M${start.x},${start.y} L${end.x},${end.y}`}
+          className={clsx(styles.line, isDirected && styles.directed)}
+        />
+      ) : (
+        <>
+          <path
+            d={`M${start.x},${start.y} L${end.x},${start.y}`}
+            className={clsx(styles.line)}
+          />
+          <path
+            d={`M${end.x},${start.y} L${end.x},${end.y}`}
+            className={clsx(styles.line, isDirected && styles.directed)}
+          />
+        </>
+      )}
       {isWeighted && (
         <g transform={`translate(${middle.x},${middle.y})`}>
           <text

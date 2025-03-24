@@ -4,6 +4,7 @@ export type RendererDimensions = {
   baseWidth: number;
   baseHeight: number;
   padding: number;
+  arrowGap: number;
 };
 
 export type RendererConfig<

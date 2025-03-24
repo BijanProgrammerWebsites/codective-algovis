@@ -7,6 +7,7 @@ export type CallstackDimensions = {
   baseWidth: number;
   baseHeight: number;
   padding: number;
+  arrowGap: number;
 };
 
 export type CallstackConfig = {
@@ -43,6 +44,7 @@ export class CallstackStructure extends RendererStructure<
         baseWidth: 800,
         baseHeight: 600,
         padding: 40,
+        arrowGap: 4,
       },
       layoutCallback: () => this.layoutTree(),
       ...config,
@@ -63,8 +65,8 @@ export class CallstackStructure extends RendererStructure<
     });
   }
 
-  public layoutTree(rootId = 0, shouldSort = false): void {
-    this.layoutCallback = () => this.layoutTree(rootId, shouldSort);
+  public layoutTree(rootId = 0): void {
+    this.layoutCallback = () => this.layoutTree(rootId);
 
     const rootNode = this.findNode(rootId);
     if (!rootNode) {
@@ -80,13 +82,11 @@ export class CallstackStructure extends RendererStructure<
       return;
     }
 
-    const leafsCount: Record<number, number> = {};
     let marked: Record<number, boolean> = {};
     let maxDepth = 0;
 
-    const findLeafsCount = (id: number, depth: number): number => {
+    const findMaxDepth = (id: number, depth: number): void => {
       marked[id] = true;
-      leafsCount[id] = 0;
 
       if (maxDepth < depth) {
         maxDepth = depth;
@@ -98,42 +98,32 @@ export class CallstackStructure extends RendererStructure<
           continue;
         }
 
-        leafsCount[id] += findLeafsCount(linkedNodeId, depth + 1);
+        findMaxDepth(linkedNodeId, depth + 1);
       }
-
-      if (leafsCount[id] === 0) {
-        leafsCount[id] = 1;
-      }
-
-      return leafsCount[id];
     };
-    findLeafsCount(rootId, 0);
+    findMaxDepth(rootId, 0);
 
-    const hGap = rect.width / leafsCount[rootId];
+    const hGap = rect.width / maxDepth;
     const vGap = rect.height / maxDepth;
     marked = {};
 
-    const setPositions = (node: RendererNode, h: number, v: number): void => {
+    const setPositions = (node: RendererNode, depth: number): void => {
       marked[node.id] = true;
 
-      node.x = rect.left + (h + leafsCount[node.id] / 2) * hGap;
-      node.y = rect.top + v * vGap;
+      node.x = rect.left + depth * hGap;
+      node.y = rect.top + depth * vGap;
 
       const linkedNodes = this.findLinkedNodes(node.id, false);
-      if (shouldSort) {
-        linkedNodes.sort((a, b) => a.id - b.id);
-      }
 
       for (const linkedNode of linkedNodes) {
         if (marked[linkedNode.id]) {
           continue;
         }
 
-        setPositions(linkedNode, h, v + 1);
-        h += leafsCount[linkedNode.id];
+        setPositions(linkedNode, depth + 1);
       }
     };
 
-    setPositions(rootNode, 0, 0);
+    setPositions(rootNode, 0);
   }
 }

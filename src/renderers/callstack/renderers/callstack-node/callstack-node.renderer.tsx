@@ -24,7 +24,7 @@ export default function CallstackNodeRenderer({
 
   return (
     <g className={clsx(styles.node)} transform={`translate(${x},${y})`}>
-      <circle className={styles.circle} r={23} />
+      <circle className={styles.circle} r={20} />
       <text className={styles.id}>{id}</text>
     </g>
   );
