@@ -19,12 +19,12 @@ export default function CallstackNodeRenderer({
   node,
 }: Props): ReactElement {
   const { dimensions } = callstack;
-  const { nodeRadius } = dimensions;
+  const { padding } = dimensions;
   const { id, x, y } = node;
 
   return (
     <g className={clsx(styles.node)} transform={`translate(${x},${y})`}>
-      <circle className={styles.circle} r={nodeRadius} />
+      <circle className={styles.circle} r={23} />
       <text className={styles.id}>{id}</text>
     </g>
   );

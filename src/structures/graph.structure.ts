@@ -1,6 +1,8 @@
+import { RendererStructure } from "@/structures/renderer.structure.ts";
+
 import { distance } from "@/utils/graph.utils.ts";
 
-export type Dimensions = {
+export type GraphDimensions = {
   baseWidth: number;
   baseHeight: number;
   padding: number;
@@ -10,8 +12,8 @@ export type Dimensions = {
   edgeWeightGap: number;
 };
 
-export type Config = {
-  dimensions: Dimensions;
+export type GraphConfig = {
+  dimensions: GraphDimensions;
   isDirected: boolean;
   isWeighted: boolean;
   layoutCallback: () => unknown;
@@ -48,28 +50,30 @@ export type Rect = {
   height: number;
 };
 
-export class GraphStructure {
-  public readonly dimensions: Config["dimensions"] = {
-    baseWidth: 800,
-    baseHeight: 600,
-    padding: 40,
-    nodeRadius: 20,
-    arrowGap: 4,
-    nodeWeightGap: 4,
-    edgeWeightGap: 4,
-  };
-  public readonly isDirected: Config["isDirected"] = true;
-  public readonly isWeighted: Config["isWeighted"] = false;
-  public layoutCallback: Config["layoutCallback"] = () => this.layoutCircle();
+export class GraphStructure extends RendererStructure<
+  GraphDimensions,
+  GraphConfig,
+  GraphNode,
+  GraphEdge
+> {
+  public readonly isWeighted: GraphConfig["isWeighted"];
 
-  public nodes: GraphNode[] = [];
-  public edges: GraphEdge[] = [];
+  public constructor(config?: Partial<GraphConfig>) {
+    super({
+      dimensions: {
+        baseWidth: 800,
+        baseHeight: 600,
+        padding: 40,
+        nodeRadius: 20,
+        arrowGap: 4,
+        nodeWeightGap: 4,
+        edgeWeightGap: 4,
+      },
+      layoutCallback: () => this.layoutTree(),
+      ...config,
+    });
 
-  public constructor(config?: Partial<Config>) {
-    this.dimensions = config?.dimensions ?? this.dimensions;
-    this.isDirected = config?.isDirected ?? this.isDirected;
-    this.isWeighted = config?.isWeighted ?? this.isWeighted;
-    this.layoutCallback = config?.layoutCallback ?? this.layoutCallback;
+    this.isWeighted = config?.isWeighted ?? false;
   }
 
   public set(array2d: number[][] = []): void {
@@ -96,180 +100,23 @@ export class GraphStructure {
   }
 
   public addNode(partialNode: PartialNode): void {
-    const foundNode = this.findNode(partialNode.id);
-    if (foundNode) {
-      return;
-    }
-
-    const node: GraphNode = {
+    super.addNode({
       weight: null,
       x: 0,
       y: 0,
       visitedCount: 0,
       selectedCount: 0,
       ...partialNode,
-    };
-
-    this.nodes.push(node);
-
-    this.layoutCallback();
-  }
-
-  public updateNode(partialNode: PartialNode): void {
-    const foundIndex = this.findNodeIndex(partialNode.id);
-    if (foundIndex === -1) {
-      return;
-    }
-
-    this.nodes[foundIndex] = {
-      ...this.nodes[foundIndex],
-      ...partialNode,
-    };
-  }
-
-  public removeNode(id: number): void {
-    const foundIndex = this.findNodeIndex(id);
-    if (foundIndex === -1) {
-      return;
-    }
-
-    this.nodes.splice(foundIndex, 1);
-
-    this.layoutCallback();
+    });
   }
 
   public addEdge(partialEdge: PartialEdge): void {
-    const foundEdge = this.findEdge(partialEdge.source, partialEdge.target);
-    if (foundEdge) {
-      return;
-    }
-
-    const edge: GraphEdge = {
+    super.addEdge({
       weight: null,
       visitedCount: 0,
       selectedCount: 0,
       ...partialEdge,
-    };
-
-    this.edges.push(edge);
-
-    this.layoutCallback();
-  }
-
-  public updateEdge(partialEdge: PartialEdge): void {
-    const foundIndex = this.findEdgeIndex(
-      partialEdge.source,
-      partialEdge.target,
-    );
-    if (foundIndex === -1) {
-      return;
-    }
-
-    this.edges[foundIndex] = {
-      ...this.edges[foundIndex],
-      ...partialEdge,
-    };
-  }
-
-  public removeEdge(source: number, target: number): void {
-    const foundIndex = this.findEdgeIndex(source, target);
-    if (foundIndex === -1) {
-      return;
-    }
-
-    this.edges.splice(foundIndex, 1);
-
-    this.layoutCallback();
-  }
-
-  public findNode(id: number): GraphNode | undefined {
-    return this.nodes.find((node) => node.id === id);
-  }
-
-  public findNodeIndex(id: number): number {
-    const foundNode = this.findNode(id);
-    if (!foundNode) {
-      return -1;
-    }
-
-    return this.nodes.indexOf(foundNode);
-  }
-
-  public findEdge(
-    source: number,
-    target: number,
-    isDirected: boolean = this.isDirected,
-  ): GraphEdge | undefined {
-    if (isDirected) {
-      return this.edges.find(
-        (edge) => edge.source === source && edge.target === target,
-      );
-    }
-
-    return this.edges.find(
-      (edge) =>
-        (edge.source === source && edge.target === target) ||
-        (edge.source === target && edge.target === source),
-    );
-  }
-
-  public findEdgeIndex(
-    source: number,
-    target: number,
-    isDirected: boolean = this.isDirected,
-  ): number {
-    const foundEdge = this.findEdge(source, target, isDirected);
-    if (!foundEdge) {
-      return -1;
-    }
-
-    return this.edges.indexOf(foundEdge);
-  }
-
-  public findLinkedEdges(
-    source: number,
-    isDirected: boolean = this.isDirected,
-  ): GraphEdge[] {
-    if (isDirected) {
-      return this.edges.filter((edge) => edge.source === source);
-    }
-
-    return this.edges.filter(
-      (edge) => edge.source === source || edge.target === source,
-    );
-  }
-
-  public findLinkedNodeIds(
-    source: number,
-    isDirected: boolean = this.isDirected,
-  ): number[] {
-    const edges = this.findLinkedEdges(source, isDirected);
-    return edges.map((edge) =>
-      edge.source === source ? edge.target : edge.source,
-    );
-  }
-
-  public findLinkedNodes(
-    source: number,
-    isDirected: boolean = this.isDirected,
-  ): GraphNode[] {
-    const ids = this.findLinkedNodeIds(source, isDirected);
-    return ids
-      .map((id) => this.findNode(id))
-      .filter((node) => node !== undefined);
-  }
-
-  private getRect(): Rect {
-    const { baseWidth, baseHeight, padding } = this.dimensions;
-
-    const left = -baseWidth / 2 + padding;
-    const top = -baseHeight / 2 + padding;
-    const right = baseWidth / 2 - padding;
-    const bottom = baseHeight / 2 - padding;
-    const width = right - left;
-    const height = bottom - top;
-
-    return { left, top, right, bottom, width, height };
+    });
   }
 
   public layoutCircle(): void {
