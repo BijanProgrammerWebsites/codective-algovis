@@ -19,7 +19,7 @@ export default function CallstackTracer({ records }: Props): ReactElement {
 
   const record = records[step];
   if (!record) {
-    return <div className={styles.graph}>Not Available</div>;
+    return <div className={styles.callstack}>Not Available</div>;
   }
 
   return (
