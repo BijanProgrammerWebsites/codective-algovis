@@ -3,11 +3,29 @@ import { useTracer } from "@/hooks/use-tracer.hook.ts";
 import { ArrayTracerRecord, Item } from "@/records/array-tracer.record.ts";
 import { LogTracerRecord } from "@/records/log-tracer.record.ts";
 
+import { ColorType } from "@/types/color.type.ts";
+
 import { generatePointers } from "@/utils/generator.utils.ts";
 
 export function useProblem28() {
   const [records, trace, reset] =
     useTracer<[LogTracerRecord, ArrayTracerRecord, ArrayTracerRecord]>();
+
+  const colorize = (
+    items: Item[],
+    from: number,
+    to: number,
+    color: ColorType,
+  ): void => {
+    let i = from;
+
+    while (i !== to) {
+      items[i].color = color;
+      i++;
+    }
+
+    items[i].color = color;
+  };
 
   const generateItems = (text: string): Item[] => {
     return text.split("").map((character, index) => ({
@@ -48,7 +66,7 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generatePointers({ start, index });
+    const haystackPointers = generatePointers({ start, index: start + index });
     const needlePointers = generatePointers({ index });
 
     trace([
@@ -64,7 +82,7 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generatePointers({ start, index });
+    const haystackPointers = generatePointers({ start, index: start + index });
     const needlePointers = generatePointers({ index });
 
     haystackItems[start + index].color = "primary";
@@ -82,7 +100,7 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generatePointers({ start, index });
+    const haystackPointers = generatePointers({ start, index: start + index });
     const needlePointers = generatePointers({ index });
 
     haystackItems[start + index].color = "success";
@@ -103,7 +121,7 @@ export function useProblem28() {
     start: number,
     index: number,
   ): void => {
-    const haystackPointers = generatePointers({ start, index });
+    const haystackPointers = generatePointers({ start, index: start + index });
     const needlePointers = generatePointers({ index });
 
     haystackItems[start + index].color = "danger";
@@ -114,8 +132,10 @@ export function useProblem28() {
       { items: needleItems, pointers: needlePointers },
     ]);
 
-    haystackItems[start + index].color = "disabled";
-    needleItems[index].color = "disabled";
+    colorize(haystackItems, start, start + index, "default");
+    haystackItems[start].color = "disabled";
+
+    colorize(needleItems, 0, needleItems.length - 1, "default");
   };
 
   const traceFound = (
