@@ -11,6 +11,7 @@ type Cell = {
 type PartialCell = Partial<Cell>;
 
 export type ArrayPointers = Record<string, number>;
+export type ArrayStatuses = Record<number, ColorType>;
 
 export class ArrayStructure {
   public readonly length: number;
@@ -54,7 +55,7 @@ export class ArrayStructure {
     };
   }
 
-  public updateStatuses(statuses: Record<number, ColorType>): void {
+  public updateStatuses(statuses: ArrayStatuses): void {
     Object.entries(statuses).forEach(([index, status]) => {
       this.cells[+index].status = status;
     });

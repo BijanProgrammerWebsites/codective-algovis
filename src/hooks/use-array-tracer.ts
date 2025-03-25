@@ -5,7 +5,11 @@ import { useTracer } from "@/hooks/use-tracer.hook.ts";
 import { ArrayTracerRecord } from "@/records/array-tracer.record.ts";
 import { LogTracerRecord } from "@/records/log-tracer.record.ts";
 
-import { ArrayPointers, ArrayStructure } from "@/structures/array.structure.ts";
+import {
+  ArrayPointers,
+  ArrayStatuses,
+  ArrayStructure,
+} from "@/structures/array.structure.ts";
 
 import { ColorType } from "@/types/color.type.ts";
 
@@ -21,7 +25,7 @@ export function useArrayTracer() {
   };
 
   const traceAndReset = (
-    statuses: Record<number, ColorType>,
+    statuses: ArrayStatuses,
     message: string,
     pointers: ArrayPointers,
   ): void => {

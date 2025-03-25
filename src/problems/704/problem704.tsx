@@ -7,22 +7,42 @@ import NormalInputComponent from "@/components/normal-input/normal-input.compone
 
 import { useArrayTracer } from "@/hooks/use-array-tracer.ts";
 
-import { ArrayStructure } from "@/structures/array.structure.ts";
+import { ArrayStatuses, ArrayStructure } from "@/structures/array.structure.ts";
 
 import ArrayTracer from "@/tracers/array/array.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
 
-import styles from "./problem_3.module.css";
+import { ColorType } from "@/types/color.type.ts";
 
-export default function Problem_3(): ReactElement {
-  const [nums, setNums] = useState<string>("[-1, 0, 3, 5, 9, 12]");
+import styles from "./problem704.module.css";
+
+export default function Problem704(): ReactElement {
+  const [nums, setNums] = useState<string>(
+    "[2, 3, 10, 11, 33, 41, 50, 66, 68, 70, 79, 91]",
+  );
   const [target, setTarget] = useState<string>("9");
 
-  const { records, reset, traceBeforeWeBegin, traceIndex, traceAll } =
+  const { records, reset, traceBeforeWeBegin, traceAndReset, traceAll } =
     useArrayTracer();
 
   const solve = (): void => {
     reset();
+
+    function t(
+      start: number,
+      mid: number,
+      end: number,
+      status: ColorType,
+      message: string,
+    ): void {
+      const statuses: ArrayStatuses = {
+        [start]: "primary",
+        [end]: "primary",
+        [mid]: status,
+      };
+
+      traceAndReset(statuses, message, { start, mid, end });
+    }
 
     const parsedNums = JSON.parse(nums);
     const value = +target;
@@ -30,16 +50,29 @@ export default function Problem_3(): ReactElement {
     const array = new ArrayStructure(parsedNums);
     traceBeforeWeBegin(array);
 
-    for (let index = 0; index < parsedNums.length; index++) {
-      traceIndex(index, "warning", `${parsedNums[index]} === ${value} ?`);
+    let start = 0;
+    let end = array.length - 1;
+    let mid = Math.floor((start + end) / 2);
 
-      if (parsedNums[index] === value) {
-        traceIndex(index, "success", "Yes");
-        traceAll("success", `Found ${value} at index ${index}`);
+    t(start, mid, end, "primary", "Set pointers");
+
+    while (start <= end) {
+      mid = Math.floor((start + end) / 2);
+      const x = array.cells[mid].value as number;
+
+      t(start, mid, end, "warning", `Consider ${x}`);
+
+      if (x > value) {
+        t(start, mid, end, "danger", `${x} is greater than ${value}`);
+        end = mid - 1;
+      } else if (x < value) {
+        t(start, mid, end, "danger", `${x} is less than ${value}`);
+        start = mid + 1;
+      } else {
+        t(start, mid, end, "success", `${x} is equal ${value}`);
+        traceAll("success", `Found ${value} at index ${mid}`);
         return;
       }
-
-      traceIndex(index, "danger", "No");
     }
 
     traceAll("danger", `Array doesn't include ${value}`);

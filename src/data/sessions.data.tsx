@@ -7,6 +7,7 @@ import Problem94 from "@/problems/94/problem94.tsx";
 import Problem121 from "@/problems/121/problem121.tsx";
 import Problem125 from "@/problems/125/problem125.tsx";
 import Problem509 from "@/problems/509/problem509.tsx";
+import Problem704 from "@/problems/704/problem704.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
 import Problem_1 from "@/problems/_1/problem_1.tsx";
 import Problem_2 from "@/problems/_2/problem_2.tsx";
@@ -87,6 +88,12 @@ export const sessionsData: SessionType[] = [
   {
     problems: [
       { id: -3, title: "Linear Search", component: <Problem_3 />, link: "" },
+      {
+        id: 704,
+        title: "Binary Search",
+        component: <Problem704 />,
+        link: "https://leetcode.com/problems/binary-search/description/",
+      },
     ],
   },
 ];
