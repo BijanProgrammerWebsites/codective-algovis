@@ -61,6 +61,43 @@ export function useArrayTracer() {
     trace([{ message: "Pause" }, { array: array.current! }]);
   };
 
+  const traceIndexes = (
+    indexes: number[],
+    status: ColorType,
+    message: string,
+  ): void => {
+    console.log(indexes);
+    const previousStatuses = array.current!.statuses;
+
+    for (const index of indexes) {
+      array.current!.colorize(status, index, index);
+    }
+
+    trace([{ message }, { array: array.current! }]);
+
+    array.current!.updateAllStatuses(previousStatuses);
+  };
+
+  const tracesIndexesWithinWindow = (
+    window: { start: number; end: number },
+    indexes: number[],
+    indexesStatus: ColorType,
+    windowStatus: ColorType,
+    message: string,
+  ): void => {
+    const previousStatuses = array.current!.statuses;
+
+    array.current!.colorize(windowStatus, window.start, window.end);
+    
+    for (const index of indexes) {
+      array.current!.colorize(indexesStatus, index, index);
+    }
+
+    trace([{ message }, { array: array.current! }]);
+
+    array.current!.updateAllStatuses(previousStatuses);
+  };
+
   return {
     records,
     reset,
@@ -69,5 +106,7 @@ export function useArrayTracer() {
     traceIndex,
     traceAll,
     tracePause,
+    traceIndexes,
+    tracesIndexesWithinWindow,
   };
 }
