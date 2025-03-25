@@ -14,7 +14,7 @@
   --color-warning: hsl(50, 100%, 50%);
   --color-warning-fade: hsl(50, 20%, 20%);
   --color-warning-hover: hsl(50, 100%, 60%);
-  --color-warning-opposite: hsl(50, 0%, 97%);
+  --color-warning-opposite: hsl(0, 0%, 10%);
 
   --color-danger: hsl(0, 50%, 50%);
   --color-danger-fade: hsl(0, 20%, 20%);

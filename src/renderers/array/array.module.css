@@ -1,0 +1,96 @@
+.array {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  block-size: 100%;
+
+  .cell {
+    position: relative;
+
+    display: grid;
+    justify-items: center;
+
+    .value {
+      background-color: var(--color-surface-300);
+
+      display: grid;
+      place-content: center;
+
+      min-inline-size: 2.5rem;
+      block-size: 2.5rem;
+
+      padding-inline: 0.5rem;
+
+      border: 1px solid var(--color-primary);
+      border-radius: var(--border-radius);
+    }
+
+    .pointers {
+      position: absolute;
+      inset-block-end: 0;
+      inset-inline-start: 50%;
+
+      display: grid;
+      justify-items: center;
+      gap: 0.5rem;
+
+      transform: translate(-50%, calc(100% + 0.5rem));
+
+      .pointer {
+        .content {
+          display: grid;
+          justify-items: center;
+
+          inline-size: max-content;
+        }
+      }
+    }
+
+    &.primary {
+      .value {
+        background-color: var(--color-primary);
+        color: var(--color-primary-opposite);
+
+        border-color: var(--color-primary);
+      }
+    }
+
+    &.success {
+      .value {
+        background-color: var(--color-success);
+        color: var(--color-success-opposite);
+
+        border-color: var(--color-success);
+      }
+    }
+
+    &.warning {
+      .value {
+        background-color: var(--color-warning);
+        color: var(--color-warning-opposite);
+
+        border-color: var(--color-warning);
+      }
+    }
+
+    &.danger {
+      .value {
+        background-color: var(--color-danger);
+        color: var(--color-danger-opposite);
+
+        border-color: var(--color-danger);
+      }
+    }
+
+    &.disabled {
+      .value {
+        background-color: var(--color-surface-disabled);
+        color: var(--color-text-disabled);
+
+        border-color: var(--color-surface-disabled);
+      }
+    }
+  }
+}

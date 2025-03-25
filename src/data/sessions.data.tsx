@@ -10,6 +10,7 @@ import Problem509 from "@/problems/509/problem509.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
 import Problem_1 from "@/problems/_1/problem_1.tsx";
 import Problem_2 from "@/problems/_2/problem_2.tsx";
+import Problem_3 from "@/problems/_3/problem_3.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -81,6 +82,11 @@ export const sessionsData: SessionType[] = [
         component: <Problem51 />,
         link: "https://leetcode.com/problems/n-queens/description/",
       },
+    ],
+  },
+  {
+    problems: [
+      { id: -3, title: "Linear Search", component: <Problem_3 />, link: "" },
     ],
   },
 ];
