@@ -13,7 +13,4 @@
   --color-arrow-idle: hsl(0, 0%, 90%);
   --color-arrow-selected: var(--color-primary);
   --color-arrow-visited: var(--color-surface-disabled);
-
-  block-size: 600px;
-  inline-size: 800px;
 }

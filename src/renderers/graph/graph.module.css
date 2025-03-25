@@ -17,7 +17,4 @@
   --color-weight-idle: hsl(0, 0%, 90%);
   --color-weight-selected: var(--color-primary);
   --color-weight-visited: var(--color-surface-disabled);
-
-  block-size: 600px;
-  inline-size: 800px;
 }

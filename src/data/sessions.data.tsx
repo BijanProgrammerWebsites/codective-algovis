@@ -3,6 +3,7 @@ import Problem27 from "@/problems/27/problem27.tsx";
 import Problem28 from "@/problems/28/problem28.tsx";
 import Problem51 from "@/problems/51/problem51.tsx";
 import Problem75 from "@/problems/75/problem75.tsx";
+import Problem94 from "@/problems/94/problem94.tsx";
 import Problem121 from "@/problems/121/problem121.tsx";
 import Problem125 from "@/problems/125/problem125.tsx";
 import Problem509 from "@/problems/509/problem509.tsx";
@@ -14,7 +15,9 @@ import { SessionType } from "@/types/session.type.ts";
 
 export const sessionsData: SessionType[] = [
   {
-    problems: [],
+    problems: [
+      { id: 94, title: "Graph (Test)", component: <Problem94 />, link: "" },
+    ],
   },
   {
     problems: [
@@ -78,7 +81,6 @@ export const sessionsData: SessionType[] = [
         component: <Problem51 />,
         link: "https://leetcode.com/problems/n-queens/description/",
       },
-      // { id: 94, title: "Graph (Test)", component: <Problem94 />, link: "" },
     ],
   },
 ];
