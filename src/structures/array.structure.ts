@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { ColorType } from "@/types/color.type.ts";
 
-type Cell<T extends ReactNode = ReactNode> = {
+export type Cell<T extends ReactNode = ReactNode> = {
   id: string;
   value: T;
   status: ColorType;

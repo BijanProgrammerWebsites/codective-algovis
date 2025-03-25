@@ -18,8 +18,8 @@ export default function LogTracer({ records }: Props): ReactElement {
   const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    const activeRecord = listRef.current?.querySelector(`li.${styles.active}`);
-    activeRecord?.scrollIntoView();
+    // const activeRecord = listRef.current?.querySelector(`li.${styles.active}`);
+    // activeRecord?.scrollIntoView();
   }, [step]);
 
   return (

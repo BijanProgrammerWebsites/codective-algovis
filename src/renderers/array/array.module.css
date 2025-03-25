@@ -53,7 +53,7 @@
         background-color: var(--color-primary);
         color: var(--color-primary-opposite);
 
-        border-color: var(--color-primary);
+        border-color: currentColor;
       }
     }
 
@@ -62,7 +62,7 @@
         background-color: var(--color-success);
         color: var(--color-success-opposite);
 
-        border-color: var(--color-success);
+        border-color: currentColor;
       }
     }
 
@@ -71,7 +71,7 @@
         background-color: var(--color-warning);
         color: var(--color-warning-opposite);
 
-        border-color: var(--color-warning);
+        border-color: currentColor;
       }
     }
 
@@ -80,7 +80,7 @@
         background-color: var(--color-danger);
         color: var(--color-danger-opposite);
 
-        border-color: var(--color-danger);
+        border-color: currentColor;
       }
     }
 
@@ -90,6 +90,28 @@
         color: var(--color-text-disabled);
 
         border-color: var(--color-surface-disabled);
+      }
+    }
+  }
+
+  &.no-gap {
+    gap: 0;
+
+    .cell {
+      &:not(:first-child) {
+        .value {
+          border-inline-start: none;
+
+          border-start-start-radius: 0;
+          border-end-start-radius: 0;
+        }
+      }
+
+      &:not(:last-child) {
+        .value {
+          border-start-end-radius: 0;
+          border-end-end-radius: 0;
+        }
       }
     }
   }

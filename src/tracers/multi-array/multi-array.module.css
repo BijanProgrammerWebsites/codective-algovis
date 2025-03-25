@@ -1,0 +1,15 @@
+.multi-array {
+  display: grid;
+  align-content: center;
+
+  .row {
+    display: grid;
+    justify-items: center;
+
+    margin-block-end: 3rem;
+  }
+}
+
+.scroll {
+  block-size: 37.5rem;
+}

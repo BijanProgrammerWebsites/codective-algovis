@@ -12,20 +12,26 @@ import styles from "./array.module.css";
 
 type Props = {
   array: ArrayStructure;
+  keyPrefix?: string;
+  noGap?: boolean;
 };
 
-export default function ArrayRenderer({ array }: Props): ReactElement {
+export default function ArrayRenderer({
+  array,
+  keyPrefix = "",
+  noGap = false,
+}: Props): ReactElement {
   const { cells } = array;
 
   return (
-    <motion.ul className={styles.array}>
+    <motion.ul className={clsx(styles.array, noGap && styles["no-gap"])}>
       {cells.map((cell, index) => {
         const pointers = array.cellPointers(index);
 
         return (
           <motion.li
-            key={cell.id}
-            layoutId={cell.id}
+            key={keyPrefix + cell.id}
+            layoutId={keyPrefix + cell.id}
             className={clsx(styles.cell, styles[cell.status])}
           >
             <motion.div className={styles.index}>{index}</motion.div>
@@ -39,7 +45,7 @@ export default function ArrayRenderer({ array }: Props): ReactElement {
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      key={pointer}
+                      key={keyPrefix + pointer}
                     >
                       <motion.div className={styles.content} layout>
                         <TdesignArrowUp />
