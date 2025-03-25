@@ -1,13 +1,11 @@
 import { createContext } from "react";
 
-import { Point } from "@/structures/point.ts";
+import { ViewBoxType } from "@/types/view-box.type.ts";
 
 type RendererContextValue = {
-  center: Point;
-  zoom: number;
+  viewBox: ViewBoxType;
 };
 
 export const RendererContext = createContext<RendererContextValue>({
-  center: { x: 0, y: 0 },
-  zoom: 1,
+  viewBox: { x: -400, y: -300, w: 800, h: 600 },
 });

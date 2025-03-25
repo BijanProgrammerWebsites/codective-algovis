@@ -25,9 +25,9 @@ type Props = {
 };
 
 export default function GraphRenderer({ graph }: Props): ReactElement {
-  const { nodes, edges, dimensions } = graph;
+  const { nodes, edges } = graph;
 
-  const { center, zoom } = useContext(RendererContext);
+  const { viewBox } = useContext(RendererContext);
 
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -87,20 +87,11 @@ export default function GraphRenderer({ graph }: Props): ReactElement {
     setSelectedNode(null);
   };
 
-  const { baseWidth, baseHeight } = dimensions;
-
-  const viewBox = [
-    (center.x - baseWidth / 2) * zoom,
-    (center.y - baseHeight / 2) * zoom,
-    baseWidth * zoom,
-    baseHeight * zoom,
-  ].join(" ");
-
   return (
     <svg
       ref={svgRef}
       className={styles.graph}
-      viewBox={viewBox}
+      viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

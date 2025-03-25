@@ -6,8 +6,6 @@ import {
 import { ColorType } from "@/types/color.type.ts";
 
 export type CallstackDimensions = {
-  baseWidth: number;
-  baseHeight: number;
   padding: number;
   arrowGap: number;
   statementWidth: number;
@@ -51,8 +49,6 @@ export class CallstackStructure extends RendererStructure<
   public constructor(config?: Partial<CallstackConfig>) {
     super({
       dimensions: {
-        baseWidth: 800,
-        baseHeight: 600,
         padding: 40,
         arrowGap: 8,
         statementWidth: 200,

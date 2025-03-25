@@ -1,8 +1,4 @@
-import { GraphConfig } from "@/structures/graph.structure.ts";
-
 export type RendererDimensions = {
-  baseWidth: number;
-  baseHeight: number;
   padding: number;
   arrowGap: number;
 };
@@ -48,7 +44,7 @@ export class RendererStructure<
   Edge extends RendererEdge = RendererEdge,
 > {
   public readonly dimensions: Dimensions;
-  public readonly isDirected: GraphConfig["isDirected"];
+  public readonly isDirected: Config["isDirected"];
   public layoutCallback: Config["layoutCallback"];
 
   public nodes: Node[] = [];
@@ -209,12 +205,12 @@ export class RendererStructure<
   }
 
   protected getRect(): Rect {
-    const { baseWidth, baseHeight, padding } = this.dimensions;
+    const { padding } = this.dimensions;
 
-    const left = -baseWidth / 2 + padding;
-    const top = -baseHeight / 2 + padding;
-    const right = baseWidth / 2 - padding;
-    const bottom = baseHeight / 2 - padding;
+    const left = -800 / 2 + padding;
+    const top = -600 / 2 + padding;
+    const right = 800 / 2 - padding;
+    const bottom = 600 / 2 - padding;
     const width = right - left;
     const height = bottom - top;
 

@@ -17,21 +17,15 @@ type Props = {
 };
 
 export default function CallstackRenderer({ callstack }: Props): ReactElement {
-  const { nodes, edges, dimensions } = callstack;
+  const { nodes, edges } = callstack;
 
-  const { center, zoom } = useContext(RendererContext);
-
-  const { baseWidth, baseHeight } = dimensions;
-
-  const viewBox = [
-    (center.x - baseWidth / 2) * zoom,
-    (center.y - baseHeight / 2) * zoom,
-    baseWidth * zoom,
-    baseHeight * zoom,
-  ].join(" ");
+  const { viewBox } = useContext(RendererContext);
 
   return (
-    <svg className={styles.callstack} viewBox={viewBox}>
+    <svg
+      className={styles.callstack}
+      viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`}
+    >
       <ArrowsRenderer />
       <AnimatePresence>
         {edges.map((edge) => (

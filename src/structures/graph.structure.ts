@@ -3,8 +3,6 @@ import { RendererStructure } from "@/structures/renderer.structure.ts";
 import { distance } from "@/utils/graph.utils.ts";
 
 export type GraphDimensions = {
-  baseWidth: number;
-  baseHeight: number;
   padding: number;
   nodeRadius: number;
   arrowGap: number;
@@ -61,8 +59,6 @@ export class GraphStructure extends RendererStructure<
   public constructor(config?: Partial<GraphConfig>) {
     super({
       dimensions: {
-        baseWidth: 800,
-        baseHeight: 600,
         padding: 40,
         nodeRadius: 20,
         arrowGap: 4,

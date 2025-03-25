@@ -9,22 +9,26 @@ import {
 
 import { RendererContext } from "@/context/renderer.context.ts";
 
-import { Point } from "@/structures/point.ts";
+import { ViewBoxType } from "@/types/view-box.type.ts";
 
 import styles from "./rendere.module.css";
 
 type Props = PropsWithChildren;
 
 function FiltersProvider({ children }: Props): ReactElement {
-  const [center, setCenter] = useState<Point>({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState<number>(1);
-
   const rendererRef = useRef<HTMLDivElement>(null);
 
   const isPanEnabled = useRef<boolean>(true);
   const isZoomEnabled = useRef<boolean>(true);
 
-  const zoomFactor = useRef<number>(1.01);
+  const [viewBox, setViewBox] = useState<ViewBoxType>({
+    x: -400,
+    y: -300,
+    w: 800,
+    h: 600,
+  });
+
+  const zoom = useRef<number>(1);
   const zoomMax = useRef<number>(20);
   const zoomMin = useRef<number>(1 / 20);
 
@@ -51,18 +55,17 @@ function FiltersProvider({ children }: Props): ReactElement {
       return;
     }
 
-    const { clientX, clientY } = e;
+    const dx = e.clientX - lastX.current;
+    const dy = e.clientY - lastY.current;
 
-    const dx = clientX - lastX.current;
-    const dy = clientY - lastY.current;
-
-    setCenter((old) => ({
-      x: old.x - dx,
-      y: old.y - dy,
+    setViewBox((old) => ({
+      ...old,
+      x: old.x - dx * zoom.current,
+      y: old.y - dy * zoom.current,
     }));
 
-    lastX.current = clientX;
-    lastY.current = clientY;
+    lastX.current = e.clientX;
+    lastY.current = e.clientY;
   };
 
   const mouseUpHandler = (): void => {
@@ -79,12 +82,24 @@ function FiltersProvider({ children }: Props): ReactElement {
 
       e.preventDefault();
 
-      const { deltaY } = e;
+      const scale = e.deltaY < 0 ? 0.8 : 1.25;
+      const newZoom = Math.min(
+        zoomMax.current,
+        Math.max(zoomMin.current, zoom.current * scale),
+      );
 
-      let newZoom = zoom * Math.pow(zoomFactor.current, deltaY);
-      newZoom = Math.min(zoomMax.current, Math.max(zoomMin.current, newZoom));
+      const mpos = { x: e.offsetX * zoom.current, y: e.offsetY * zoom.current };
+      const vpos = { x: viewBox.x, y: viewBox.y };
+      const cpos = { x: mpos.x + vpos.x, y: mpos.y + vpos.y };
 
-      setZoom(newZoom);
+      setViewBox((old) => ({
+        x: (old.x - cpos.x) * scale + cpos.x,
+        y: (old.y - cpos.y) * scale + cpos.y,
+        w: 800 * newZoom,
+        h: 600 * newZoom,
+      }));
+
+      zoom.current = newZoom;
     };
 
     element?.addEventListener("wheel", wheelHandler, { passive: false });
@@ -92,10 +107,10 @@ function FiltersProvider({ children }: Props): ReactElement {
     return () => {
       element?.removeEventListener("wheel", wheelHandler);
     };
-  }, [zoom]);
+  }, [viewBox.x, viewBox.y]);
 
   return (
-    <RendererContext.Provider value={{ center, zoom }}>
+    <RendererContext.Provider value={{ viewBox }}>
       <div
         ref={rendererRef}
         className={styles.renderer}
