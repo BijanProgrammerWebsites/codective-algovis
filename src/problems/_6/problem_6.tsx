@@ -14,29 +14,30 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 
 import { ColorType } from "@/types/color.type.ts";
 
-import styles from "./problem_5.module.css";
+import styles from "./problem_6.module.css";
 
-export default function Problem_5(): ReactElement {
+export default function Problem_6(): ReactElement {
   const [nums, setNums] = useState<string>("[5, 1, 1, 2, 0, 0]");
 
-  const { records, reset, traceBeforeWeBegin, traceAndReset, traceAll } =
-    useArrayTracer();
+  const {
+    records,
+    reset,
+    traceBeforeWeBegin,
+    traceAndReset,
+    traceIndex,
+    traceAll,
+  } = useArrayTracer();
 
   const solve = (): void => {
     reset();
 
-    function t(
-      indexOfMin: number,
-      index: number,
-      status: ColorType,
-      message: string,
-    ): void {
+    function t(index: number, status: ColorType, message: string): void {
       const statuses: ArrayStatuses = {
-        [indexOfMin]: "primary",
-        [index]: status,
+        [index]: "primary",
+        [index - 1]: status,
       };
 
-      traceAndReset(statuses, message, { min: indexOfMin, index });
+      traceAndReset(statuses, message, { index, prev: index - 1 });
     }
 
     const parsedNums = JSON.parse(nums);
@@ -44,40 +45,27 @@ export default function Problem_5(): ReactElement {
     const array = new ArrayStructure<number>(parsedNums);
     traceBeforeWeBegin(array);
 
-    for (let i = 0; i < array.cells.length; i++) {
-      let min = array.cells[i].value;
-      let indexOfMin = i;
+    for (let i = 1; i < array.cells.length; i++) {
+      traceIndex(i, "primary", i === 1 ? "Start" : "Start over");
 
-      traceAndReset(
-        { [indexOfMin]: "primary" },
-        i === 0 ? "Start" : "Start over",
-        { min: indexOfMin },
-      );
+      for (let j = i; j > 0; j--) {
+        t(
+          j,
+          "warning",
+          `${array.cells[j].value} < ${array.cells[j - 1].value} ?`,
+        );
 
-      for (let j = i + 1; j < array.cells.length; j++) {
-        t(indexOfMin, j, "warning", `${array.cells[j].value} < ${min} ?`);
-
-        if (array.cells[j].value < min) {
-          t(indexOfMin, j, "success", "Yes, change");
-          min = array.cells[j].value;
-          indexOfMin = j;
+        if (array.cells[j].value < array.cells[j - 1].value) {
+          t(j, "danger", "Yes, swap");
+          array.swap(j, j - 1);
+          traceIndex(j - 1, "primary", "Pause");
 
           continue;
         }
 
-        t(indexOfMin, j, "danger", "No, continue");
+        t(j, "success", "No, break");
+        break;
       }
-
-      traceAndReset({ [indexOfMin]: "warning", [i]: "default" }, "Swap", {
-        min: indexOfMin,
-        place: i,
-      });
-      array.swap(i, indexOfMin);
-
-      traceAndReset({ [indexOfMin]: "default", [i]: "success" }, "Pause", {
-        min: i,
-        place: indexOfMin,
-      });
     }
 
     traceAll("success", "Array sorted successfully");
