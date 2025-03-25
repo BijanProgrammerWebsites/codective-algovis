@@ -8,15 +8,15 @@ import { TracerContext } from "@/context/tracer.context.ts";
 
 import TdesignArrowUp from "@/icons/TdesignArrowUp.tsx";
 
-import { ArrayTracerRecord } from "@/records/array-tracer.record.ts";
+import { OldArrayTracerRecord } from "@/records/old-array-tracer.record.ts";
 
-import styles from "./array.module.css";
+import styles from "./old-array.module.css";
 
 type Props = {
-  records: ArrayTracerRecord[];
+  records: OldArrayTracerRecord[];
 };
 
-export default function ArrayTracer({ records }: Props): ReactElement {
+export default function OldArrayTracer({ records }: Props): ReactElement {
   const { step } = useContext(TracerContext);
 
   const record = records[step];

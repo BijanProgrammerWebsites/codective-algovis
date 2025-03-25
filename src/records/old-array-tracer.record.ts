@@ -2,7 +2,7 @@ import { TracerRecord } from "@/records/tracer.record.ts";
 
 import { ColorType } from "@/types/color.type.ts";
 
-export interface ArrayTracerRecord extends TracerRecord {
+export interface OldArrayTracerRecord extends TracerRecord {
   items: Item[];
   pointers?: Pointers;
 }

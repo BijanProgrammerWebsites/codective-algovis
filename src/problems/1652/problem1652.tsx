@@ -7,8 +7,8 @@ import NormalInputComponent from "@/components/normal-input/normal-input.compone
 
 import { useProblem1652 } from "@/problems/1652/use-problem1652.ts";
 
-import ArrayTracer from "@/tracers/array/array.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
+import OldArrayTracer from "@/tracers/old-array/old-array.tracer.tsx";
 
 import styles from "./problem1652.module.css";
 
@@ -168,8 +168,8 @@ export default function Problem1652(): ReactElement {
         <ButtonComponent variant="primary">Solve</ButtonComponent>
       </FormComponent>
       <BoardComponent layout="two-one">
-        <ArrayTracer records={records.map((x) => x[1])} />
-        <ArrayTracer records={records.map((x) => x[2])} />
+        <OldArrayTracer records={records.map((x) => x[1])} />
+        <OldArrayTracer records={records.map((x) => x[2])} />
         <LogTracer records={records.map((x) => x[0])} />
       </BoardComponent>
     </div>

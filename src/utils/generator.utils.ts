@@ -1,4 +1,4 @@
-import { Pointers } from "@/records/array-tracer.record.ts";
+import { Pointers } from "@/records/old-array-tracer.record.ts";
 
 export function generatePointers(input: Record<string, number>): Pointers {
   const result: Pointers = {};
