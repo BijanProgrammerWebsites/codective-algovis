@@ -57,6 +57,10 @@ export function useArrayTracer() {
     array.current!.updateAllStatuses(previousStatuses);
   };
 
+  const tracePause = (): void => {
+    trace([{ message: "Pause" }, { array: array.current! }]);
+  };
+
   return {
     records,
     reset,
@@ -64,5 +68,6 @@ export function useArrayTracer() {
     traceAndReset,
     traceIndex,
     traceAll,
+    tracePause,
   };
 }

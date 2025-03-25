@@ -13,6 +13,7 @@ import Problem_1 from "@/problems/_1/problem_1.tsx";
 import Problem_2 from "@/problems/_2/problem_2.tsx";
 import Problem_3 from "@/problems/_3/problem_3.tsx";
 import Problem_4 from "@/problems/_4/problem_4.tsx";
+import Problem_5 from "@/problems/_5/problem_5.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -96,6 +97,7 @@ export const sessionsData: SessionType[] = [
         link: "https://leetcode.com/problems/binary-search/description/",
       },
       { id: -4, title: "Bubble Sort", component: <Problem_4 />, link: "" },
+      { id: -5, title: "Selection Sort", component: <Problem_5 />, link: "" },
     ],
   },
 ];

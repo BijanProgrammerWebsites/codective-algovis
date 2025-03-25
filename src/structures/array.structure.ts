@@ -75,4 +75,10 @@ export class ArrayStructure<T extends ReactNode = ReactNode> {
       this.cells[i].status = color;
     }
   }
+
+  public swap(i: number, j: number): void {
+    const temp = this.cells[i];
+    this.cells[i] = this.cells[j];
+    this.cells[j] = temp;
+  }
 }
