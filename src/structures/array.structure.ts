@@ -2,23 +2,21 @@ import { ReactNode } from "react";
 
 import { ColorType } from "@/types/color.type.ts";
 
-type Cell = {
+type Cell<T extends ReactNode = ReactNode> = {
   id: string;
-  value: ReactNode;
+  value: T;
   status: ColorType;
 };
-
-type PartialCell = Partial<Cell>;
 
 export type ArrayPointers = Record<string, number>;
 export type ArrayStatuses = Record<number, ColorType>;
 
-export class ArrayStructure {
+export class ArrayStructure<T extends ReactNode = ReactNode> {
   public readonly length: number;
-  public readonly cells: Cell[];
+  public readonly cells: Cell<T>[];
   public pointers: ArrayPointers;
 
-  public constructor(values: ReactNode[]) {
+  public constructor(values: T[]) {
     this.length = values.length;
 
     this.cells = values.map((value, index) => ({
@@ -48,7 +46,10 @@ export class ArrayStructure {
     return result;
   }
 
-  public update(index: number, partialCell: PartialCell): void {
+  public update(
+    index: number,
+    partialCell: Partial<(typeof this.cells)[number]>,
+  ): void {
     this.cells[index] = {
       ...this.cells[index],
       ...partialCell,

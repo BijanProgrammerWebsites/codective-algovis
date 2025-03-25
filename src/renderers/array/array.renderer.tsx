@@ -24,7 +24,7 @@ export default function ArrayRenderer({ array }: Props): ReactElement {
 
         return (
           <motion.li
-            key={`cell-${index}`}
+            key={cell.id}
             layoutId={cell.id}
             className={clsx(styles.cell, styles[cell.status])}
           >
