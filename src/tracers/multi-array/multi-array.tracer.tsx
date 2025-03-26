@@ -38,7 +38,6 @@ export default function MultiArrayTracer({ records }: Props): ReactElement {
           let colsCount = 0;
           if (row[0][1].merge) {
             colsCount = Math.pow(2, 2 * (row[0][1].maxDepth! + 1) - rowIndex);
-            console.log(colsCount);
           } else {
             colsCount = Math.pow(2, rowIndex);
           }

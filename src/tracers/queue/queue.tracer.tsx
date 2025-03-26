@@ -22,11 +22,11 @@ export default function QueueTracer({ records }: Props): ReactElement {
     return <div className={styles.queue}>Not Available</div>;
   }
 
-  const items: ArrayRendererItem[] = record.queue.map((item) => ({
+  const items: ArrayRendererItem[] = record.queue.map((item, index) => ({
     id: item.id,
     value: item.value,
     color: item.color,
-    pointers: undefined,
+    pointers: record.queue.itemPointers(index),
   }));
 
   return (

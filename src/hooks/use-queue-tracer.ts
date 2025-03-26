@@ -37,6 +37,8 @@ export function useQueueTracer<T extends ReactNode>() {
   const traceDequeue = (): Return<"dequeue"> => {
     const value = queue.current!.dequeue();
 
+    queue.current!.pointers = { index: 1 };
+    console.log(queue.current!.itemPointers(1));
     trace([
       { message: `Dequeue ${stringify(value)}` },
       { queue: queue.current! },
@@ -63,14 +65,10 @@ export function useQueueTracer<T extends ReactNode>() {
   const traceSize = (): Return<"size"> => {
     const value = queue.current!.size();
 
-    const colorsBackup = queue.current!.colorAll("primary");
-
     trace([
       { message: `Size: ${stringify(value)}` },
       { queue: queue.current! },
     ]);
-
-    queue.current!.colorAll(colorsBackup);
 
     return value;
   };
@@ -81,6 +79,7 @@ export function useQueueTracer<T extends ReactNode>() {
 
   return {
     records,
+    trace,
     reset,
     traceBeforeWeBegin,
     traceEnqueue,

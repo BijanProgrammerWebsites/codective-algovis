@@ -65,7 +65,6 @@ export function useArrayTracer() {
     status: ColorType,
     message: string,
   ): void => {
-    console.log(indexes);
     const previousStatuses = array.current!.statuses;
 
     for (const index of indexes) {

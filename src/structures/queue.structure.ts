@@ -8,13 +8,19 @@ export type QueueItem<T extends ReactNode = ReactNode> = {
   color: ColorType;
 };
 
+export type QueuePointers = Record<string, number>;
+
 export class QueueStructure<T extends ReactNode = ReactNode> extends Array<
   QueueItem<T>
 > {
+  public pointers: QueuePointers;
+
   private lastId: number = 0;
 
   public constructor(length: number = 0) {
     super(length);
+
+    this.pointers = {};
   }
 
   public enqueue(value: T): void {
@@ -45,12 +51,16 @@ export class QueueStructure<T extends ReactNode = ReactNode> extends Array<
     return this[0].value;
   }
 
-  public colorFront(color: ColorType): void {
+  public colorFront(color: ColorType): ColorType {
     if (this.isEmpty()) {
-      return;
+      return "default";
     }
 
+    const colorBackup = this[0].color;
+
     this[0].color = color;
+
+    return colorBackup;
   }
 
   public back(): T | null {
@@ -66,7 +76,7 @@ export class QueueStructure<T extends ReactNode = ReactNode> extends Array<
   }
 
   public colorAll(colorOrColors: ColorType | ColorType[]): ColorType[] {
-    const currentColors = this.map((item) => item.color);
+    const colorsBackup = this.map((item) => item.color);
 
     this.forEach((item, index) => {
       if (typeof colorOrColors === "string") {
@@ -76,7 +86,7 @@ export class QueueStructure<T extends ReactNode = ReactNode> extends Array<
       }
     });
 
-    return currentColors;
+    return colorsBackup;
   }
 
   public isEmpty(): boolean {
@@ -89,5 +99,19 @@ export class QueueStructure<T extends ReactNode = ReactNode> extends Array<
 
   public toString(): string {
     return this.join(", ");
+  }
+
+  public itemPointers(index: number): string[] {
+    const result: string[] = [];
+
+    const entries = Object.entries(this.pointers);
+
+    for (const [title, i] of entries) {
+      if (i === index) {
+        result.push(title);
+      }
+    }
+
+    return result;
   }
 }
