@@ -8,6 +8,7 @@ import Problem121 from "@/problems/121/problem121.tsx";
 import Problem125 from "@/problems/125/problem125.tsx";
 import Problem509 from "@/problems/509/problem509.tsx";
 import Problem704 from "@/problems/704/problem704.tsx";
+import Problem933 from "@/problems/933/problem933.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
 import Problem2379 from "@/problems/2379/problem2379.tsx";
 import Problem_1 from "@/problems/_1/problem_1.tsx";
@@ -113,6 +114,14 @@ export const sessionsData: SessionType[] = [
     ],
   },
   {
-    problems: [{ id: -8, title: "Queue", component: <Problem_8 />, link: "" }],
+    problems: [
+      { id: -8, title: "Queue", component: <Problem_8 />, link: "" },
+      {
+        id: 933,
+        title: "Number of Recent Calls",
+        component: <Problem933 />,
+        link: "https://leetcode.com/problems/number-of-recent-calls/description/",
+      },
+    ],
   },
 ];

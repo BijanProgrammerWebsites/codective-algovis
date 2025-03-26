@@ -28,12 +28,66 @@ export class QueueStructure<T extends ReactNode = ReactNode> extends Array<
   }
 
   public dequeue(): T | null {
-    if (this.length === 0) {
+    if (this.isEmpty()) {
       return null;
     }
 
     const [item] = this.splice(0, 1);
 
     return item.value;
+  }
+
+  public front(): T | null {
+    if (this.isEmpty()) {
+      return null;
+    }
+
+    return this[0].value;
+  }
+
+  public colorFront(color: ColorType): void {
+    if (this.isEmpty()) {
+      return;
+    }
+
+    this[0].color = color;
+  }
+
+  public back(): T | null {
+    if (this.isEmpty()) {
+      return null;
+    }
+
+    return this[this.length - 1].value;
+  }
+
+  public size(): number {
+    return this.length;
+  }
+
+  public colorAll(colorOrColors: ColorType | ColorType[]): ColorType[] {
+    const currentColors = this.map((item) => item.color);
+
+    this.forEach((item, index) => {
+      if (typeof colorOrColors === "string") {
+        item.color = colorOrColors;
+      } else {
+        item.color = colorOrColors[index];
+      }
+    });
+
+    return currentColors;
+  }
+
+  public isEmpty(): boolean {
+    return this.length === 0;
+  }
+
+  public clear(): void {
+    this.splice(0, Infinity);
+  }
+
+  public toString(): string {
+    return this.join(", ");
   }
 }
