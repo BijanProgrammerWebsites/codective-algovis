@@ -4,7 +4,9 @@ import { TracerContext } from "@/context/tracer.context.ts";
 
 import { Arr, MultiArrayRecord } from "@/records/multi-array.record.ts";
 
-import ArrayRenderer from "@/renderers/array/array.renderer.tsx";
+import ArrayRenderer, {
+  ArrayRendererItem,
+} from "@/renderers/array/array.renderer.tsx";
 
 import styles from "./multi-array.module.css";
 
@@ -49,11 +51,22 @@ export default function MultiArrayTracer({ records }: Props): ReactElement {
                 gridTemplateColumns: `repeat(${colsCount}, 1fr)`,
               }}
             >
-              {row.map(([key, arr]) => (
-                <div key={key} style={{ gridColumn: `${arr.col + 1}` }}>
-                  <ArrayRenderer keyPrefix={key} array={arr.array} noGap />
-                </div>
-              ))}
+              {row.map(([key, arr]) => {
+                const items: ArrayRendererItem[] = arr.array.cells.map(
+                  (cell, index) => ({
+                    id: cell.id,
+                    value: cell.value,
+                    color: cell.status,
+                    pointers: arr.array.cellPointers(index),
+                  }),
+                );
+
+                return (
+                  <div key={key} style={{ gridColumn: `${arr.col + 1}` }}>
+                    <ArrayRenderer keyPrefix={key} items={items} noGap />
+                  </div>
+                );
+              })}
             </div>
           );
         })}

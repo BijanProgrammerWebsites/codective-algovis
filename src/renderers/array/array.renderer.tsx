@@ -1,51 +1,66 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, Variants, motion } from "motion/react";
 
 import clsx from "clsx";
 
 import TdesignArrowUp from "@/icons/TdesignArrowUp.tsx";
 
-import { ArrayStructure } from "@/structures/array.structure.ts";
+import { ColorType } from "@/types/color.type.ts";
 
 import styles from "./array.module.css";
 
+const defaultItemVariants: Variants = {
+  initial: { opacity: 0, scale: 0 },
+  animate: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0 },
+};
+
+export type ArrayRendererItem = {
+  id: string;
+  value: ReactNode;
+  color: ColorType;
+  pointers?: string[];
+};
+
 type Props = {
-  array: ArrayStructure;
+  items: ArrayRendererItem[];
   keyPrefix?: string;
   noGap?: boolean;
+  itemVariants?: Variants;
 };
 
 export default function ArrayRenderer({
-  array,
+  items,
   keyPrefix = "",
   noGap = false,
+  itemVariants = defaultItemVariants,
 }: Props): ReactElement {
-  const { cells } = array;
-
   return (
     <motion.ul className={clsx(styles.array, noGap && styles["no-gap"])}>
-      {cells.map((cell, index) => {
-        const pointers = array.cellPointers(index);
-
-        return (
+      <AnimatePresence>
+        {items.map((item, index) => (
           <motion.li
-            key={keyPrefix + cell.id}
-            layoutId={keyPrefix + cell.id}
-            className={clsx(styles.cell, styles[cell.status])}
+            key={keyPrefix + item.id}
+            className={clsx(styles.cell, styles[item.color])}
+            layoutId={keyPrefix + item.id}
+            variants={itemVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
           >
             <motion.div className={styles.index}>{index}</motion.div>
-            <motion.div className={styles.value}>{cell.value}</motion.div>
+            <motion.div className={styles.value}>{item.value}</motion.div>
             <AnimatePresence>
-              {pointers && (
+              {item.pointers && (
                 <motion.div className={styles.pointers}>
-                  {pointers.map((pointer) => (
+                  {item.pointers.map((pointer) => (
                     <motion.div
+                      key={keyPrefix + pointer}
                       className={styles.pointer}
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      key={keyPrefix + pointer}
                     >
                       <motion.div className={styles.content} layout>
                         <TdesignArrowUp />
@@ -57,8 +72,8 @@ export default function ArrayRenderer({
               )}
             </AnimatePresence>
           </motion.li>
-        );
-      })}
+        ))}
+      </AnimatePresence>
     </motion.ul>
   );
 }

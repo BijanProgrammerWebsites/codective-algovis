@@ -17,6 +17,7 @@ import Problem_4 from "@/problems/_4/problem_4.tsx";
 import Problem_5 from "@/problems/_5/problem_5.tsx";
 import Problem_6 from "@/problems/_6/problem_6.tsx";
 import Problem_7 from "@/problems/_7/problem_7.tsx";
+import Problem_8 from "@/problems/_8/problem_8.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -110,5 +111,8 @@ export const sessionsData: SessionType[] = [
       { id: -6, title: "Insertion Sort", component: <Problem_6 />, link: "" },
       { id: -7, title: "Merge Sort", component: <Problem_7 />, link: "" },
     ],
+  },
+  {
+    problems: [{ id: -8, title: "Queue", component: <Problem_8 />, link: "" }],
   },
 ];
