@@ -1,10 +1,7 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
-import {
-  Item,
-  OldArrayTracerRecord,
-} from "@/records/old-array-tracer.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
+import { Item, OldArrayRecord } from "@/records/old-array.record.ts";
 
 import { ColorType } from "@/types/color.type.ts";
 
@@ -12,7 +9,7 @@ import { generatePointers } from "@/utils/generator.utils.ts";
 
 export function useProblem28() {
   const [records, trace, reset] =
-    useTracer<[LogTracerRecord, OldArrayTracerRecord, OldArrayTracerRecord]>();
+    useTracer<[LogRecord, OldArrayRecord, OldArrayRecord]>();
 
   const colorize = (
     items: Item[],

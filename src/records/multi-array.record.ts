@@ -1,4 +1,4 @@
-import { TracerRecord } from "@/records/tracer.record.ts";
+import { BaseRecord } from "@/records/base.record.ts";
 
 import { ArrayStructure } from "@/structures/array.structure.ts";
 
@@ -12,6 +12,6 @@ export type Arr = {
 
 export type MultiArray = Record<string, Arr>;
 
-export interface MultiArrayTracerRecord extends TracerRecord {
+export interface MultiArrayRecord extends BaseRecord {
   arrays: MultiArray;
 }

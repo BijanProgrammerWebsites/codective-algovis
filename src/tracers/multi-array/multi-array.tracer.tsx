@@ -2,17 +2,14 @@ import { ReactElement, useContext } from "react";
 
 import { TracerContext } from "@/context/tracer.context.ts";
 
-import {
-  Arr,
-  MultiArrayTracerRecord,
-} from "@/records/multi-array-tracer.record.ts";
+import { Arr, MultiArrayRecord } from "@/records/multi-array.record.ts";
 
 import ArrayRenderer from "@/renderers/array/array.renderer.tsx";
 
 import styles from "./multi-array.module.css";
 
 type Props = {
-  records: MultiArrayTracerRecord[];
+  records: MultiArrayRecord[];
 };
 
 export default function MultiArrayTracer({ records }: Props): ReactElement {

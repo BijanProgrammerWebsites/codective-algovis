@@ -1,13 +1,12 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { CallstackTracerRecord } from "@/records/callstack-tracer.record.ts";
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+import { CallstackRecord } from "@/records/callstack.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
 
 import { CallstackStructure } from "@/structures/callstack.structure.ts";
 
 export function useCallstackTracer() {
-  const [records, trace, reset] =
-    useTracer<[LogTracerRecord, CallstackTracerRecord]>();
+  const [records, trace, reset] = useTracer<[LogRecord, CallstackRecord]>();
 
   const traceBeforeWeBegin = (
     callstack: CallstackStructure,

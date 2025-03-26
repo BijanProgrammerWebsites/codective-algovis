@@ -4,9 +4,9 @@ import cloneDeep from "lodash-es/cloneDeep";
 
 import { TracerContext } from "@/context/tracer.context.ts";
 
-import { TracerRecord } from "@/records/tracer.record.ts";
+import { BaseRecord } from "@/records/base.record.ts";
 
-export function useTracer<TRecords extends TracerRecord[]>() {
+export function useTracer<TRecords extends BaseRecord[]>() {
   const { changeStep, setTotalSteps } = useContext(TracerContext);
 
   const [records, setRecords] = useState<TRecords[]>([]);

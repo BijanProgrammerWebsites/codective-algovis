@@ -2,8 +2,8 @@ import { useRef } from "react";
 
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { ArrayTracerRecord } from "@/records/array-tracer.record.ts";
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+import { ArrayRecord } from "@/records/array.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
 
 import {
   ArrayPointers,
@@ -14,8 +14,7 @@ import {
 import { ColorType } from "@/types/color.type.ts";
 
 export function useArrayTracer() {
-  const [records, trace, reset] =
-    useTracer<[LogTracerRecord, ArrayTracerRecord]>();
+  const [records, trace, reset] = useTracer<[LogRecord, ArrayRecord]>();
 
   const array = useRef<ArrayStructure>(null);
 
@@ -88,7 +87,7 @@ export function useArrayTracer() {
     const previousStatuses = array.current!.statuses;
 
     array.current!.colorize(windowStatus, window.start, window.end);
-    
+
     for (const index of indexes) {
       array.current!.colorize(indexesStatus, index, index);
     }

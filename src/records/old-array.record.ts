@@ -1,8 +1,8 @@
-import { TracerRecord } from "@/records/tracer.record.ts";
+import { BaseRecord } from "@/records/base.record.ts";
 
 import { ColorType } from "@/types/color.type.ts";
 
-export interface OldArrayTracerRecord extends TracerRecord {
+export interface OldArrayRecord extends BaseRecord {
   items: Item[];
   pointers?: Pointers;
 }

@@ -2,17 +2,13 @@ import { useRef } from "react";
 
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
-import {
-  MultiArray,
-  MultiArrayTracerRecord,
-} from "@/records/multi-array-tracer.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
+import { MultiArray, MultiArrayRecord } from "@/records/multi-array.record.ts";
 
 import { ArrayStructure } from "@/structures/array.structure.ts";
 
 export function useProblem_7() {
-  const [records, trace, reset] =
-    useTracer<[LogTracerRecord, MultiArrayTracerRecord]>();
+  const [records, trace, reset] = useTracer<[LogRecord, MultiArrayRecord]>();
 
   const arrays = useRef<MultiArray>(null);
 

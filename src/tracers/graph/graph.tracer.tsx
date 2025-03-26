@@ -4,14 +4,14 @@ import { TracerContext } from "@/context/tracer.context.ts";
 
 import RendererProvider from "@/providers/renderer.provider.tsx";
 
-import { GraphTracerRecord } from "@/records/graph-tracer.record.ts";
+import { GraphRecord } from "@/records/graph.record.ts";
 
 import GraphRenderer from "@/renderers/graph/graph.renderer.tsx";
 
 import styles from "./graph.module.css";
 
 type Props = {
-  records: GraphTracerRecord[];
+  records: GraphRecord[];
 };
 
 export default function GraphTracer({ records }: Props): ReactElement {

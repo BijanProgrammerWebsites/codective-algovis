@@ -1,13 +1,12 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
-import { MatrixTracerRecord } from "@/records/matrix-tracer.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
+import { MatrixRecord } from "@/records/matrix.record.ts";
 
 import { MatrixStructure } from "@/structures/matrix.structure.ts";
 
 export function useMatrixTracer() {
-  const [records, trace, reset] =
-    useTracer<[LogTracerRecord, MatrixTracerRecord]>();
+  const [records, trace, reset] = useTracer<[LogRecord, MatrixRecord]>();
 
   const traceBeforeWeBegin = (matrix: MatrixStructure): void => {
     trace([{ message: "Before We Begin" }, { matrix }]);

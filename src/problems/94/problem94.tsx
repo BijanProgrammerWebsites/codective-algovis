@@ -4,8 +4,8 @@ import BoardComponent from "@/components/board/board.component.tsx";
 
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { GraphTracerRecord } from "@/records/graph-tracer.record.ts";
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+import { GraphRecord } from "@/records/graph.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
 
 import { GraphNode, GraphStructure } from "@/structures/graph.structure.ts";
 
@@ -30,8 +30,7 @@ const G: number[][] = [
 ];
 
 export default function Problem94(): ReactElement {
-  const [records, trace, reset] =
-    useTracer<[LogTracerRecord, GraphTracerRecord]>();
+  const [records, trace, reset] = useTracer<[LogRecord, GraphRecord]>();
 
   const solve = (): void => {
     reset();

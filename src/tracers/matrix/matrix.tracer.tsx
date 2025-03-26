@@ -2,14 +2,14 @@ import { ReactElement, useContext } from "react";
 
 import { TracerContext } from "@/context/tracer.context.ts";
 
-import { MatrixTracerRecord } from "@/records/matrix-tracer.record.ts";
+import { MatrixRecord } from "@/records/matrix.record.ts";
 
 import MatrixRenderer from "@/renderers/matrix/matrix.renderer.tsx";
 
 import styles from "./matrix.module.css";
 
 type Props = {
-  records: MatrixTracerRecord[];
+  records: MatrixRecord[];
 };
 
 export default function MatrixTracer({ records }: Props): ReactElement {

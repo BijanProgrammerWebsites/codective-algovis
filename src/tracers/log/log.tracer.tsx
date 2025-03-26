@@ -4,12 +4,12 @@ import clsx from "clsx";
 
 import { TracerContext } from "@/context/tracer.context.ts";
 
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
 
 import styles from "./log.module.css";
 
 type Props = {
-  records: LogTracerRecord[];
+  records: LogRecord[];
 };
 
 export default function LogTracer({ records }: Props): ReactElement {

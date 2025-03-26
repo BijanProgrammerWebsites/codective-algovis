@@ -8,12 +8,12 @@ import { TracerContext } from "@/context/tracer.context.ts";
 
 import TdesignArrowUp from "@/icons/TdesignArrowUp.tsx";
 
-import { OldArrayTracerRecord } from "@/records/old-array-tracer.record.ts";
+import { OldArrayRecord } from "@/records/old-array.record.ts";
 
 import styles from "./old-array.module.css";
 
 type Props = {
-  records: OldArrayTracerRecord[];
+  records: OldArrayRecord[];
 };
 
 export default function OldArrayTracer({ records }: Props): ReactElement {

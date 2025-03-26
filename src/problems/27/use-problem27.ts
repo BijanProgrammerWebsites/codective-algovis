@@ -1,16 +1,12 @@
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { LogTracerRecord } from "@/records/log-tracer.record.ts";
-import {
-  Item,
-  OldArrayTracerRecord,
-} from "@/records/old-array-tracer.record.ts";
+import { LogRecord } from "@/records/log.record.ts";
+import { Item, OldArrayRecord } from "@/records/old-array.record.ts";
 
 import { generatePointers } from "@/utils/generator.utils.ts";
 
 export function useProblem27() {
-  const [records, trace, reset] =
-    useTracer<[LogTracerRecord, OldArrayTracerRecord]>();
+  const [records, trace, reset] = useTracer<[LogRecord, OldArrayRecord]>();
 
   const generateItems = (nums: string): Item[] => {
     const numbers = JSON.parse(nums) as number[];
