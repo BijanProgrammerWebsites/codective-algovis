@@ -28,6 +28,7 @@ type Props = {
   keyPrefix?: string;
   noGap?: boolean;
   itemVariants?: Variants;
+  stack?: boolean;
 };
 
 export default function ArrayRenderer({
@@ -35,9 +36,16 @@ export default function ArrayRenderer({
   keyPrefix = "",
   noGap = false,
   itemVariants = defaultItemVariants,
+  stack = false,
 }: Props): ReactElement {
   return (
-    <motion.ul className={clsx(styles.array, noGap && styles["no-gap"])}>
+    <motion.ul
+      className={clsx(
+        styles.array,
+        noGap && styles["no-gap"],
+        stack && styles.stack,
+      )}
+    >
       <AnimatePresence>
         {items.map((item, index) => (
           <motion.li

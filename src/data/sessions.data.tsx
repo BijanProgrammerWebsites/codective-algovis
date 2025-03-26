@@ -21,6 +21,7 @@ import Problem_5 from "@/problems/_5/problem_5.tsx";
 import Problem_6 from "@/problems/_6/problem_6.tsx";
 import Problem_7 from "@/problems/_7/problem_7.tsx";
 import Problem_8 from "@/problems/_8/problem_8.tsx";
+import Problem_9 from "@/problems/_9/problem_9.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -136,6 +137,7 @@ export const sessionsData: SessionType[] = [
         component: <Problem1046 />,
         link: "https://leetcode.com/problems/last-stone-weight/description/",
       },
+      { id: -9, title: "Stack", component: <Problem_9 />, link: "" },
     ],
   },
 ];

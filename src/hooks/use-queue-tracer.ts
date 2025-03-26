@@ -37,8 +37,6 @@ export function useQueueTracer<T extends ReactNode>() {
   const traceDequeue = (): Return<"dequeue"> => {
     const value = queue.current!.dequeue();
 
-    queue.current!.pointers = { index: 1 };
-    console.log(queue.current!.itemPointers(1));
     trace([
       { message: `Dequeue ${stringify(value)}` },
       { queue: queue.current! },
