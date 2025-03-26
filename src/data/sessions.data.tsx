@@ -9,6 +9,7 @@ import Problem125 from "@/problems/125/problem125.tsx";
 import Problem509 from "@/problems/509/problem509.tsx";
 import Problem704 from "@/problems/704/problem704.tsx";
 import Problem933 from "@/problems/933/problem933.tsx";
+import Problem1046 from "@/problems/1046/problem1046.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
 import Problem2073 from "@/problems/2073/problem2073.tsx";
 import Problem2379 from "@/problems/2379/problem2379.tsx";
@@ -128,6 +129,12 @@ export const sessionsData: SessionType[] = [
         title: "Time Needed to Buy Tickets",
         component: <Problem2073 />,
         link: "https://leetcode.com/problems/time-needed-to-buy-tickets/description/",
+      },
+      {
+        id: 1046,
+        title: "Last Stone Weight",
+        component: <Problem1046 />,
+        link: "https://leetcode.com/problems/last-stone-weight/description/",
       },
     ],
   },

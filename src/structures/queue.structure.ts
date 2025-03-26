@@ -15,7 +15,7 @@ export class QueueStructure<T extends ReactNode = ReactNode> extends Array<
 > {
   public pointers: QueuePointers;
 
-  private lastId: number = 0;
+  protected lastId: number = 0;
 
   public constructor(length: number = 0) {
     super(length);
