@@ -31,7 +31,7 @@ export default function StackTracer({ records }: Props): ReactElement {
 
   return (
     <div className={styles.stack}>
-      <ArrayRenderer stack items={items} />
+      <ArrayRenderer stack items={items} keyPrefix="stack" />
     </div>
   );
 }

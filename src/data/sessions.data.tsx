@@ -11,6 +11,7 @@ import Problem704 from "@/problems/704/problem704.tsx";
 import Problem933 from "@/problems/933/problem933.tsx";
 import Problem1046 from "@/problems/1046/problem1046.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
+import Problem1700 from "@/problems/1700/problem1700.tsx";
 import Problem2073 from "@/problems/2073/problem2073.tsx";
 import Problem2379 from "@/problems/2379/problem2379.tsx";
 import Problem_1 from "@/problems/_1/problem_1.tsx";
@@ -138,6 +139,12 @@ export const sessionsData: SessionType[] = [
         link: "https://leetcode.com/problems/last-stone-weight/description/",
       },
       { id: -9, title: "Stack", component: <Problem_9 />, link: "" },
+      {
+        id: 1700,
+        title: "Number of Students Unable to Eat Lunch",
+        component: <Problem1700 />,
+        link: "https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/description/",
+      },
     ],
   },
 ];

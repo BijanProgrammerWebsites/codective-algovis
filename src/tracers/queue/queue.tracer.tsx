@@ -31,7 +31,7 @@ export default function QueueTracer({ records }: Props): ReactElement {
 
   return (
     <div className={styles.queue}>
-      <ArrayRenderer items={items} />
+      <ArrayRenderer items={items} keyPrefix="queue" />
     </div>
   );
 }
