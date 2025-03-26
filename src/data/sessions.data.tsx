@@ -9,6 +9,7 @@ import Problem125 from "@/problems/125/problem125.tsx";
 import Problem509 from "@/problems/509/problem509.tsx";
 import Problem704 from "@/problems/704/problem704.tsx";
 import Problem1652 from "@/problems/1652/problem1652.tsx";
+import Problem2379 from "@/problems/2379/problem2379.tsx";
 import Problem_1 from "@/problems/_1/problem_1.tsx";
 import Problem_2 from "@/problems/_2/problem_2.tsx";
 import Problem_3 from "@/problems/_3/problem_3.tsx";
@@ -62,6 +63,12 @@ export const sessionsData: SessionType[] = [
         title: "Defuse the Bomb",
         component: <Problem1652 />,
         link: "https://leetcode.com/problems/defuse-the-bomb/description/",
+      },
+      {
+        id: 2379,
+        title: "Minimum Recolors to Get K Consecutive Black Blocks",
+        component: <Problem2379 />,
+        link: "https://leetcode.com/problems/minimum-recolors-to-get-k-consecutive-black-blocks/description/",
       },
     ],
   },
