@@ -29,7 +29,7 @@ export default function PathRenderer({
   return (
     <motion.line
       className={clsx(styles.path, className)}
-      initial={{ pathLength: 0 }}
+      initial={{ pathLength: 0, x1, y1, x2, y2 }}
       animate={{ pathLength: 1, x1, y1, x2, y2 }}
       transition={transition}
     />
