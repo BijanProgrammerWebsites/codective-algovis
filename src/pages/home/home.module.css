@@ -13,13 +13,27 @@
       }
 
       .problems {
-        display: grid;
-        gap: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
 
         margin-block: 1rem;
 
         > li {
           a {
+            background-color: var(--color-surface-300);
+
+            display: block;
+
+            padding: 0.25rem 0.5rem;
+
+            border-radius: var(--border-radius);
+
+            text-decoration: none;
+
+            &:hover {
+              background-color: var(--color-primary-fade);
+            }
           }
         }
       }

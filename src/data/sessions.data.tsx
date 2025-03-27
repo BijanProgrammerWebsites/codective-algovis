@@ -28,11 +28,13 @@ import { SessionType } from "@/types/session.type.ts";
 
 export const sessionsData: SessionType[] = [
   {
+    title: "Hello, friend!",
     problems: [
       { id: 94, title: "Graph (Test)", component: <Problem94 />, link: "" },
     ],
   },
   {
+    title: "Two Pointers & Sliding Window",
     problems: [
       {
         id: 125,
@@ -79,6 +81,7 @@ export const sessionsData: SessionType[] = [
     ],
   },
   {
+    title: "Recursion",
     problems: [
       { id: -1, title: "Factorial", component: <Problem_1 />, link: "" },
       {
@@ -103,6 +106,7 @@ export const sessionsData: SessionType[] = [
     ],
   },
   {
+    title: "Array",
     problems: [
       { id: -3, title: "Linear Search", component: <Problem_3 />, link: "" },
       {
@@ -118,6 +122,7 @@ export const sessionsData: SessionType[] = [
     ],
   },
   {
+    title: "Data Structures: Queue, Stack, Set & Map",
     problems: [
       { id: -8, title: "Queue", component: <Problem_8 />, link: "" },
       {

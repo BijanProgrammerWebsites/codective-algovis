@@ -13,12 +13,16 @@ function HomePage(): ReactElement {
       <ul className={styles.sessions}>
         {sessionsData.map((session, sessionIndex) => (
           <li key={sessionIndex}>
-            <h2>Session {sessionIndex}</h2>
+            <h2>
+              {sessionIndex}. {session.title}
+            </h2>
             <ul className={styles.problems}>
               {session.problems.map((problem, problemIndex) => (
-                <Link key={problemIndex} to={`/p/${problem.id}`}>
-                  {problem.id}. {problem.title}
-                </Link>
+                <li key={problemIndex}>
+                  <Link to={`/p/${problem.id}`}>
+                    {problem.id}. {problem.title}
+                  </Link>
+                </li>
               ))}
             </ul>
           </li>
