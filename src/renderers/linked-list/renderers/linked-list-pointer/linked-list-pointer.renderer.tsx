@@ -99,7 +99,7 @@ export default function LinkedListPointerRenderer({
   );
 }
 
-function chiz(
+export function chiz(
   linkedList: LinkedListStructure,
   point: Point,
   side: Position,
