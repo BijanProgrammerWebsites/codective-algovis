@@ -25,6 +25,7 @@ export type LinkedListNode = {
   offsetY: number;
   data: number;
   color: ColorType;
+  lay?: (self: LinkedListNode) => void;
 };
 
 export type LinkedListEdge = {
@@ -155,6 +156,10 @@ export class LinkedListStructure extends RendererStructure<
         };
       },
     );
+
+    this.nodes.forEach((node) => {
+      node.lay?.(node);
+    });
   }
 
   private positionToCoords(index: number, position: Position): Point {
@@ -162,6 +167,9 @@ export class LinkedListStructure extends RendererStructure<
       this.dimensions;
 
     const node = this.findNode(index)!;
+    if (!node) {
+      console.log("index", index);
+    }
 
     switch (position) {
       case "top":

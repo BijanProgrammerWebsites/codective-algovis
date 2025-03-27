@@ -12,9 +12,9 @@ import { LinkedListStructure } from "@/structures/linked-list.structure.ts";
 import LinkedListTracer from "@/tracers/linked-list/linked-list.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
 
-import styles from "./problem_12.module.css";
+import styles from "./problem_13.module.css";
 
-export default function Problem_12(): ReactElement {
+export default function Problem_13(): ReactElement {
   const [targetState, setTargetState] = useState<string>("2");
 
   const {
@@ -34,13 +34,6 @@ export default function Problem_12(): ReactElement {
     const linkedList = new LinkedListStructure([0, 1, 2, 3, 4]);
     traceBeforeWeBegin(linkedList);
 
-    linkedList.nodes[targetIndex].color = "danger";
-    linkedList.pointers.target = {
-      index: targetIndex,
-      position: "bottom",
-    };
-    traceMessage("Show target");
-
     for (let i = 0; i < targetIndex; i++) {
       traceCurrent(i);
     }
@@ -51,24 +44,39 @@ export default function Problem_12(): ReactElement {
       position: "bottom",
     };
 
-    linkedList.nodes[targetIndex].offsetY =
-      linkedList.dimensions.nodeHeight + linkedList.dimensions.verticalGap;
-    traceMessage("[VISUALIZATION] Move target down");
+    linkedList.addNode({
+      id: 5,
+      data: 5,
+      color: "success",
+      lay: (self) => {
+        self.y =
+          self.y +
+          linkedList.dimensions.nodeHeight +
+          2 * linkedList.dimensions.verticalGap;
+      },
+    });
+    linkedList.nodes = [
+      ...linkedList.nodes.slice(0, targetIndex),
+      linkedList.nodes[linkedList.nodes.length - 1],
+      ...linkedList.nodes.slice(targetIndex, linkedList.nodes.length - 1),
+    ];
+    traceMessage("Add node");
 
-    linkedList.edges.splice(targetIndex - 1, 1);
-    traceMessage("Remove current link");
-
-    linkedList.addEdge({ source: targetIndex - 1, target: targetIndex + 1 });
+    linkedList.addEdge({ source: 5, target: targetIndex });
     traceMessage("Add new link");
 
-    delete linkedList.pointers.target;
-    linkedList.removeNode(targetIndex);
-    linkedList.removeEdge(targetIndex, targetIndex + 1);
-    traceMessage("Garbage collection");
+    linkedList.edges.splice(targetIndex - 1, 1);
+    traceMessage("[VISUALIZATION] Remove current link");
 
+    linkedList.findNode(5)!.lay = undefined;
+    traceMessage("[VISUALIZATION] Move");
+
+    linkedList.addEdge({ source: targetIndex - 1, target: 5 });
+    traceMessage("Add new link");
+
+    linkedList.findNode(5)!.color = "default";
     linkedList.nodes[targetIndex - 1].color = "default";
     delete linkedList.pointers.current;
-
     traceDone();
   };
 
