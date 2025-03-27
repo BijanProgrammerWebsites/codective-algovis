@@ -23,6 +23,7 @@ import Problem_6 from "@/problems/_6/problem_6.tsx";
 import Problem_7 from "@/problems/_7/problem_7.tsx";
 import Problem_8 from "@/problems/_8/problem_8.tsx";
 import Problem_9 from "@/problems/_9/problem_9.tsx";
+import Problem_10 from "@/problems/_10/problem_10.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -150,6 +151,12 @@ export const sessionsData: SessionType[] = [
         component: <Problem1700 />,
         link: "https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/description/",
       },
+    ],
+  },
+  {
+    title: "Linked List",
+    problems: [
+      { id: -10, title: "Linked List", component: <Problem_10 />, link: "" },
     ],
   },
 ];

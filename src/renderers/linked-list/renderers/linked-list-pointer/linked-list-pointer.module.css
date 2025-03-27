@@ -1,0 +1,24 @@
+.pointer {
+  --color-edge: var(--color-edge-idle);
+  --color-weight: var(--color-weight-idle);
+  --marker: url(#markerArrow);
+
+  .node {
+    .title {
+      .box {
+        fill: transparent;
+
+        transition: 0.3s ease-out;
+        transition-property: fill, stroke;
+      }
+
+      .text {
+        fill: var(--color-text-400);
+        alignment-baseline: center;
+        text-anchor: middle;
+
+        font-size: 1.25rem;
+      }
+    }
+  }
+}

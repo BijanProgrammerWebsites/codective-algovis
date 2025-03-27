@@ -1,0 +1,30 @@
+.node {
+  --color: var(--color-text-400);
+
+  .title {
+    .box {
+      fill: var(--color);
+      stroke: var(--color);
+
+      transition: 0.3s ease-out;
+      transition-property: fill, stroke;
+    }
+
+    .text {
+      fill: var(--color-surface-200);
+      alignment-baseline: center;
+      text-anchor: middle;
+
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  }
+
+  &.success {
+    --color: var(--color-success);
+  }
+
+  &.warning {
+    --color: var(--color-warning);
+  }
+}

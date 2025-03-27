@@ -1,0 +1,17 @@
+.edge {
+  --color-edge: var(--color-edge-idle);
+  --color-weight: var(--color-weight-idle);
+  --marker: url(#markerArrow);
+
+  &.selected {
+    --color-edge: var(--color-edge-selected);
+    --color-weight: var(--color-weight-selected);
+    --marker: url(#markerArrowSelected);
+  }
+
+  &.visited {
+    --color-edge: var(--color-edge-visited);
+    --color-weight: var(--color-weight-visited);
+    --marker: url(#markerArrowVisited);
+  }
+}
