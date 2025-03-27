@@ -11,9 +11,9 @@ import { LinkedListStructure } from "@/structures/linked-list.structure.ts";
 import LinkedListTracer from "@/tracers/linked-list/linked-list.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
 
-import styles from "./problem_14.module.css";
+import styles from "./problem206.module.css";
 
-export default function Problem_14(): ReactElement {
+export default function Problem206(): ReactElement {
   const {
     records,
     reset,

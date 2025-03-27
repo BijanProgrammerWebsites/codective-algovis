@@ -6,6 +6,7 @@ import Problem75 from "@/problems/75/problem75.tsx";
 import Problem94 from "@/problems/94/problem94.tsx";
 import Problem121 from "@/problems/121/problem121.tsx";
 import Problem125 from "@/problems/125/problem125.tsx";
+import Problem206 from "@/problems/206/problem206.tsx";
 import Problem509 from "@/problems/509/problem509.tsx";
 import Problem704 from "@/problems/704/problem704.tsx";
 import Problem933 from "@/problems/933/problem933.tsx";
@@ -27,7 +28,6 @@ import Problem_10 from "@/problems/_10/problem_10.tsx";
 import Problem_11 from "@/problems/_11/problem_11.tsx";
 import Problem_12 from "@/problems/_12/problem_12.tsx";
 import Problem_13 from "@/problems/_13/problem_13.tsx";
-import Problem_14 from "@/problems/_14/problem_14.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -180,10 +180,10 @@ export const sessionsData: SessionType[] = [
         link: "",
       },
       {
-        id: -14,
-        title: "Reverse",
-        component: <Problem_14 />,
-        link: "",
+        id: 206,
+        title: "Reverse Linked List",
+        component: <Problem206 />,
+        link: "https://leetcode.com/problems/reverse-linked-list/description/",
       },
     ],
   },
