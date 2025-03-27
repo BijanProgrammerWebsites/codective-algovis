@@ -23,7 +23,7 @@ export type LinkedListNode = {
   x: number;
   y: number;
   offsetY: number;
-  data: number | null;
+  data: number;
   color: ColorType;
 };
 

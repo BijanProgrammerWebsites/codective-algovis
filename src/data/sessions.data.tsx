@@ -24,6 +24,7 @@ import Problem_7 from "@/problems/_7/problem_7.tsx";
 import Problem_8 from "@/problems/_8/problem_8.tsx";
 import Problem_9 from "@/problems/_9/problem_9.tsx";
 import Problem_10 from "@/problems/_10/problem_10.tsx";
+import Problem_11 from "@/problems/_11/problem_11.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -157,6 +158,12 @@ export const sessionsData: SessionType[] = [
     title: "Linked List",
     problems: [
       { id: -10, title: "Linked List", component: <Problem_10 />, link: "" },
+      {
+        id: -11,
+        title: "Traverse",
+        component: <Problem_11 />,
+        link: "",
+      },
     ],
   },
 ];
