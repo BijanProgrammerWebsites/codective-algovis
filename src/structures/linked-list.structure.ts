@@ -40,7 +40,8 @@ type PartialEdge = Partial<LinkedListEdge> &
 
 export type Position = "top" | "left" | "bottom" | "right";
 
-type LinkedListPointers = Record<string, { index: number; position: Position }>;
+type LinkedListPointer = { index: number; position: Position };
+type LinkedListPointers = Record<string, LinkedListPointer>;
 export type LinkedListPointerNode = {
   index: number;
   title: string;
@@ -56,9 +57,9 @@ export class LinkedListStructure extends RendererStructure<
   LinkedListNode,
   LinkedListEdge
 > {
+  public pointers: LinkedListPointers = {};
   public pointerNodes: LinkedListPointerNode[] = [];
 
-  private pointers: LinkedListPointers = {};
   private availableId: number = 0;
 
   public constructor(items: number[], config?: Partial<LinkedListConfig>) {
@@ -69,11 +70,12 @@ export class LinkedListStructure extends RendererStructure<
         nodeWidth: 50,
         nodeHeight: 50,
         horizontalGap: 50,
-        verticalGap: 50,
+        verticalGap: 30,
       },
-      layoutCallback: () => this.layoutRow(),
       ...config,
     });
+
+    this.layoutCallback = this.layoutRow;
 
     this.init(items);
   }
@@ -128,8 +130,6 @@ export class LinkedListStructure extends RendererStructure<
   }
 
   public layoutRow(rootId = 0): void {
-    this.layoutCallback = () => this.layoutRow(rootId);
-
     const rootNode = this.findNode(rootId);
     if (!rootNode) {
       return;
@@ -149,7 +149,7 @@ export class LinkedListStructure extends RendererStructure<
         return {
           index: pointer.index,
           title,
-          ...this.positionToCoords(this.nodes[pointer.index], pointer.position),
+          ...this.positionToCoords(pointer.index, pointer.position),
           position: pointer.position,
           arrow: title === "null" ? "inside" : "outside",
         };
@@ -157,9 +157,11 @@ export class LinkedListStructure extends RendererStructure<
     );
   }
 
-  private positionToCoords(node: LinkedListNode, position: Position): Point {
+  private positionToCoords(index: number, position: Position): Point {
     const { nodeWidth, nodeHeight, horizontalGap, verticalGap } =
       this.dimensions;
+
+    const node = this.findNode(index)!;
 
     switch (position) {
       case "top":

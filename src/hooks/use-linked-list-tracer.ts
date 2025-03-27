@@ -18,6 +18,8 @@ export function useLinkedListTracer() {
       linkedList.current!.nodes.map((node) => [node.id, node.color]),
     );
 
+    const pointersBackup = { ...linkedList.current!.pointers };
+
     const result = callback();
 
     linkedList.current!.nodes.forEach((node) => {
@@ -27,6 +29,8 @@ export function useLinkedListTracer() {
 
       node.color = colorsBackup.get(node.id)!;
     });
+
+    linkedList.current!.pointers = pointersBackup;
 
     return result;
   };
@@ -39,15 +43,21 @@ export function useLinkedListTracer() {
     ]);
   };
 
-  const traceTraverse = (index: number): void => {
+  const traceCurrent = (index: number): void => {
     wrapWithBackup(() => {
       linkedList.current!.nodes[index].color = "warning";
+
+      linkedList.current!.pointers.current = { index, position: "bottom" };
 
       trace([
         { message: `Traverse index ${index}` },
         { linkedList: linkedList.current! },
       ]);
     });
+  };
+
+  const traceMessage = (message: string): void => {
+    trace([{ message }, { linkedList: linkedList.current! }]);
   };
 
   const traceDone = (): void => {
@@ -59,7 +69,8 @@ export function useLinkedListTracer() {
     trace,
     reset,
     traceBeforeWeBegin,
-    traceTraverse,
+    traceCurrent,
+    traceMessage,
     traceDone,
   };
 }

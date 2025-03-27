@@ -14,7 +14,7 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 import styles from "./problem_11.module.css";
 
 export default function Problem_11(): ReactElement {
-  const { records, reset, traceBeforeWeBegin, traceTraverse, traceDone } =
+  const { records, reset, traceBeforeWeBegin, traceCurrent, traceDone } =
     useLinkedListTracer();
 
   const solve = (): void => {
@@ -24,7 +24,7 @@ export default function Problem_11(): ReactElement {
     traceBeforeWeBegin(linkedList);
 
     for (let i = 0; i < linkedList.nodes.length; i++) {
-      traceTraverse(i);
+      traceCurrent(i);
     }
 
     traceDone();

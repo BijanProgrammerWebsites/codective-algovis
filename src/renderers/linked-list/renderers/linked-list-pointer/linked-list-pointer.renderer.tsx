@@ -1,5 +1,7 @@
 import { ReactElement } from "react";
 
+import { motion } from "motion/react";
+
 import clsx from "clsx";
 
 import EdgeRenderer from "@/renderers/edge/edge.renderer.tsx";
@@ -26,7 +28,7 @@ export default function LinkedListPointerRenderer({
   const { nodeWidth, nodeHeight, arrowGap } = dimensions;
   const { index, title, x, y, position, arrow } = pointer;
 
-  const node = linkedList.findNodeByIndex(index);
+  const node = linkedList.findNode(index)!;
 
   const pointerPoint = (() => {
     switch (position) {
@@ -46,20 +48,26 @@ export default function LinkedListPointerRenderer({
   const nodePoint = (() => {
     switch (position) {
       case "top":
-        return chiz(linkedList, node, "top");
+        return chiz(linkedList, node, "top", 10);
       case "bottom":
-        return chiz(linkedList, node, "bottom");
+        return chiz(linkedList, node, "bottom", 10);
       case "left":
-        return chiz(linkedList, node, "left");
+        return chiz(linkedList, node, "left", 10);
       case "right":
-        return chiz(linkedList, node, "right");
+        return chiz(linkedList, node, "right", 10);
     }
 
     throw new Error("Invalid Position");
   })();
 
   return (
-    <g className={styles.pointer}>
+    <motion.g
+      key={`node-${node.id}`}
+      className={styles.pointer}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <EdgeRenderer
         className={styles.edge}
         start={arrow === "outside" ? pointerPoint : nodePoint}
@@ -69,7 +77,13 @@ export default function LinkedListPointerRenderer({
         arrowGap={arrowGap}
         isDirected={true}
       />
-      <g className={clsx(styles.node)} transform={`translate(${x},${y})`}>
+
+      <motion.g
+        className={clsx(styles.node)}
+        initial={false}
+        animate={{ x, y }}
+        transition={{ ease: "easeOut" }}
+      >
         <g className={styles.title}>
           <rect className={styles.box} width={nodeWidth} height={nodeHeight} />
           <text
@@ -80,8 +94,8 @@ export default function LinkedListPointerRenderer({
             {title}
           </text>
         </g>
-      </g>
-    </g>
+      </motion.g>
+    </motion.g>
   );
 }
 
@@ -89,6 +103,7 @@ function chiz(
   linkedList: LinkedListStructure,
   point: Point,
   side: Position,
+  gap: number = 0,
 ): Point {
   const { nodeWidth, nodeHeight } = linkedList.dimensions;
 
@@ -96,21 +111,21 @@ function chiz(
     case "top":
       return {
         x: point.x + nodeWidth / 2,
-        y: point.y,
+        y: point.y - gap,
       };
     case "bottom":
       return {
         x: point.x + nodeWidth / 2,
-        y: point.y + nodeHeight,
+        y: point.y + nodeHeight + gap,
       };
     case "left":
       return {
-        x: point.x,
+        x: point.x - gap,
         y: point.y + nodeWidth / 2,
       };
     case "right":
       return {
-        x: point.x + nodeWidth,
+        x: point.x + nodeWidth + gap,
         y: point.y + nodeWidth / 2,
       };
   }

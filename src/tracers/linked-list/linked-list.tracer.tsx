@@ -22,6 +22,8 @@ export default function LinkedListTracer({ records }: Props): ReactElement {
     return <div className={styles["linked-list"]}>Not Available</div>;
   }
 
+  record.linkedList.layoutCallback();
+
   return (
     <RendererProvider>
       <div className={styles["linked-list"]}>

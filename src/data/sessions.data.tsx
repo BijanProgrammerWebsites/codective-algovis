@@ -25,6 +25,7 @@ import Problem_8 from "@/problems/_8/problem_8.tsx";
 import Problem_9 from "@/problems/_9/problem_9.tsx";
 import Problem_10 from "@/problems/_10/problem_10.tsx";
 import Problem_11 from "@/problems/_11/problem_11.tsx";
+import Problem_12 from "@/problems/_12/problem_12.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -162,6 +163,12 @@ export const sessionsData: SessionType[] = [
         id: -11,
         title: "Traverse",
         component: <Problem_11 />,
+        link: "",
+      },
+      {
+        id: -12,
+        title: "Remove Node by Index",
+        component: <Problem_12 />,
         link: "",
       },
     ],

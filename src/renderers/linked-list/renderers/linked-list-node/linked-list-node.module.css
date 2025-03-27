@@ -27,4 +27,8 @@
   &.warning {
     --color: var(--color-warning);
   }
+
+  &.danger {
+    --color: var(--color-danger);
+  }
 }

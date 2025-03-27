@@ -21,12 +21,16 @@ export default function PathRenderer({
   end,
   transition,
 }: Props): ReactElement {
+  const x1 = start.x;
+  const y1 = start.y;
+  const x2 = end.x;
+  const y2 = end.y;
+
   return (
-    <motion.path
-      d={`M${start.x},${start.y} L${end.x},${end.y}`}
+    <motion.line
       className={clsx(styles.path, className)}
       initial={{ pathLength: 0 }}
-      animate={{ pathLength: 1 }}
+      animate={{ pathLength: 1, x1, y1, x2, y2 }}
       transition={transition}
     />
   );

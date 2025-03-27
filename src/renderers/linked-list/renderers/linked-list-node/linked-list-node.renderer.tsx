@@ -1,5 +1,7 @@
 import { ReactElement } from "react";
 
+import { motion } from "motion/react";
+
 import clsx from "clsx";
 
 import {
@@ -23,9 +25,11 @@ export default function LinkedListNodeRenderer({
   const { x, y, data, color } = node;
 
   return (
-    <g
+    <motion.g
       className={clsx(styles.node, styles[color])}
-      transform={`translate(${x},${y})`}
+      initial={false}
+      animate={{ x, y }}
+      transition={{ ease: "easeOut" }}
     >
       <g className={styles.title}>
         <rect className={styles.box} width={nodeWidth} height={nodeHeight} />
@@ -33,6 +37,6 @@ export default function LinkedListNodeRenderer({
           {data}
         </text>
       </g>
-    </g>
+    </motion.g>
   );
 }
