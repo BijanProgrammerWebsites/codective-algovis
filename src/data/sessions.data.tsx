@@ -32,6 +32,7 @@ import Problem_14 from "@/problems/_14/problem_14.tsx";
 import Problem_15 from "@/problems/_15/problem_15.tsx";
 import Problem_16 from "@/problems/_16/problem_16.tsx";
 import Problem_17 from "@/problems/_17/problem_17.tsx";
+import Problem_18 from "@/problems/_18/problem_18.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -211,6 +212,12 @@ export const sessionsData: SessionType[] = [
         id: -17,
         title: "Binary Tree",
         component: <Problem_17 />,
+        link: "",
+      },
+      {
+        id: -18,
+        title: "Binary Search Tree (BST)",
+        component: <Problem_18 />,
         link: "",
       },
     ],
