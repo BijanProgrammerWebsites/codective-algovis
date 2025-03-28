@@ -75,7 +75,7 @@ export class GraphStructure extends RendererStructure<
     this.isWeighted = config?.isWeighted ?? false;
   }
 
-  public set(array2d: number[][] = []): void {
+  public set(array2d: readonly number[][] = []): void {
     this.nodes = [];
     this.edges = [];
 
