@@ -1,17 +1,7 @@
 .edge {
-  --color-edge: var(--color-edge-idle);
-  --color-weight: var(--color-weight-idle);
-  --marker: url(#markerArrow);
+  --color: hsl(0, 0%, 90%);
 
-  &.selected {
-    --color-edge: var(--color-edge-selected);
-    --color-weight: var(--color-weight-selected);
-    --marker: url(#markerArrowSelected);
-  }
-
-  &.visited {
-    --color-edge: var(--color-edge-visited);
-    --color-weight: var(--color-weight-visited);
-    --marker: url(#markerArrowVisited);
-  }
+  --color-edge: var(--color);
+  --color-weight: var(--color);
+  --marker: url(#marker-arrow-default);
 }

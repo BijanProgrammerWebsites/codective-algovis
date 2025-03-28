@@ -1,11 +1,23 @@
 .arrow {
-  fill: var(--color-arrow-idle);
+  fill: hsl(0, 0%, 90%);
 
-  &.selected {
-    fill: var(--color-arrow-selected);
+  &.primary {
+    fill: var(--color-primary);
   }
 
-  &.visited {
-    fill: var(--color-arrow-visited);
+  &.success {
+    fill: var(--color-success);
+  }
+
+  &.warning {
+    fill: var(--color-warning);
+  }
+
+  &.danger {
+    fill: var(--color-danger);
+  }
+
+  &.disabled {
+    fill: var(--color-surface-disabled);
   }
 }

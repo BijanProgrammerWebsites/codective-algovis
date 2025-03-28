@@ -1,7 +1,9 @@
 .pointer {
-  --color-edge: var(--color-edge-idle);
-  --color-weight: var(--color-weight-idle);
-  --marker: url(#markerArrow);
+  --color: hsl(0, 0%, 90%);
+
+  --color-edge: var(--color);
+  --color-weight: var(--color);
+  --marker: url(#marker-arrow-default);
 
   .node {
     .title {

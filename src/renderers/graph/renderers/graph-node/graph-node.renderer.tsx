@@ -19,15 +19,11 @@ export default function GraphNodeRenderer({
 }: Props): ReactElement {
   const { isWeighted, dimensions } = graph;
   const { nodeRadius, nodeWeightGap } = dimensions;
-  const { id, title, x, y, weight, visitedCount, selectedCount } = node;
+  const { id, title, x, y, weight, color } = node;
 
   return (
     <g
-      className={clsx(
-        styles.node,
-        selectedCount && styles.selected,
-        visitedCount && styles.visited,
-      )}
+      className={clsx(styles.node, styles[color])}
       transform={`translate(${x},${y})`}
     >
       <circle className={styles.circle} r={nodeRadius} />

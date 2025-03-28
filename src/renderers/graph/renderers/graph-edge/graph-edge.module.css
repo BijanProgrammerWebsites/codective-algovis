@@ -1,17 +1,27 @@
 .edge {
-  --color-edge: var(--color-edge-idle);
-  --color-weight: var(--color-weight-idle);
-  --marker: url(#markerArrow);
+  --color: hsl(0, 0%, 90%);
 
-  &.selected {
-    --color-edge: var(--color-edge-selected);
-    --color-weight: var(--color-weight-selected);
-    --marker: url(#markerArrowSelected);
+  --color-edge: var(--color);
+  --color-weight: var(--color);
+  --marker: url(#marker-arrow-default);
+
+  &.primary {
+    --color: var(--color-primary);
+    --marker: url(#marker-arrow-primary);
   }
 
-  &.visited {
-    --color-edge: var(--color-edge-visited);
-    --color-weight: var(--color-weight-visited);
-    --marker: url(#markerArrowVisited);
+  &.success {
+    --color: var(--color-success);
+    --marker: url(#marker-arrow-success);
+  }
+
+  &.warning {
+    --color: var(--color-warning);
+    --marker: url(#marker-arrow-warning);
+  }
+
+  &.danger {
+    --color: var(--color-danger);
+    --marker: url(#marker-arrow-danger);
   }
 }

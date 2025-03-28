@@ -16,7 +16,7 @@ type Props = {
 export default function GraphEdgeRenderer({ graph, edge }: Props): ReactNode {
   const { isDirected, isWeighted, dimensions } = graph;
   const { nodeRadius, arrowGap, edgeWeightGap } = dimensions;
-  const { source, target, weight, visitedCount, selectedCount } = edge;
+  const { source, target, weight, color } = edge;
 
   const sourceNode = graph.findNode(source);
   const targetNode = graph.findNode(target);
@@ -27,11 +27,7 @@ export default function GraphEdgeRenderer({ graph, edge }: Props): ReactNode {
 
   return (
     <EdgeRenderer
-      className={clsx(
-        styles.edge,
-        selectedCount && styles.selected,
-        visitedCount && styles.visited,
-      )}
+      className={clsx(styles.edge, styles[color])}
       start={{ x: sourceNode.x, y: sourceNode.y }}
       end={{ x: targetNode.x, y: targetNode.y }}
       weight={weight}

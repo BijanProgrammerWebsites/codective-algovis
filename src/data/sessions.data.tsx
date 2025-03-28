@@ -29,6 +29,7 @@ import Problem_11 from "@/problems/_11/problem_11.tsx";
 import Problem_12 from "@/problems/_12/problem_12.tsx";
 import Problem_13 from "@/problems/_13/problem_13.tsx";
 import Problem_14 from "@/problems/_14/problem_14.tsx";
+import Problem_15 from "@/problems/_15/problem_15.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -191,10 +192,11 @@ export const sessionsData: SessionType[] = [
   {
     title: "Tree",
     problems: [
+      { id: -14, title: "Tree", component: <Problem_14 />, link: "" },
       {
-        id: -14,
-        title: "Tree",
-        component: <Problem_14 />,
+        id: -15,
+        title: "Depth-First-Search (DFS)",
+        component: <Problem_15 />,
         link: "",
       },
     ],

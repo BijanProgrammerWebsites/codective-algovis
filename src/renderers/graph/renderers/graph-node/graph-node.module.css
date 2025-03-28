@@ -1,38 +1,46 @@
 .node {
+  --color: hsl(0, 0%, 90%);
+  --color-opposite: hsl(0, 0%, 10%);
+
   .circle {
-    fill: var(--color-node-idle-surface);
+    fill: var(--color);
   }
 
   .title {
-    fill: var(--color-node-idle-text);
+    fill: var(--color-opposite);
     alignment-baseline: central;
     text-anchor: middle;
   }
 
   .weight {
-    fill: var(--color-weight-idle);
+    fill: var(--color);
     font-weight: bold;
     alignment-baseline: central;
     text-anchor: start;
   }
 
-  &.selected {
-    .circle {
-      fill: var(--color-node-selected-surface);
-    }
-
-    .title {
-      fill: var(--color-node-selected-text);
-    }
+  &.primary {
+    --color: var(--color-primary);
+    --color-opposite: var(--color-primary-opposite);
   }
 
-  &.visited {
-    .circle {
-      fill: var(--color-node-visited-surface);
-    }
+  &.success {
+    --color: var(--color-success);
+    --color-opposite: var(--color-success-opposite);
+  }
 
-    .title {
-      fill: var(--color-node-visited-text);
-    }
+  &.warning {
+    --color: var(--color-warning);
+    --color-opposite: var(--color-warning-opposite);
+  }
+
+  &.danger {
+    --color: var(--color-danger);
+    --color-opposite: var(--color-danger-opposite);
+  }
+
+  &.disabled {
+    --color: var(--color-disabled);
+    --color-opposite: var(--color-disabled-opposite);
   }
 }

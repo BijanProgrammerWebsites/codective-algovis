@@ -1,5 +1,7 @@
 import { RendererStructure } from "@/structures/renderer.structure.ts";
 
+import { ColorType } from "@/types/color.type.ts";
+
 import { distance } from "@/utils/graph.utils.ts";
 
 export type GraphDimensions = {
@@ -24,6 +26,7 @@ export type GraphNode = {
   weight: number | null;
   x: number;
   y: number;
+  color: ColorType;
   visitedCount: number;
   selectedCount: number;
 };
@@ -34,6 +37,7 @@ export type GraphEdge = {
   source: number;
   target: number;
   weight: number | null;
+  color: ColorType;
   visitedCount: number;
   selectedCount: number;
 };
@@ -103,6 +107,7 @@ export class GraphStructure extends RendererStructure<
       weight: null,
       x: 0,
       y: 0,
+      color: "default",
       visitedCount: 0,
       selectedCount: 0,
       ...partialNode,
@@ -112,6 +117,7 @@ export class GraphStructure extends RendererStructure<
   public addEdge(partialEdge: PartialEdge): void {
     super.addEdge({
       weight: null,
+      color: "default",
       visitedCount: 0,
       selectedCount: 0,
       ...partialEdge,
@@ -286,5 +292,42 @@ export class GraphStructure extends RendererStructure<
 
   public deselect(target: number, source: number | null = null): void {
     this.selectOrDeselect(false, target, source);
+  }
+
+  public colorNode(id: number, color: ColorType): ColorType {
+    const node = this.findNode(id);
+
+    if (!node) {
+      return "default";
+    }
+
+    const backup = node.color;
+    node.color = color;
+    return backup;
+  }
+
+  public colorEdge(
+    source: number,
+    target: number,
+    color: ColorType,
+  ): ColorType {
+    const edge = this.findEdge(source, target);
+
+    if (!edge) {
+      return "default";
+    }
+
+    const backup = edge.color;
+    edge.color = color;
+    return backup;
+  }
+
+  public colorToNode(
+    source: number,
+    target: number,
+    color: ColorType,
+  ): ColorType {
+    this.colorEdge(source, target, color);
+    return this.colorNode(target, color);
   }
 }
