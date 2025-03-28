@@ -3,7 +3,7 @@
     fill: var(--color-node-idle-surface);
   }
 
-  .id {
+  .title {
     fill: var(--color-node-idle-text);
     alignment-baseline: central;
     text-anchor: middle;
@@ -21,7 +21,7 @@
       fill: var(--color-node-selected-surface);
     }
 
-    .id {
+    .title {
       fill: var(--color-node-selected-text);
     }
   }
@@ -31,7 +31,7 @@
       fill: var(--color-node-visited-surface);
     }
 
-    .id {
+    .title {
       fill: var(--color-node-visited-text);
     }
   }

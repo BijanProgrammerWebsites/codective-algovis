@@ -19,7 +19,7 @@ export default function GraphNodeRenderer({
 }: Props): ReactElement {
   const { isWeighted, dimensions } = graph;
   const { nodeRadius, nodeWeightGap } = dimensions;
-  const { id, x, y, weight, visitedCount, selectedCount } = node;
+  const { id, title, x, y, weight, visitedCount, selectedCount } = node;
 
   return (
     <g
@@ -31,7 +31,7 @@ export default function GraphNodeRenderer({
       transform={`translate(${x},${y})`}
     >
       <circle className={styles.circle} r={nodeRadius} />
-      <text className={styles.id}>{id}</text>
+      <text className={styles.title}>{title ?? id}</text>
       {isWeighted && (
         <text className={styles.weight} x={nodeRadius + nodeWeightGap}>
           {stringify(weight)}

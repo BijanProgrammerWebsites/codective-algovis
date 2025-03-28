@@ -8,6 +8,7 @@ export type GraphDimensions = {
   arrowGap: number;
   nodeWeightGap: number;
   edgeWeightGap: number;
+  verticalGap: number;
 };
 
 export type GraphConfig = {
@@ -19,6 +20,7 @@ export type GraphConfig = {
 
 export type GraphNode = {
   id: number;
+  title?: string;
   weight: number | null;
   x: number;
   y: number;
@@ -64,6 +66,7 @@ export class GraphStructure extends RendererStructure<
         arrowGap: 4,
         nodeWeightGap: 4,
         edgeWeightGap: 4,
+        verticalGap: 100,
       },
       layoutCallback: () => this.layoutTree(),
       ...config,
@@ -179,14 +182,14 @@ export class GraphStructure extends RendererStructure<
     findLeafsCount(rootId, 0);
 
     const hGap = rect.width / leafsCount[rootId];
-    const vGap = rect.height / maxDepth;
+    // const vGap = rect.height / maxDepth;
     marked = {};
 
     const setPositions = (node: GraphNode, h: number, v: number): void => {
       marked[node.id] = true;
 
       node.x = rect.left + (h + leafsCount[node.id] / 2) * hGap;
-      node.y = rect.top + v * vGap;
+      node.y = rect.top + v * this.dimensions.verticalGap;
 
       const linkedNodes = this.findLinkedNodes(node.id, false);
       if (shouldSort) {
