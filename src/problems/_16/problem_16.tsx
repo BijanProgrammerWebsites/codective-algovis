@@ -17,6 +17,7 @@ import { QueueStructure } from "@/structures/queue.structure.ts";
 
 import GraphTracer from "@/tracers/graph/graph.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
+import QueueTracer from "@/tracers/queue/queue.tracer.tsx";
 
 import styles from "./problem_16.module.css";
 
@@ -88,8 +89,9 @@ export default function Problem_16(): ReactElement {
           Solve
         </ButtonComponent>
       </FormComponent>
-      <BoardComponent>
+      <BoardComponent layout="two-one">
         <GraphTracer records={records.map((x) => x[1])} />
+        <QueueTracer records={records.map((x) => x[2])} />
         <LogTracer records={records.map((x) => x[0])} />
       </BoardComponent>
     </div>
