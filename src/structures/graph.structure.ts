@@ -1,3 +1,7 @@
+import { DirectedGraph } from "graphology";
+import { circular } from "graphology-layout";
+import forceAtlas2 from "graphology-layout-forceatlas2";
+
 import { RendererStructure } from "@/structures/renderer.structure.ts";
 
 import { ColorType } from "@/types/color.type.ts";
@@ -63,7 +67,7 @@ export class GraphStructure extends RendererStructure<
         edgeWeightGap: 4,
         verticalGap: 100,
       },
-      layoutCallback: () => this.layoutTree(),
+      layoutCallback: () => {},
       ...config,
     });
 
@@ -222,6 +226,29 @@ export class GraphStructure extends RendererStructure<
 
       placedNodes.push(node);
     }
+  }
+
+  public layoutForceDirected(): void {
+    const graph = new DirectedGraph();
+
+    this.nodes.forEach((node) => graph.addNode(node.id));
+
+    this.edges.forEach((edge) => {
+      graph.addEdge(edge.source, edge.target);
+    });
+
+    circular(graph, { scale: 200 });
+    circular.assign(graph);
+
+    const positions = forceAtlas2(graph, {
+      iterations: 50,
+      settings: { scalingRatio: 500 },
+    });
+
+    this.nodes.forEach((node, i) => {
+      node.x = positions[i].x;
+      node.y = positions[i].y;
+    });
   }
 
   private visitOrLeave(

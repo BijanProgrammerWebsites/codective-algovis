@@ -20,6 +20,8 @@ export default function GraphTracer({ records }: Props): ReactElement {
     return <div>Not Available</div>;
   }
 
+  record.graph.layoutCallback();
+
   return (
     <RendererProvider>
       <GraphRenderer graph={record.graph} />

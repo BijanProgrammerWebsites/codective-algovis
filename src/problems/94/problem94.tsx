@@ -17,18 +17,12 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 import styles from "./problem94.module.css";
 
 const G: number[][] = [
-  // G[i][j] indicates whether the path from the i-th node to the j-th node exists or not
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 1, 0, 0, 0, 1],
+  [0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0],
+  [1, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 1, 0],
 ];
 
 export default function Problem94(): ReactElement {
@@ -39,7 +33,7 @@ export default function Problem94(): ReactElement {
 
     const graph = new GraphStructure();
     graph.set(G);
-    graph.layoutTree(5);
+    graph.layoutForceDirected();
 
     trace([{ message: "Start" }, { graph }]);
 
