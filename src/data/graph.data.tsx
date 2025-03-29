@@ -2,9 +2,9 @@ export const GRAPH_1: readonly number[][] = Object.freeze([
   [1],
   [2],
   [],
-  [2],
+  [2, 5],
   [3],
-  [0, 3, 4],
+  [0, 4],
 ]);
 
 export const GRAPH_1_VALUES: number[] = [42, 8, 16, 23, 15, 4];

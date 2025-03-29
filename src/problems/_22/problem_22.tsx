@@ -31,7 +31,7 @@ export default function Problem_22(): ReactElement {
     trace([{ message: "Before We Begin" }, { graph }]);
 
     function isCyclicUtil(
-      adj: number[][],
+      adj: readonly number[][],
       id: number,
       visited: boolean[],
       recStack: boolean[],
@@ -66,7 +66,7 @@ export default function Problem_22(): ReactElement {
       return false;
     }
 
-    function isCyclic(adj: number[][]) {
+    function isCyclic(adj: readonly number[][]) {
       const V = adj.length;
       const visited = new Array(V).fill(false);
       const recStack = new Array(V).fill(false);
@@ -87,15 +87,7 @@ export default function Problem_22(): ReactElement {
       return false;
     }
 
-    const adj = GRAPH_1.map((row) =>
-      row.reduce((acc, current, index) => {
-        if (current === 1) {
-          return [...acc, index];
-        }
-
-        return acc;
-      }, [] as number[]),
-    );
+    const adj = GRAPH_1;
 
     const result = isCyclic(adj);
     if (!result) {
