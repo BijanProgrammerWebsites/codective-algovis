@@ -45,15 +45,6 @@ export type GraphEdge = {
 export type PartialEdge = Partial<GraphEdge> &
   Pick<GraphEdge, "source" | "target">;
 
-export type Rect = {
-  left: number;
-  top: number;
-  right: number;
-  bottom: number;
-  width: number;
-  height: number;
-};
-
 export class GraphStructure extends RendererStructure<
   GraphDimensions,
   GraphConfig,

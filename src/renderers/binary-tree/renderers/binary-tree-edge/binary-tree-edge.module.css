@@ -1,0 +1,27 @@
+.edge {
+  --color: hsl(0, 0%, 90%);
+
+  --color-edge: var(--color);
+  --color-weight: var(--color);
+  --marker: url(#marker-arrow-default);
+
+  &.primary {
+    --color: var(--color-primary);
+    --marker: url(#marker-arrow-primary);
+  }
+
+  &.success {
+    --color: var(--color-success);
+    --marker: url(#marker-arrow-success);
+  }
+
+  &.warning {
+    --color: var(--color-warning);
+    --marker: url(#marker-arrow-warning);
+  }
+
+  &.danger {
+    --color: var(--color-danger);
+    --marker: url(#marker-arrow-danger);
+  }
+}
