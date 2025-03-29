@@ -1,6 +1,8 @@
 import { ReactElement, useEffect } from "react";
 
 import BoardComponent from "@/components/board/board.component.tsx";
+import { ButtonComponent } from "@/components/button/button.component.tsx";
+import FormComponent from "@/components/form/form.component.tsx";
 
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
@@ -71,6 +73,11 @@ export default function Problem94(): ReactElement {
 
   return (
     <div className={styles.problem}>
+      <FormComponent onSubmit={solve}>
+        <ButtonComponent variant="primary" disabled>
+          Solve
+        </ButtonComponent>
+      </FormComponent>
       <BoardComponent>
         <GraphTracer records={records.map((x) => x[1])} />
         <LogTracer records={records.map((x) => x[0])} />

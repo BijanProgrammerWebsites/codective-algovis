@@ -2,7 +2,11 @@
   display: grid;
   grid-template-areas: "heading stepper" "content content";
   grid-template-columns: 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 1rem;
+
+  min-block-size: 100%;
+  block-size: 0;
 
   h1 {
     grid-area: heading;
@@ -22,5 +26,13 @@
 
   .content {
     grid-area: content;
+
+    > * {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 1rem;
+
+      block-size: 100%;
+    }
   }
 }

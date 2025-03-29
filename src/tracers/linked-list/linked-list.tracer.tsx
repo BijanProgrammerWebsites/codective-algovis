@@ -8,8 +8,6 @@ import { LinkedListRecord } from "@/records/linked-list.record.ts";
 
 import LinkedListRenderer from "@/renderers/linked-list/linked-list.renderer.tsx";
 
-import styles from "./linked-list.module.css";
-
 type Props = {
   records: LinkedListRecord[];
 };
@@ -19,16 +17,14 @@ export default function LinkedListTracer({ records }: Props): ReactElement {
 
   const record = records[step];
   if (!record) {
-    return <div className={styles["linked-list"]}>Not Available</div>;
+    return <div>Not Available</div>;
   }
 
   record.linkedList.layoutCallback();
 
   return (
     <RendererProvider>
-      <div className={styles["linked-list"]}>
-        <LinkedListRenderer linkedList={record.linkedList} />
-      </div>
+      <LinkedListRenderer linkedList={record.linkedList} />
     </RendererProvider>
   );
 }

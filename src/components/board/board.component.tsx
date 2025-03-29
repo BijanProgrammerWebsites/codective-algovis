@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import styles from "./board.module.css";
 
-type BoardLayout = "one-one" | "two-one";
+type BoardLayout = "one-one" | "two-one" | "two-one-one-auto";
 
 type Props = PropsWithChildren<{
   layout?: BoardLayout;

@@ -89,7 +89,7 @@ export default function Problem_16(): ReactElement {
           Solve
         </ButtonComponent>
       </FormComponent>
-      <BoardComponent layout="two-one">
+      <BoardComponent layout="two-one-one-auto">
         <GraphTracer records={records.map((x) => x[1])} />
         <QueueTracer records={records.map((x) => x[2])} />
         <LogTracer records={records.map((x) => x[0])} />

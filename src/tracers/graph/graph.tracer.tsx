@@ -8,8 +8,6 @@ import { GraphRecord } from "@/records/graph.record.ts";
 
 import GraphRenderer from "@/renderers/graph/graph.renderer.tsx";
 
-import styles from "./graph.module.css";
-
 type Props = {
   records: GraphRecord[];
 };
@@ -19,14 +17,12 @@ export default function GraphTracer({ records }: Props): ReactElement {
 
   const record = records[step];
   if (!record) {
-    return <div className={styles.graph}>Not Available</div>;
+    return <div>Not Available</div>;
   }
 
   return (
     <RendererProvider>
-      <div className={styles.graph}>
-        <GraphRenderer graph={record.graph} />
-      </div>
+      <GraphRenderer graph={record.graph} />
     </RendererProvider>
   );
 }

@@ -8,8 +8,6 @@ import { CallstackRecord } from "@/records/callstack.record.ts";
 
 import CallstackRenderer from "@/renderers/callstack/callstack.renderer.tsx";
 
-import styles from "./callstack.module.css";
-
 type Props = {
   records: CallstackRecord[];
 };
@@ -19,14 +17,12 @@ export default function CallstackTracer({ records }: Props): ReactElement {
 
   const record = records[step];
   if (!record) {
-    return <div className={styles.callstack}>Not Available</div>;
+    return <div>Not Available</div>;
   }
 
   return (
     <RendererProvider>
-      <div className={styles.callstack}>
-        <CallstackRenderer callstack={record.callstack} />
-      </div>
+      <CallstackRenderer callstack={record.callstack} />
     </RendererProvider>
   );
 }

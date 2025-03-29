@@ -7,6 +7,8 @@ import {
   useState,
 } from "react";
 
+import useResizeObserver from "@react-hook/resize-observer";
+
 import { RendererContext } from "@/context/renderer.context.ts";
 
 import { ViewBoxType } from "@/types/view-box.type.ts";
@@ -15,7 +17,7 @@ import styles from "./rendere.module.css";
 
 type Props = PropsWithChildren;
 
-function FiltersProvider({ children }: Props): ReactElement {
+function RendererProvider({ children }: Props): ReactElement {
   const rendererRef = useRef<HTMLDivElement>(null);
 
   const isPanEnabled = useRef<boolean>(true);
@@ -36,6 +38,17 @@ function FiltersProvider({ children }: Props): ReactElement {
   const lastY = useRef<number>(0);
 
   const isMouseDown = useRef<boolean>(false);
+
+  useResizeObserver(rendererRef, (entry) => {
+    const width = entry.borderBoxSize[0].inlineSize;
+    const height = entry.borderBoxSize[0].blockSize;
+
+    setViewBox((old) => ({
+      ...old,
+      w: width * zoom.current,
+      h: height * zoom.current,
+    }));
+  });
 
   const mouseDownHandler = (e: MouseEvent<HTMLDivElement>): void => {
     if (!isPanEnabled.current) {
@@ -92,12 +105,14 @@ function FiltersProvider({ children }: Props): ReactElement {
       const vpos = { x: viewBox.x, y: viewBox.y };
       const cpos = { x: mpos.x + vpos.x, y: mpos.y + vpos.y };
 
-      setViewBox((old) => ({
-        x: (old.x - cpos.x) * scale + cpos.x,
-        y: (old.y - cpos.y) * scale + cpos.y,
-        w: 800 * newZoom,
-        h: 600 * newZoom,
-      }));
+      const newViewBox = {
+        x: (viewBox.x - cpos.x) * scale + cpos.x,
+        y: (viewBox.y - cpos.y) * scale + cpos.y,
+        w: (viewBox.w * newZoom) / zoom.current,
+        h: (viewBox.h * newZoom) / zoom.current,
+      };
+
+      setViewBox(newViewBox);
 
       zoom.current = newZoom;
     };
@@ -107,7 +122,7 @@ function FiltersProvider({ children }: Props): ReactElement {
     return () => {
       element?.removeEventListener("wheel", wheelHandler);
     };
-  }, [viewBox.x, viewBox.y]);
+  }, [viewBox]);
 
   return (
     <RendererContext.Provider value={{ viewBox }}>
@@ -124,4 +139,4 @@ function FiltersProvider({ children }: Props): ReactElement {
   );
 }
 
-export default FiltersProvider;
+export default RendererProvider;
