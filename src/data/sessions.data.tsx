@@ -33,6 +33,7 @@ import Problem_15 from "@/problems/_15/problem_15.tsx";
 import Problem_16 from "@/problems/_16/problem_16.tsx";
 import Problem_17 from "@/problems/_17/problem_17.tsx";
 import Problem_18 from "@/problems/_18/problem_18.tsx";
+import Problem_19 from "@/problems/_19/problem_19.tsx";
 
 import { SessionType } from "@/types/session.type.ts";
 
@@ -220,6 +221,12 @@ export const sessionsData: SessionType[] = [
         component: <Problem_18 />,
         link: "",
       },
+    ],
+  },
+  {
+    title: "Graph",
+    problems: [
+      { id: -19, title: "Graph", component: <Problem_19 />, link: "" },
     ],
   },
 ];
