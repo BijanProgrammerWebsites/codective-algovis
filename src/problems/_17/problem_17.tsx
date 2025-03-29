@@ -1,60 +1,61 @@
 import { ReactElement, useEffect } from "react";
 
-import {
-  BTREE_1,
-  BTREE_2,
-  BTREE_3,
-  BTREE_4,
-  BTREE_6,
-} from "@/data/tree.data.tsx";
-
 import BoardComponent from "@/components/board/board.component.tsx";
 import { ButtonComponent } from "@/components/button/button.component.tsx";
 import FormComponent from "@/components/form/form.component.tsx";
 
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
-import { GraphRecord } from "@/records/graph.record.ts";
+import { BinaryTreeRecord } from "@/records/binary-tree.record.ts";
 import { LogRecord } from "@/records/log.record.ts";
 
-import { GraphStructure } from "@/structures/graph.structure.ts";
+import { BinaryTreeStructure } from "@/structures/binary-tree.structure.ts";
 
-import GraphTracer from "@/tracers/graph/graph.tracer.tsx";
+import BinaryTreeTracer from "@/tracers/binary-tree/binary-tree.tracer.tsx";
 import LogTracer from "@/tracers/log/log.tracer.tsx";
 
 import styles from "./problem_17.module.css";
 
 export default function Problem_17(): ReactElement {
-  const [records, trace, reset] = useTracer<[LogRecord, GraphRecord]>();
+  const [records, trace, reset] = useTracer<[LogRecord, BinaryTreeRecord]>();
 
   const solve = (): void => {
     reset();
 
-    const graph = new GraphStructure();
+    const binaryTree = new BinaryTreeStructure();
 
-    graph.set(BTREE_1);
-    graph.layoutTree();
-    trace([{ message: "Binary Tree" }, { graph }]);
+    // prettier-ignore
+    binaryTree.fromArray([0, 1, 2, 3, 4, 5, 6]);
+    binaryTree.layoutTree();
+    trace([{ message: "Binary Tree" }, { binaryTree }]);
 
-    graph.set(BTREE_2);
-    graph.layoutTree();
-    trace([{ message: "Full Binary Tree" }, { graph }]);
+    // prettier-ignore
+    binaryTree.fromArray([0, 1, 2, 3, 4, null, null, null, null, 9, 10, null, null, null, null]);
+    binaryTree.layoutTree();
+    trace([{ message: "Full Binary Tree" }, { binaryTree }]);
 
-    graph.set(BTREE_3);
-    graph.layoutTree();
-    trace([{ message: "Perfect Binary Tree" }, { graph }]);
+    // prettier-ignore
+    binaryTree.fromArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]);
+    binaryTree.layoutTree();
+    trace([{ message: "Perfect Binary Tree" }, { binaryTree }]);
 
-    graph.set(BTREE_4);
-    graph.layoutTree();
-    trace([{ message: "Degenerate or Pathological Binary Tree" }, { graph }]);
+    // prettier-ignore
+    binaryTree.fromArray([0, 1, null, null, 4, null, null, null, null, null, 10]);
+    binaryTree.layoutTree();
+    trace([
+      { message: "Degenerate or Pathological Binary Tree" },
+      { binaryTree },
+    ]);
 
-    graph.set(BTREE_2);
-    graph.layoutTree();
-    trace([{ message: "Complete Binary Tree" }, { graph }]);
+    // prettier-ignore
+    binaryTree.fromArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, null, null, null]);
+    binaryTree.layoutTree();
+    trace([{ message: "Complete Binary Tree" }, { binaryTree }]);
 
-    graph.set(BTREE_6);
-    graph.layoutTree();
-    trace([{ message: "Balanced Binary Tree" }, { graph }]);
+    // prettier-ignore
+    binaryTree.fromArray([0, 1, 2, 3, 4, null, null]);
+    binaryTree.layoutTree();
+    trace([{ message: "Balanced Binary Tree" }, { binaryTree }]);
 
     return;
   };
@@ -71,7 +72,7 @@ export default function Problem_17(): ReactElement {
         </ButtonComponent>
       </FormComponent>
       <BoardComponent>
-        <GraphTracer records={records.map((x) => x[1])} />
+        <BinaryTreeTracer records={records.map((x) => x[1])} />
         <LogTracer records={records.map((x) => x[0])} />
       </BoardComponent>
     </div>

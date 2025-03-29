@@ -50,7 +50,7 @@ export class BinaryTreeStructure extends RendererStructure<
         padding: 40,
         nodeRadius: 20,
         arrowGap: 4,
-        horizontalGap: 80,
+        horizontalGap: 40,
         verticalGap: 100,
       },
       isDirected: true,
