@@ -1,5 +1,5 @@
 import { DirectedGraph } from "graphology";
-import { circular } from "graphology-layout";
+import { circular, random } from "graphology-layout";
 import forceAtlas2 from "graphology-layout-forceatlas2";
 
 import { RendererStructure } from "@/structures/renderer.structure.ts";
@@ -254,13 +254,24 @@ export class GraphStructure extends RendererStructure<
       graph.addEdge(edge.source, edge.target);
     });
 
-    circular(graph, { scale: 200 });
-    circular.assign(graph);
+    if (this.nodes.length < 20) {
+      circular(graph, { scale: 200 });
+      circular.assign(graph);
+    } else {
+      random(graph, { scale: 200 });
+      random.assign(graph);
+    }
 
-    const positions = forceAtlas2(graph, {
-      iterations: 20,
-      settings: { scalingRatio: 500, gravity: 10 },
-    });
+    const positions =
+      this.nodes.length < 20
+        ? forceAtlas2(graph, {
+            iterations: 20,
+            settings: { scalingRatio: 500, gravity: 10 },
+          })
+        : forceAtlas2(graph, {
+            iterations: 100,
+            settings: { scalingRatio: 200, gravity: 20 },
+          });
 
     this.nodes.forEach((node, i) => {
       node.x = positions[i].x;
