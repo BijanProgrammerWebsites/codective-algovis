@@ -40,7 +40,7 @@
   }
 
   &.disabled {
-    --color: var(--color-disabled);
-    --color-opposite: var(--color-disabled-opposite);
+    --color: var(--color-surface-disabled);
+    --color-opposite: var(--color-text-disabled);
   }
 }
