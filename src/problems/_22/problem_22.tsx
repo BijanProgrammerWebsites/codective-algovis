@@ -25,7 +25,7 @@ export default function Problem_22(): ReactElement {
     reset();
 
     const graph = new GraphStructure();
-    graph.set(GRAPH_1);
+    graph.fromArray(GRAPH_1);
     graph.layoutForceDirected();
 
     trace([{ message: "Before We Begin" }, { graph }]);

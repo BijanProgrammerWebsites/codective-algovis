@@ -4,8 +4,6 @@ import clsx from "clsx";
 
 import { GraphNode, GraphStructure } from "@/structures/graph.structure.ts";
 
-import { stringify } from "@/utils/graph.utils.ts";
-
 import styles from "./graph-node.module.css";
 
 type Props = {
@@ -27,10 +25,12 @@ export default function GraphNodeRenderer({
       transform={`translate(${x},${y})`}
     >
       <circle className={styles.circle} r={nodeRadius} />
-      <text className={styles.title}>{title ?? id}</text>
+      <text className={styles.title}>
+        {isWeighted ? weight : (title ?? id)}
+      </text>
       {isWeighted && (
         <text className={styles.weight} x={nodeRadius + nodeWeightGap}>
-          {stringify(weight)}
+          {id}
         </text>
       )}
     </g>

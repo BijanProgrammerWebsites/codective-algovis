@@ -1,10 +1,11 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
-import { GRAPH_1 } from "@/data/graph.data.tsx";
+import { GRAPH_2, GRAPH_2_VALUES } from "@/data/graph.data.tsx";
 
 import BoardComponent from "@/components/board/board.component.tsx";
 import { ButtonComponent } from "@/components/button/button.component.tsx";
 import FormComponent from "@/components/form/form.component.tsx";
+import NormalInputComponent from "@/components/normal-input/normal-input.component.tsx";
 
 import { useTracer } from "@/hooks/use-tracer.hook.ts";
 
@@ -19,87 +20,73 @@ import LogTracer from "@/tracers/log/log.tracer.tsx";
 import styles from "./problem_20.module.css";
 
 export default function Problem_20(): ReactElement {
+  const [targetState, setTargetState] = useState<string>("23");
+
   const [records, trace, reset] = useTracer<[LogRecord, GraphRecord]>();
 
   const solve = (): void => {
     reset();
 
-    const graph = new GraphStructure();
-    graph.set(GRAPH_1);
+    const target = +targetState;
+
+    const graph = new GraphStructure({ isWeighted: true });
+    graph.fromArray(GRAPH_2, GRAPH_2_VALUES);
     graph.layoutForceDirected();
 
     trace([{ message: "Before We Begin" }, { graph }]);
 
-    function isCyclicUtil(
-      adj: number[][],
-      id: number,
-      visited: boolean[],
-      recStack: boolean[],
-    ) {
+    const visited = new Set<number>();
+
+    function dfs(id: number): boolean {
       graph.nodes[id].color = "warning";
       trace([{ message: `Visiting ${id}` }, { graph }]);
+      visited.add(id);
 
-      if (recStack[id]) {
+      if (graph.nodes[id].weight === target) {
         graph.nodes[id].color = "success";
-        trace([{ message: "Found the cycle" }, { graph }]);
-
+        trace([{ message: `Found target at ${id}` }, { graph }]);
         return true;
       }
 
-      visited[id] = true;
-      recStack[id] = true;
-
-      for (const x of adj[id]) {
-        if (!visited[x] && isCyclicUtil(adj, x, visited, recStack)) {
-          return true;
-        } else if (recStack[x]) {
-          graph.nodes[x].color = "success";
-          trace([{ message: "Found the cycle" }, { graph }]);
-          return true;
+      for (const adjacent of GRAPH_2[id]) {
+        if (!visited.has(adjacent)) {
+          const result = dfs(adjacent);
+          if (result) {
+            return true;
+          }
         }
       }
 
       graph.nodes[id].color = "disabled";
-      trace([{ message: `Backtrack from ${id}` }, { graph }]);
+      trace([{ message: `Backtracking from ${id}` }, { graph }]);
 
-      recStack[id] = false;
       return false;
     }
 
-    function isCyclic(adj: number[][]) {
-      const V = adj.length;
-      const visited = new Array(V).fill(false);
-      const recStack = new Array(V).fill(false);
-
-      for (let i = 0; i < V; i++) {
-        const colorBackup = graph.nodes[i].color;
-        graph.nodes[i].color = "primary";
-        trace([{ message: `Start from ${i}` }, { graph }]);
-
-        if (visited[i]) {
+    function findTarget(): boolean {
+      for (let i = 0; i < GRAPH_2.length; i++) {
+        if (visited.has(i)) {
+          const colorBackup = graph.nodes[i].color;
+          graph.nodes[i].color = "primary";
+          trace([{ message: `Already visited ${i}` }, { graph }]);
           graph.nodes[i].color = colorBackup;
-          trace([{ message: "Already visited" }, { graph }]);
-        } else if (isCyclicUtil(adj, i, visited, recStack)) {
-          return true;
+        } else {
+          graph.nodes[i].color = "primary";
+          trace([{ message: `Start from ${i}` }, { graph }]);
+
+          const result = dfs(i);
+          if (result) {
+            return true;
+          }
         }
       }
 
       return false;
     }
 
-    const adj = GRAPH_1.map((row) =>
-      row.reduce((acc, current, index) => {
-        if (current === 1) {
-          return [...acc, index];
-        }
-
-        return acc;
-      }, [] as number[]),
-    );
-
-    const result = isCyclic(adj);
+    const result = findTarget();
     if (!result) {
-      trace([{ message: "No cycle found" }, { graph }]);
+      trace([{ message: "Target not found" }, { graph }]);
     } else {
       trace([{ message: "Done" }, { graph }]);
     }
@@ -114,9 +101,13 @@ export default function Problem_20(): ReactElement {
   return (
     <div className={styles.problem}>
       <FormComponent onSubmit={solve}>
-        <ButtonComponent variant="primary" disabled>
-          Solve
-        </ButtonComponent>
+        <NormalInputComponent
+          label="target"
+          type="text"
+          value={targetState}
+          onChange={(e) => setTargetState(e.currentTarget.value)}
+        />
+        <ButtonComponent variant="primary">Solve</ButtonComponent>
       </FormComponent>
       <BoardComponent>
         <GraphTracer records={records.map((x) => x[1])} />

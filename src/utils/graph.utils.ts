@@ -12,6 +12,18 @@ const NEGATIVE_INFINITIES = [
   -0x80000000,
 ] as const;
 
+export function toAdj(g: number[][]): number[][] {
+  return g.map((row) =>
+    row.reduce((acc, current, index) => {
+      if (current === 1) {
+        return [...acc, index];
+      }
+
+      return acc;
+    }, [] as number[]),
+  );
+}
+
 export function distance(a: Point, b: Point): number {
   const dx = a.x - b.x;
   const dy = a.y - b.y;

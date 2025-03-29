@@ -97,6 +97,23 @@ export class GraphStructure extends RendererStructure<
     this.layoutCallback();
   }
 
+  public fromArray(array: readonly number[][], weights?: number[]): void {
+    this.nodes = [];
+    this.edges = [];
+
+    for (let i = 0; i < array.length; i++) {
+      this.addNode({ id: i, weight: weights?.[i] ?? null });
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      for (const target of array[i]) {
+        this.addEdge({ source: i, target });
+      }
+    }
+
+    this.layoutCallback();
+  }
+
   public addNode(partialNode: PartialNode): void {
     super.addNode({
       weight: null,
@@ -241,8 +258,8 @@ export class GraphStructure extends RendererStructure<
     circular.assign(graph);
 
     const positions = forceAtlas2(graph, {
-      iterations: 50,
-      settings: { scalingRatio: 500 },
+      iterations: 20,
+      settings: { scalingRatio: 500, gravity: 10 },
     });
 
     this.nodes.forEach((node, i) => {
